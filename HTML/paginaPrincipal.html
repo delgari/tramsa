@@ -21,7 +21,268 @@
 
 <body>
 
-    <template id="mainPage"></template>
+    <div class="wrapper">
+        <!-- Sidebar -->
+        <nav id="sidebar">
+            <div class="sidebar-header">
+                <h4>Menú</h4>
+            </div>
+
+            <ul class="list-unstyled components">
+                <!-- 1 -->
+                <li class="active">
+                    <a href="#sistema" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Sistema</a>
+                    <ul class="collapse list-unstyled" id="sistema">
+                        <li>
+                            <a href="../HTML/Sistema/cambioPassword.html">Cambiar contraseña</a>
+                        </li>
+                        <li>
+                            <a href="#">Reiniciar sesión</a>
+                        </li>
+                        <li>
+                            <a href="#">Salir</a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- 2 -->
+                <li class="active">
+                    <a href="#parametros" data-toggle="collapse" aria-expanded="false"
+                        class="dropdown-toggle">Parámetros</a>
+                    <ul class="collapse list-unstyled" id="parametros">
+                        <li>
+                            <a href="../HTML/Parametros/parametrosGen.html">Parámetros generales</a>
+                        </li>
+                        <li>
+                            <a href="../HTML/Parametros/consecutivos.html">Consecutivos</a>
+                        </li>
+                        <li>
+                            <a href="#">Idioma</a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- 3 -->
+                <li class="active">
+                    <a href="#administracion" data-toggle="collapse" aria-expanded="false"
+                        class="dropdown-toggle">Administración</a>
+                    <ul class="collapse list-unstyled" id="administracion">
+                        <li>
+                            <a href="../HTML/Administracion/bodegas.html">Bodegas</a>
+                        </li>
+                        <li>
+                            <a href="../HTML/Administracion/camiones.html">Camiones</a>
+                        </li>
+                        <li>
+                            <a href="../HTML/Administracion/tipoMateriaPrima.html">Tipos de materia prima</a>
+                        </li>
+                        <li>
+                            <a href="../HTML/Administracion/materiaPrima.html">Materia prima</a>
+                        </li>
+                        <li>
+                            <a href="../HTML/Administracion/productos.html">Productos</a>
+                        </li>
+                        <li>
+                            <a href="../HTML/Administracion/proveedores.html">Proveedores</a>
+                        </li>
+                        <li>
+                            <a href="../HTML/Administracion/clientes.html">Clientes</a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- 4 -->
+                <li class="active">
+                    <a href="#procesos" data-toggle="collapse" aria-expanded="false"
+                        class="dropdown-toggle">Procesos</a>
+                    <ul class="collapse list-unstyled" id="procesos">
+                        <li>
+                            <a href="#">Crear pedidos materia</a>
+                        </li>
+                        <li>
+                            <a href="#">Comprobar orden del pedido</a>
+                        </li>
+                        <li>
+                            <a href="#">Entrada de inventario</a>
+                        </li>
+                        <li>
+                            <a href="#">Producción en lote</a>
+                        </li>
+                        <li>
+                            <a href="#">Punto de venta</a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- 5 -->
+                <li class="active">
+                    <a href="#cajas" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Cajas</a>
+                    <ul class="collapse list-unstyled" id="cajas">
+                        <li>
+                            <a href="#">Apertura de caja</a>
+                        </li>
+                        <li>
+                            <a href="#">Arqueo de caja</a>
+                        </li>
+                        <li>
+                            <a href="#">Pases de dinero</a>
+                        </li>
+                        <li>
+                            <a href="#">Exportar facturas XML</a>
+                        </li>
+                        <li>
+                            <a href="#">Cierre de caja</a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- 6 -->
+                <li class="active">
+                    <a href="#seguridad" data-toggle="collapse" aria-expanded="false"
+                        class="dropdown-toggle">Seguridad</a>
+                    <ul class="collapse list-unstyled" id="seguridad">
+                        <li>
+                            <a href="#">Eventos</a>
+                        </li>
+                        <li>
+                            <a href="#">Roles</a>
+                        </li>
+                        <li>
+                            <a href="#">Usuarios</a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- 7 -->
+                <li class="active">
+                    <a href="#consultas" data-toggle="collapse" aria-expanded="false"
+                        class="dropdown-toggle">Consultas</a>
+                    <ul class="collapse list-unstyled" id="consultas">
+                        <li>
+                            <a href="#">Bitácora</a>
+                        </li>
+                        <li>
+                            <a href="#">Clientes</a>
+                        </li>
+                        <li>
+                            <a href="#">Pedidos pendientes</a>
+                        </li>
+                        <li>
+                            <a href="#">Facturas</a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- 8 -->
+                <li class="active">
+                    <a href="#reportes" data-toggle="collapse" aria-expanded="false"
+                        class="dropdown-toggle">Reportes</a>
+                    <ul class="collapse list-unstyled" id="reportes">
+                        <li>
+                            <a href="#">Productos</a>
+                        </li>
+                        <li>
+                            <a href="#">Clientes</a>
+                        </li>
+                        <li>
+                            <a href="#">Inventarios</a>
+                        </li>
+                        <li>
+                            <a href="#">Ventas</a>
+                        </li>
+                        <li>
+                            <a href="#">Costo de producción</a>
+                        </li>
+                        <li>
+                            <a href="#">Estadísticas</a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- 9 -->
+                <li class="active">
+                    <a href="#ayuda" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Ayuda</a>
+                    <ul class="collapse list-unstyled" id="ayuda">
+                        <li>
+                            <a href="#">Acerca de</a>
+                        </li>
+                        <li>
+                            <a href="#">Ayuda</a>
+                        </li>
+                    </ul>
+                </li>
+
+
+
+            </ul>
+
+            <ul class="list-unstyled CTAs">
+                <li>
+                    <a href="../HTML/Sistema/login.html" class="download">Cerrar sesión</a>
+                </li>
+            </ul>
+        </nav>
+        <!-- Contenido general -->
+        <div id="content">
+            <!-- Navbar -->
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container-fluid">
+
+                    <button type="button" id="sidebarCollapse" class="navbar-btn">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                    <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse"
+                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="fas fa-align-justify"></i>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="nav navbar-nav ml-auto">
+                            <li class="nav-item active">
+                                <img src="../Imagenes/Logo2.png" width="120" height="50" />
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <!-- Carousel-->
+            <header>
+                <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                    <ol class="carousel-indicators">
+                        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                    </ol>
+                    <div class="carousel-inner" role="listbox">
+                        <!-- Slide One - Set the background image for this slide in the line below -->
+                        <div class="carousel-item active"
+                            style="background-image: url('https://www.moldtrans.com/wp-content/uploads/almacen_log%C3%ADstica.jpg')">
+                            <div class="carousel-caption d-none d-md-block">
+                                <h2 class="display-4">First Slide</h2>
+                            </div>
+                        </div>
+                        <!-- Slide Two - Set the background image for this slide in the line below -->
+                        <div class="carousel-item"
+                            style="background-image: url('https://www.esan.edu.pe/apuntes-empresariales/2016/03/16/principal_proveedores.jpg')">
+                            <div class="carousel-caption d-none d-md-block">
+                                <h2 class="display-4">Second Slide</h2>
+                            </div>
+                        </div>
+                        <!-- Slide Three - Set the background image for this slide in the line below -->
+                        <div class="carousel-item"
+                            style="background-image: url('https://www.bluearrow.co.uk/-/media/bluearrow/find-a-job/warehouse/forklift-truck-driver-job-description/warehouse-forklift-driver-job-description-twitter-large-compressed.jpg')">
+                            <div class="carousel-caption d-none d-md-block">
+                                <h2 class="display-4">Third Slide</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+            </header>
+        </div>
+    </div>
 
     <!-- Para el menú -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
@@ -33,15 +294,16 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"
         integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
         crossorigin="anonymous"></script>
-    <script src="../JS/init.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </body>
 
 </html>
 
 
 <script type="text/javascript">
-    $(function () {
-        $("#mainPage").load("../Componentes/menuNavegacion.html");
+    $(document).ready(function () {
+        $('#sidebarCollapse').on('click', function () {
+            $('#sidebar').toggleClass('active');
+            $(this).toggleClass('active');
+        });
     });
 </script>
