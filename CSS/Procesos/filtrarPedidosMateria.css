@@ -1,0 +1,27 @@
+
+#textBuscar {
+    background-image: url('../../Imagenes/buscar.png'); /* Add a search icon to input */
+    background-position: 8px 12px; /* Position the search icon */
+    background-size: 25px;
+    background-repeat: no-repeat; /* Do not repeat the icon image */
+    width: 25%; /* Full-width */
+    font-size: 18px; /* Increase font-size */
+    padding: 12px 20px 12px 40px; /* Add some padding */
+    border: 1px solid #ddd; /* Add a grey border */
+    margin-bottom: 20px; /* Add some space below the input */
+  }
+
+
+
+  button {
+    border: none;
+    display: block;
+    text-align: center;
+    text-transform: uppercase;
+    color: #eeeeee;
+    font-weight: 800;
+    font-size: 20px;
+    background-color: rgb(133, 129, 131);
+    padding: 5px 5px;
+    margin: 0 auto;
+}

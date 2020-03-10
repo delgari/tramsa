@@ -36,6 +36,20 @@
     -o-transform: scale(1);
 }
 
+@media (max-width: 768px){
+    .container {
+        left: 301px;
+        margin: 0 auto;
+        top: 150px;
+        position: absolute;
+        background-color:
+        white;
+        min-height: 642px;
+        padding: 65px;
+        max-width: 634px !important;
+    }
+}
+
 /*Contenedor de los colaboradores*/
 .container {
     left: 359px;
