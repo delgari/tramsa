@@ -5,18 +5,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Clientes</title>
+    <title>Crear Pedidos Materia</title>
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"
-        integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ"
-        crossorigin="anonymous"></script>
-    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"
-        integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY"
-        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
 
     <link rel="stylesheet" href="../../CSS/paginaPrincipal.css" type="text/css" media="all" />
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
 </head>
 
 <body>
@@ -45,8 +42,7 @@
                 </li>
                 <!-- 2 -->
                 <li class="active">
-                    <a href="#parametros" data-toggle="collapse" aria-expanded="false"
-                        class="dropdown-toggle">Parámetros</a>
+                    <a href="#parametros" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Parámetros</a>
                     <ul class="collapse list-unstyled" id="parametros">
                         <li>
                             <a href="../Parametros/parametrosGen.html">Parámetros generales</a>
@@ -61,39 +57,37 @@
                 </li>
                 <!-- 3 -->
                 <li class="active">
-                    <a href="#administracion" data-toggle="collapse" aria-expanded="false"
-                        class="dropdown-toggle">Administración</a>
+                    <a href="#administracion" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Administración</a>
                     <ul class="collapse list-unstyled" id="administracion">
                         <li>
-                            <a href="bodegas.html">Bodegas</a>
+                            <a href="../Administracion/bodegas.html">Bodegas</a>
                         </li>
                         <li>
-                            <a href="camiones.html">Camiones</a>
+                            <a href="../Administracion/camiones.html">Camiones</a>
                         </li>
                         <li>
-                            <a href="tipoMateriaPrima.html">Tipos de materia prima</a>
+                            <a href="../Administracion/tipoMateriaPrima.html">Tipos de materia prima</a>
                         </li>
                         <li>
-                            <a href="materiaPrima.html">Materia prima</a>
+                            <a href="../Administracion/materiaPrima.html">Materia prima</a>
                         </li>
                         <li>
-                            <a href="productos.html">Productos</a>
+                            <a href="../Administracion/productos.html">Productos</a>
                         </li>
                         <li>
-                            <a href="proveedores.html">Proveedores</a>
+                            <a href="../Administracion/proveedores.html">Proveedores</a>
                         </li>
                         <li>
-                            <a href="clientes.html">Clientes</a>
+                            <a href="../Administracion/clientes.html">Clientes</a>
                         </li>
                     </ul>
                 </li>
                 <!-- 4 -->
                 <li class="active">
-                    <a href="#procesos" data-toggle="collapse" aria-expanded="false"
-                        class="dropdown-toggle">Procesos</a>
+                    <a href="#procesos" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Procesos</a>
                     <ul class="collapse list-unstyled" id="procesos">
                         <li>
-                            <a href="../Procesos/crearPedidosMateria.html">Crear pedidos materia</a>
+                            <a href="crearPedidosMateria.html">Crear pedidos materia</a>
                         </li>
                         <li>
                             <a href="#">Comprobar orden del pedido</a>
@@ -132,8 +126,7 @@
                 </li>
                 <!-- 6 -->
                 <li class="active">
-                    <a href="#seguridad" data-toggle="collapse" aria-expanded="false"
-                        class="dropdown-toggle">Seguridad</a>
+                    <a href="#seguridad" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Seguridad</a>
                     <ul class="collapse list-unstyled" id="seguridad">
                         <li>
                             <a href="#">Eventos</a>
@@ -148,8 +141,7 @@
                 </li>
                 <!-- 7 -->
                 <li class="active">
-                    <a href="#consultas" data-toggle="collapse" aria-expanded="false"
-                        class="dropdown-toggle">Consultas</a>
+                    <a href="#consultas" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Consultas</a>
                     <ul class="collapse list-unstyled" id="consultas">
                         <li>
                             <a href="#">Bitácora</a>
@@ -167,8 +159,7 @@
                 </li>
                 <!-- 8 -->
                 <li class="active">
-                    <a href="#reportes" data-toggle="collapse" aria-expanded="false"
-                        class="dropdown-toggle">Reportes</a>
+                    <a href="#reportes" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Reportes</a>
                     <ul class="collapse list-unstyled" id="reportes">
                         <li>
                             <a href="#">Productos</a>
@@ -224,9 +215,7 @@
                         <span></span>
                         <span></span>
                     </button>
-                    <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse"
-                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+                    <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <i class="fas fa-align-justify"></i>
                     </button>
 
@@ -241,135 +230,99 @@
             </nav>
             <!-- Formulario -->
             <div class="container">
-                <h2>Clientes</h2>
+                <h2>Crear Pedidos Materia</h2>
                 </br>
+                <h3>Maestro</h3>
                 <form>
                     <div class="form-row">
                         <div class="form-group col-md-2">
-                            <label for="codigo">Código</label>
-                            <input type="text" class="form-control" id="codigo">
+                            <label for="ordenPedido">Orden de Pedido</label>
+                            <input type="text" class="form-control" id="OrdenPedido">
                         </div>
                         <div class="form-group col-md-4">
-                            <label for="fechaIngreso">Fecha ingreso</label>
-                            <input type="date" class="form-control" id="fechaIngreso">
+                            <label for="fechaOrden">Fecha Orden</label>
+                            <input type="date" class="form-control" id="fechaOrden">
                         </div>
-                        <div class="form-group col-md-4">
-                            <label for="id">Documento identificación</label>
-                            <input type="text" class="form-control" id="id">
-                        </div>
-                        <div class="form-group col-md-2">
-                            <label for="estado">Estado</label>
-                            <select id="estado" class="form-control">
-                                <option selected>Activo</option>
-                                <option>Inactivo</option>
+                        <div class="form-group col-md-1">
+                            <label for="comprobante">Comprobante</label>
+                            <select id="comprobante" class="form-control">
+                                <option selected>P</option>
+                                <option>E</option>
                               </select>
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="form-group col-md-4">
-                            <label for="primerApellido">Primer apellido</label>
-                            <input type="text" class="form-control" id="primerApellido">
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label for="segundoApellido">Segundo apellido</label>
-                            <input type="text" class="form-control" id="segundoApellido">
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label for="nombre">Nombre</label>
-                            <input type="text" class="form-control" id="nombre">
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-2">
-                            <label for="tel">Teléfono</label>
-                            <input type="tel" class="form-control" id="tel">
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label for="email">Correo electrónico</label>
-                            <input type="email" class="form-control" id="email">
-                        </div>
                         <div class="form-group col-md-6">
-                            <label for="direccion">Dirección</label>
-                            <input type="text" class="form-control" id="direccion">
+                            <label for="proveedor">Proveedor</label>
+                            <input type="text" class="form-control" id="proveedor">
                         </div>
                     </div>
+                
+                </br>
+
+                <h3>Detalles</h3>
+                <div class="form-row">
+                    <div class="form-group col-md-3">
+                        <label for="codigoOrdenPedido">Codigo Orden de Pedido</label>
+                        <input type="text" class="form-control" id="codigoOrdenPedido">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="codigoMateriaPrima">Codigo Materia Prima</label>
+                        <input type="text" class="form-control" id="codigoMateriaPrima">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="nombreMateriaPrima">Nombre Materia Prima</label>
+                        <input type="text" class="form-control" id="nombreMateriaPrima">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-3">
+                        <label for="cantidadPedir">Cantidad a Pedir</label>
+                        <input type="text" class="form-control" id="cantidadPedir">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="estado">Estado</label>
+                        <input type="text" class="form-control" id="estado">
+                    </div>
+                </div>
+
+
                     <button type="submit" class="btn btn-primary">Crear</button>
+                    <button type="submit" class="btn btn-primary">Filtrar</button>
                     <button class="btn btn-danger">Salir</button>
+                    
+                    
                 </form>
                 </br>
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th>Código</th>
-                            <th>Cédula</th>
-                            <th>Nombre</th>
-                            <th>Correo electrónico</th>
-                            <th>Dirección</th>
-                            <th>Teléfono</th>
-                            <th>Contacto</th>
-                            <th>Teléfono contacto</th>
-                            <th>Eliminar</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>aa</td>
-                            <td>aa</td>
-                            <td>aa</td>
-                            <td>aa</td>
-                            <td>aa</td>
-                            <td>aa</td>
-                            <td>aa</td>
-                            <td><button class="btn"><i class="fa fa-trash"></i></button></td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>bb</td>
-                            <td>bb</td>
-                            <td>bb</td>
-                            <td>bb</td>
-                            <td>bb</td>
-                            <td>bb</td>
-                            <td>bb</td>
-                            <td><button class="btn"><i class="fa fa-trash"></i></button></td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>cc</td>
-                            <td>cc</td>
-                            <td>cc</td>
-                            <td>cc</td>
-                            <td>cc</td>
-                            <td>cc</td>
-                            <td>cc</td>
-                            <td><button class="btn"><i class="fa fa-trash"></i></button></td>
-                        </tr>
-                    </tbody>
-                </table>
             </div>
         </div>
     </div>
 
+
     <!-- Para el menú -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"
-        integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
-        crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"
-        integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
-        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+
 </body>
 
 </html>
 
+
+
+
+
 <script type="text/javascript">
-    $(document).ready(function () {
-        $('#sidebarCollapse').on('click', function () {
+
+    $(document).ready(function() {
+        $('#sidebarCollapse').on('click', function() {
             $('#sidebar').toggleClass('active');
             $(this).toggleClass('active');
         });
     });
+
+ 
 </script>
+
+
