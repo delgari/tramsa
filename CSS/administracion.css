@@ -9,6 +9,14 @@
         color: #fff;
     }
 
+    table th {
+        text-align: center;
+      }
+
+    table tr {
+        text-align: center;
+      }
+
     a,
     a:hover,
     a:focus {

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <title>Proveedores</title>
+    <title>Productos</title>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -94,7 +94,7 @@
                         class="dropdown-toggle">Procesos</a>
                     <ul class="collapse list-unstyled" id="procesos">
                         <li>
-                            <a href="../Procesos/crearPedidosMateria.html">Crear pedidos materia</a>
+                            <a href="#">Crear pedidos materia</a>
                         </li>
                         <li>
                             <a href="#">Comprobar orden del pedido</a>
@@ -243,37 +243,29 @@
 
             <!-- Formulario -->
             <div class="container">
-                <h2>Proveedores</h2>
+                <h2>Productos - Maestro</h2>
                 </br>
                 <div class="form-row">
                     <div class="form-group col-md-10">
                         <input class="form-control" id="buscar" type="text" placeholder="Buscar..">
                     </div>
                     <div class="form-group">
-                        <a type="button" href="../Administracion/Forms/formProveedores.html" class="btn btn-success"><i class="fas fa-plus"></i> Agregar nuevo</a>
+                        <a type="button" href="../Administracion/Forms/formProducM.html" class="btn btn-success"><i class="fas fa-plus"></i> Agregar nuevo</a>
                     </div>
                 </div>
                 <table class="table table-light table-bordered table-responsive-sm">
                     <thead>
                         <tr>
                             <th>Código</th>
-                            <th>Cédula</th>
-                            <th>Nombre</th>
-                            <th>Correo electrónico</th>
-                            <th>Dirección</th>
-                            <th>Teléfono</th>
-                            <th>Contacto</th>
-                            <th>Teléfono contacto</th>
+                            <th>Descripción</th>
+                            <th>Punto de re-orden</th>
+                            <th>Unidad de medida</th>
                             <th>Acción</th>
                         </tr>
                     </thead>
-                    <tbody id="proveedores">
+                    <tbody id="maestro">
                         <tr>
                             <td>1</td>
-                            <td>aa</td>
-                            <td>aa</td>
-                            <td>aa</td>
-                            <td>aa</td>
                             <td>aa</td>
                             <td>aa</td>
                             <td>aa</td>
@@ -287,10 +279,6 @@
                             <td>bb</td>
                             <td>bb</td>
                             <td>bb</td>
-                            <td>bb</td>
-                            <td>bb</td>
-                            <td>bb</td>
-                            <td>bb</td>
                             <td>
                                 <button class="btn"><i class="fas fa-trash"></i></button>
                                 <button class="btn"><i class="fas fa-pencil-alt"></i></button>
@@ -298,10 +286,6 @@
                         </tr>
                         <tr>
                             <td>3</td>
-                            <td>cc</td>
-                            <td>cc</td>
-                            <td>cc</td>
-                            <td>cc</td>
                             <td>cc</td>
                             <td>cc</td>
                             <td>cc</td>
@@ -342,7 +326,7 @@
     $(document).ready(function () {
         $("#buscar").on("keyup", function () {
             var value = $(this).val().toLowerCase();
-            $("#proveedores tr").filter(function () {
+            $("#maestro tr").filter(function () {
                 $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
             });
         });
