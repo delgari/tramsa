@@ -9,6 +9,7 @@
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="../../CSS/administracion.css" type="text/css" media="all" />
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"
         integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ"
         crossorigin="anonymous"></script>
@@ -16,7 +17,6 @@
         integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY"
         crossorigin="anonymous"></script>
 
-    <link rel="stylesheet" href="../../CSS/paginaPrincipal.css" type="text/css" media="all" />
 </head>
 
 <body>
@@ -39,7 +39,7 @@
                             <a href="#">Reiniciar sesión</a>
                         </li>
                         <li>
-                            <a href="#">Salir</a>
+                            <a href="../paginaPrincipal.html">Salir</a>
                         </li>
                     </ul>
                 </li>
@@ -233,7 +233,7 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="nav navbar-nav ml-auto">
                             <li class="nav-item active">
-                                <img src="../../Imagenes/Logo2.png" width="120" height="50" />
+                                <img src="../../Imagenes/Logo2.png" width="130" height="50" />
                             </li>
                         </ul>
                     </div>
@@ -243,62 +243,54 @@
             <div class="container">
                 <h2>Materia prima</h2>
                 </br>
-                <form>
-                    <div class="form-row">
-                        <div class="form-group col-md-2">
-                            <label for="codigo">Código</label>
-                            <input type="text" class="form-control" id="codigo">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="nombre">Nombre</label>
-                            <input type="text" class="form-control" id="nombre">
-                        </div>
+                <div class="form-row">
+                    <div class="form-group col-md-10">
+                        <input class="form-control" id="buscar" type="text" placeholder="Buscar..">
                     </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-4">
-                            <label for="cantidad">Cantidad existente</label>
-                            <input type="text" class="form-control" id="cantidad">
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label for="unidadMedida">Unidad de medida</label>
-                            <input type="text" class="form-control" id="unidadMedida">
-                        </div>
+                    <div class="form-group">
+                        <a type="button" href="./Forms/formMateriaPrima.html" class="btn btn-success"><i class="fas fa-plus"></i> Agregar nuevo</a>
                     </div>
-                    <button type="submit" class="btn btn-primary">Crear</button>
-                    <button class="btn btn-danger">Salir</button>
-                </form>
-                </br>
-                <table class="table table-bordered">
+                </div>
+                <table class="table table-light table-bordered table-responsive-sm">
                     <thead>
                         <tr>
                             <th>Código</th>
                             <th>Nombre</th>
                             <th>Cantidad existente</th>
                             <th>Unidad de medida</th>
-                            <th>Eliminar</th>
+                            <th>Acción</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="materiaPrima">
                         <tr>
                             <td>1</td>
                             <td>aa</td>
                             <td>aa</td>
                             <td>aa</td>
-                            <td><button class="btn"><i class="fa fa-trash"></i></button></td>
+                            <td>
+                                <button class="btn"><i class="fas fa-trash"></i></button>
+                                <button class="btn"><i class="fas fa-pencil-alt"></i></button>
+                            </td>
                         </tr>
                         <tr>
                             <td>2</td>
                             <td>bb</td>
                             <td>bb</td>
                             <td>bb</td>
-                            <td><button class="btn"><i class="fa fa-trash"></i></button></td>
+                            <td>
+                                <button class="btn"><i class="fas fa-trash"></i></button>
+                                <button class="btn"><i class="fas fa-pencil-alt"></i></button>
+                            </td>
                         </tr>
                         <tr>
                             <td>3</td>
                             <td>cc</td>
                             <td>cc</td>
                             <td>cc</td>
-                            <td><button class="btn"><i class="fa fa-trash"></i></button></td>
+                            <td>
+                                <button class="btn"><i class="fas fa-trash"></i></button>
+                                <button class="btn"><i class="fas fa-pencil-alt"></i></button>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -325,6 +317,15 @@
         $('#sidebarCollapse').on('click', function () {
             $('#sidebar').toggleClass('active');
             $(this).toggleClass('active');
+        });
+    });
+
+    $(document).ready(function () {
+        $("#buscar").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#materiaPrima tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
         });
     });
 </script>
