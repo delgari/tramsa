@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
-//const path = require('path');
-const tbl = ["Codigo Bitacora","Usuario","Fecha","Descripción"];
+
 
 //RUTAS//
 
@@ -66,8 +65,8 @@ router.get('/tipoMateriaPrima', (req, res) => { //Browser
 });
 
 
-
-router.get('/bitacora', (req, res) => {
+//ruta de conexion Consulta/bitacora
+router.get('/bitacora', (req, res) => { //busqueda del browser
   const MongoClient = require('mongodb').MongoClient;
   const uri = "mongodb+srv://diseno:Ulacit1234@cluster0-40do9.mongodb.net/test?retryWrites=true&w=majority";
   const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: false });
@@ -75,15 +74,15 @@ router.get('/bitacora', (req, res) => {
     const collection = client.db("tramsadb").collection("bitacora");
     collection.find({}).toArray(function (err, result) {
       if (err) throw err;
-      res.render('../HTML/Consultas/bitacora', {Resultado: result});
+      res.render('../HTML/Consultas/bitacora', { Resultado: result }); //busqueda en code
       client.close();
     });
   });
 
 })
 
-//ruta de conexion cliente
-router.get('/cliente', (req, res) => {
+//ruta de conexion Consulta/cliente
+router.get('/cliente', (req, res) => { //busqueda del browser
   const MongoClient = require('mongodb').MongoClient;
   const uri = "mongodb+srv://diseno:Ulacit1234@cluster0-40do9.mongodb.net/test?retryWrites=true&w=majority";
   const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: false });
@@ -91,15 +90,15 @@ router.get('/cliente', (req, res) => {
     const collection = client.db("tramsadb").collection("cliente");
     collection.find({}).toArray(function (err, result) {
       if (err) throw err;
-      res.render('../HTML/Consultas/cliente', {Resultado: result});
+      res.render('../HTML/Consultas/cliente', { Resultado: result }); //busqueda en code
       client.close();
     });
   });
 
 })
 
-//ruta de conexion pedido
-router.get('/pedido_maestro', (req, res) => {
+//ruta de conexion Consulta/pedido maestro
+router.get('/pedido', (req, res) => { //busqueda del browser
   const MongoClient = require('mongodb').MongoClient;
   const uri = "mongodb+srv://diseno:Ulacit1234@cluster0-40do9.mongodb.net/test?retryWrites=true&w=majority";
   const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: false });
@@ -107,7 +106,7 @@ router.get('/pedido_maestro', (req, res) => {
     const collection = client.db("tramsadb").collection("pedido_maestro");
     collection.find({}).toArray(function (err, result) {
       if (err) throw err;
-      res.render('../HTML/Consultas/pedido_maestro', {Resultado: result});
+      res.render('../HTML/Consultas/pedido', { Resultado: result }); //busqueda en code
       client.close();
     });
   });
