@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Clientes</title>
+    <title>Camiones</title>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -16,6 +16,7 @@
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"
         integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY"
         crossorigin="anonymous"></script>
+
 </head>
 
 <body>
@@ -234,73 +235,49 @@
             </nav>
             <!-- Formulario -->
             <div class="container">
-                <h2>Clientes</h2>
+                <h2>Camiones</h2>
                 </br>
                 <div class="form-row">
                     <div class="form-group col-md-10">
                         <input class="form-control" id="buscar" type="text" placeholder="Buscar..">
                     </div>
                     <div class="form-group">
-                        <a type="button" href="/formClientes" class="btn btn-success"><i class="fas fa-plus"></i> Agregar nuevo</a>
+                        <a type="button" href="/formCamiones" class="btn btn-success"><i class="fas fa-plus"></i> Agregar nuevo</a>
                     </div>
                 </div>
                 <table class="table table-light table-bordered table-responsive-sm">
                     <thead>
                         <tr>
                             <th>Código</th>
-                            <th>Cédula</th>
-                            <th>Nombre</th>
-                            <th>Correo electrónico</th>
-                            <th>Dirección</th>
-                            <th>Teléfono</th>
-                            <th>Contacto</th>
-                            <th>Teléfono contacto</th>
+                            <th>Descripción</th>
+                            <th>Nombre corto</th>
+                            <th>Marca</th>
+                            <th>Año</th>
+                            <th>Placa</th>
                             <th>Acción</th>
                         </tr>
                     </thead>
-                    <tbody id="clientes">
+                    <tbody id="camiones">
+                        <%if (Resultado != ''){ %>
+                        <% Resultado.forEach(function(row){ %>
                         <tr>
-                            <td>1</td>
-                            <td>aa</td>
-                            <td>aa</td>
-                            <td>aa</td>
-                            <td>aa</td>
-                            <td>aa</td>
-                            <td>aa</td>
-                            <td>aa</td>
+                            <td><%= row.codigoCamion %></td>
+                            <td><%= row.descripcion %></td>
+                            <td><%= row.nombreCorto %></td>
+                            <td><%= row.marca %></td>
+                            <td><%= row.ano %></td>
+                            <td><%= row.placa %></td>
                             <td>
                                 <button class="btn"><i class="fas fa-trash"></i></button>
                                 <button class="btn"><i class="fas fa-pencil-alt"></i></button>
                             </td>
                         </tr>
+                        <% })}else{ %>
                         <tr>
-                            <td>2</td>
-                            <td>bb</td>
-                            <td>bb</td>
-                            <td>bb</td>
-                            <td>bb</td>
-                            <td>bb</td>
-                            <td>bb</td>
-                            <td>bb</td>
-                            <td>
-                                <button class="btn"><i class="fas fa-trash"></i></button>
-                                <button class="btn"><i class="fas fa-pencil-alt"></i></button>
-                            </td>
+                            <td colspan="6">No Record Found</td>
+
                         </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>cc</td>
-                            <td>cc</td>
-                            <td>cc</td>
-                            <td>cc</td>
-                            <td>cc</td>
-                            <td>cc</td>
-                            <td>cc</td>
-                            <td>
-                                <button class="btn"><i class="fas fa-trash"></i></button>
-                                <button class="btn"><i class="fas fa-pencil-alt"></i></button>
-                            </td>
-                        </tr>
+                        <% } %>
                     </tbody>
                 </table>
             </div>
@@ -332,7 +309,7 @@
     $(document).ready(function () {
         $("#buscar").on("keyup", function () {
             var value = $(this).val().toLowerCase();
-            $("#clientes tr").filter(function () {
+            $("#camiones tr").filter(function () {
                 $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
             });
         });

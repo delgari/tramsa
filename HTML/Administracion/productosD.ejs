@@ -252,34 +252,31 @@
                         <tr>
                             <th>Código producto</th>
                             <th>Código materia prima</th>
+                            <th>Nombre corto</th>
                             <th>Acción</th>
                         </tr>
                     </thead>
                     <tbody id="detalle">
+                        <%if (Resultado != ''){ %>
+                        <% Resultado.forEach(function(row){ %>
                         <tr>
-                            <td>1</td>
-                            <td>aa</td>
+                            <td><%= row.codigoProducto %></td>
+                            <td>
+                                <%= row.codigoMateriaPr%>
+                                <%= row.CodMateriaPrima%>
+                            </td>
+                            <td><%= row.nombreCorto %></td>
                             <td>
                                 <button class="btn"><i class="fas fa-trash"></i></button>
                                 <button class="btn"><i class="fas fa-pencil-alt"></i></button>
                             </td>
                         </tr>
+                        <% })}else{ %>
                         <tr>
-                            <td>2</td>
-                            <td>bb</td>
-                            <td>
-                                <button class="btn"><i class="fas fa-trash"></i></button>
-                                <button class="btn"><i class="fas fa-pencil-alt"></i></button>
-                            </td>
+                            <td colspan="6">No Record Found</td>
+
                         </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>cc</td>
-                            <td>
-                                <button class="btn"><i class="fas fa-trash"></i></button>
-                                <button class="btn"><i class="fas fa-pencil-alt"></i></button>
-                            </td>
-                        </tr>
+                        <% } %>
                     </tbody>
                 </table>
             </div>
