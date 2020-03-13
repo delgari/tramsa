@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="css/paginaPrincipal.css" type="text/css" media="all" />
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="css/Consulta/bitacora.css"  type="text/css" media="all">
+    <link rel="stylesheet" href="css/Consulta/consulta.css"  type="text/css" media="all">
 
 </head>
 
@@ -232,36 +232,33 @@
            <div class="contBitacora">
             <form>Busqueda: <input id="txtBusqueda" type="text" onkeyup="Buscar();" /></form>
             <br>
-            <h1><%= Resultado._id %></h1>
-            <script>
-                const tbl = ["<%= Resultado._id %>","<%= Resultado.usuario %>","<%= Resultado.fecha %>","<%= Resultado.hora %>","<%= Resultado.descripcion %>" ];
-                //HAY QUE VER COMO HACER PARA MOSTRAR LA TABLA, PUEDE SER USANDO ESTO, O INVESTIGAR SI CON EJS HAY UNA FORMA MAS FACIL
-                
-                var table = document.createElement('table');
-                table.setAttribute("id", "myTable");
-                var thead = document.createElement('thead');
-                var tbody = document.createElement('tbody');
-                var headRow = document.createElement('tr');
-                tbl.forEach(function(el){
-                    var th = document.createElement('th');
-                    th.appendChild(document.createTextNode(el));
-                    headRow.appendChild(th);
-                });
-                thead.appendChild(headRow);
-                table.appendChild(thead);
-                tbl.forEach(function(el){
-                    var tr = document.createElement('tr');
-                    for (var o in el){
-                        var td = document.createElement('td');
-                        td.appendChild(document.createTextNode(el[o]))
-                        tr.appendChild(td);
-                    }
-                    tbody.appendChild(tr);
-                });
-                table.appendChild(tbody);
-                var container = document.getElementById("tableString"); //crea la variable donde se ubicará el elemento html donde se ubicará la tabla
-                container.appendChild(table); //tomo el html y coloco lo de la tabla
-            </script>
+            
+               <table class="table table-striped table-primary">
+                    <thead>
+                    <tr>
+                        <th>Codigo Bitacora</th>
+                        <th>Usuario</th>
+                        <th>Fecha</th>
+                        <th>Descripción</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <%if (Resultado != ''){ %>
+                    <% Resultado.forEach(function(row){ %>
+                    <tr>
+                        <td><%= row.codigoBitacora %></td>
+                        <td><%= row.usuario %></td>
+                        <td><%= row.fecha %></td>
+                        <td><%= row.descripcion %></td>
+                    </tr>
+                    <% })}else{ %>
+                        <tr>
+                            <td colspan="6">No Record Found</td>
+                            
+                        </tr>
+                        <% } %>
+                    </tbody>
+                </table>
             <div id="tableString"></div>
            </div> 
         </div>
