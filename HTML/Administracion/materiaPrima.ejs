@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Camiones</title>
+    <title>Materia Prima</title>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -235,65 +235,47 @@
             </nav>
             <!-- Formulario -->
             <div class="container">
-                <h2>Camiones</h2>
+                <h2>Materia prima</h2>
                 </br>
                 <div class="form-row">
                     <div class="form-group col-md-10">
                         <input class="form-control" id="buscar" type="text" placeholder="Buscar..">
                     </div>
                     <div class="form-group">
-                        <a type="button" href="/formCamiones" class="btn btn-success"><i class="fas fa-plus"></i> Agregar nuevo</a>
+                        <a type="button" href="/formMateriaPrima" class="btn btn-success"><i class="fas fa-plus"></i> Agregar nuevo</a>
                     </div>
                 </div>
                 <table class="table table-light table-bordered table-responsive-sm">
                     <thead>
                         <tr>
                             <th>Código</th>
-                            <th>Descripción</th>
+                            <th>Nombre</th>
                             <th>Nombre corto</th>
-                            <th>Marca</th>
-                            <th>Año</th>
-                            <th>Placa</th>
+                            <th>Cantidad existente</th>
+                            <th>Unidad de medida</th>
                             <th>Acción</th>
                         </tr>
                     </thead>
-                    <tbody id="camiones">
+                    <tbody id="materiaPrima">
+                        <%if (Resultado != ''){ %>
+                        <% Resultado.forEach(function(row){ %>
                         <tr>
-                            <td>1</td>
-                            <td>aa</td>
-                            <td>aa</td>
-                            <td>aa</td>
-                            <td>aa</td>
-                            <td>aa</td>
+                            <td><%= row.codigoMateriaPr %></td>
+                            <td><%= row.nombre %></td>
+                            <td><%= row.nombreCorto %></td>
+                            <td><%= row.cantidadExistente %></td>
+                            <td><%= row.unidadMedida %></td>
                             <td>
                                 <button class="btn"><i class="fas fa-trash"></i></button>
                                 <button class="btn"><i class="fas fa-pencil-alt"></i></button>
                             </td>
                         </tr>
+                        <% })}else{ %>
                         <tr>
-                            <td>2</td>
-                            <td>bb</td>
-                            <td>bb</td>
-                            <td>bb</td>
-                            <td>bb</td>
-                            <td>bb</td>
-                            <td>
-                                <button class="btn"><i class="fas fa-trash"></i></button>
-                                <button class="btn"><i class="fas fa-pencil-alt"></i></button>
-                            </td>
+                            <td colspan="6">No Record Found</td>
+
                         </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>cc</td>
-                            <td>cc</td>
-                            <td>cc</td>
-                            <td>cc</td>
-                            <td>cc</td>
-                            <td>
-                                <button class="btn"><i class="fas fa-trash"></i></button>
-                                <button class="btn"><i class="fas fa-pencil-alt"></i></button>
-                            </td>
-                        </tr>
+                        <% } %>
                     </tbody>
                 </table>
             </div>
@@ -325,7 +307,7 @@
     $(document).ready(function () {
         $("#buscar").on("keyup", function () {
             var value = $(this).val().toLowerCase();
-            $("#camiones tr").filter(function () {
+            $("#materiaPrima tr").filter(function () {
                 $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
             });
         });
