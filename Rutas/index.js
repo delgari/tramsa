@@ -70,16 +70,25 @@ router.get('/parametrosGen', (req, res) => { //Browser
   res.render('../HTML/Parametros/parametrosGen.html'); //Busca en el código
 });
 
-//rutas Crear pedidos materia
+//rutas Crear Pedidos de Materia
 router.get('/crearPedidosMateria', (req, res) => { //Browser
   res.render('../HTML/Procesos/crearPedidosMateria.html'); //Busca en el código
 });
 
-//rutas Filtrar pedidos materia
-router.get('/crearPedidosMateria', (req, res) => { //Browser
-  res.render('../HTML/Procesos/crearPedidosMateria.html'); //Busca en el código
+//rutas formCrearPedidosMateria
+router.get('/formCrearPedidosMateria', (req, res) => { //Browser
+  res.render('../HTML/Procesos/Forms/formCrearPedidosMateria.html'); //Busca en el código
 });
 
+//rutas formProduccionLote
+/*router.get('/formProduccionLote', (req, res) => { //Browser
+  res.render('../HTML/Procesos/Forms/formProduccionLote.html'); //Busca en el código
+});*/
+
+//rutas formPuntoVenta
+router.get('/puntoVenta', (req, res) => { //Browser
+  res.render('../HTML/Procesos/Forms/formPuntoVenta.html'); //Busca en el código
+});
 
 //ruta de conexion Administracion/Bodegas
 router.get('/bodegas', (req, res) => { //busqueda del browser
@@ -211,6 +220,130 @@ router.get('/tipoMateriaPrima', (req, res) => { //busqueda del browser
 
 
 
+//ruta de conexion Procesos/Pedido Maestro
+router.get('/pedido', (req, res) => { //busqueda del browser
+  const MongoClient = require('mongodb').MongoClient;
+  const uri = "mongodb+srv://diseno:Ulacit1234@cluster0-40do9.mongodb.net/test?retryWrites=true&w=majority";
+  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: false });
+  client.connect(err => {
+    const collection = client.db("tramsadb").collection("pedido_maestro");
+    collection.find({}).toArray(function (err, result) {
+      if (err) throw err;
+      res.render('../HTML/Consultas/pedido', { Resultado: result }); //busqueda en code
+      client.close();
+    });
+  });
+
+})
+
+
+
+//ruta de conexion Procesos/Pedido Maestro
+router.get('/pedidosMateriaM', (req, res) => { //busqueda del browser
+  const MongoClient = require('mongodb').MongoClient;
+  const uri = "mongodb+srv://diseno:Ulacit1234@cluster0-40do9.mongodb.net/test?retryWrites=true&w=majority";
+  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: false });
+  client.connect(err => {
+    const collection = client.db("tramsadb").collection("pedido_maestro");
+    collection.find({}).toArray(function (err, result) {
+      if (err) throw err;
+      res.render('../HTML/Procesos/crearPedidosMateriaM', { Resultado: result }); //busqueda en code
+      client.close();
+    });
+  });
+})
+
+
+
+//ruta de conexion Procesos/Pedido Detalle
+router.get('/pedidosMateriaD', (req, res) => { //busqueda del browser
+  const MongoClient = require('mongodb').MongoClient;
+  const uri = "mongodb+srv://diseno:Ulacit1234@cluster0-40do9.mongodb.net/test?retryWrites=true&w=majority";
+  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: false });
+  client.connect(err => {
+    const collection = client.db("tramsadb").collection("pedido_detalle");
+    collection.find({}).toArray(function (err, result) {
+      if (err) throw err;
+      res.render('../HTML/Procesos/crearPedidosMateriaD', { Resultado: result }); //busqueda en code
+      client.close();
+    });
+  });
+})
+
+
+//ruta de conexion Procesos/Produccion en Lote
+router.get('/produccionLote', (req, res) => { //busqueda del browser
+  const MongoClient = require('mongodb').MongoClient;
+  const uri = "mongodb+srv://diseno:Ulacit1234@cluster0-40do9.mongodb.net/test?retryWrites=true&w=majority";
+  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: false });
+  client.connect(err => {
+    const collection = client.db("tramsadb").collection("produccionLote");
+    collection.find({}).toArray(function (err, result) {
+      if (err) throw err;
+      res.render('../HTML/Procesos/produccionLote', { Resultado: result }); //busqueda en code
+      client.close();
+    });
+  });
+})
+
+
+
+
+
+
+
+//ruta de conexion Procesos/formProduccionLote
+/*
+router.get('/formProduccionLote', (req, res) => { //busqueda del browser
+const MongoClient = require('mongodb').MongoClient;
+const uri = "mongodb+srv://diseno:Ulacit1234@cluster0-40do9.mongodb.net/test?retryWrites=true&w=majority";
+const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: false });
+client.connect(err => {
+  const collection = client.db("tramsadb").collection("produccionLote");
+  //var myobj = { Producto: "", Cantidad: "Cantidad" };
+    collection.insertOne({}).toArray(function (err, result) {
+    if (err) throw err;
+    res.render('../HTML/Procesos/Forms/formProduccionLote', { Resultado: result }); //busqueda en code
+    client.close();
+  });
+});
+})*/
+
+
+router.get('/formProduccionLote', (req, res) => {
+  res.render('../HTML/Procesos/Forms/formProduccionLote.html', {
+    data: {},
+    errors: {}
+  });
+});
+
+
+router.post('/formProduccionLote', (req, res) => {
+  res.render('../HTML/Procesos/Forms/formProduccionLote.html', {
+    data: req.body, // { message, email }
+    /*errors: {
+      message: {
+        msg: 'A message is required'
+      },
+      email: {
+        msg: 'That email doesn‘t look right'
+      }
+    }*/
+    
+  },
+  console.log(req.body)
+  );
+});
+
+
+
+
+
+
+
+
+
+
 //ruta de conexion Consulta/bitacora
 router.get('/bitacora', (req, res) => { //busqueda del browser
   const MongoClient = require('mongodb').MongoClient;
@@ -243,21 +376,6 @@ router.get('/cliente', (req, res) => { //busqueda del browser
 
 })
 
-//ruta de conexion Consulta/pedido maestro
-router.get('/pedido', (req, res) => { //busqueda del browser
-  const MongoClient = require('mongodb').MongoClient;
-  const uri = "mongodb+srv://diseno:Ulacit1234@cluster0-40do9.mongodb.net/test?retryWrites=true&w=majority";
-  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: false });
-  client.connect(err => {
-    const collection = client.db("tramsadb").collection("pedido_maestro");
-    collection.find({}).toArray(function (err, result) {
-      if (err) throw err;
-      res.render('../HTML/Consultas/pedido', { Resultado: result }); //busqueda en code
-      client.close();
-    });
-  });
-
-})
 
 module.exports = router;
 

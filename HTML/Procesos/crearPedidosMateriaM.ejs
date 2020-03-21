@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>Pedidos Materia</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/Administracion/administracion.css" type="text/css" media="all" />
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"
+        integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ"
+        crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"
+        integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY"
+        crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+    <div class="wrapper">
+        <!-- Sidebar -->
+        <nav id="sidebar">
+            <div class="sidebar-header">
+                <h4>Menú</h4>
+            </div>
+
+            <ul class="list-unstyled components">
+                <!-- 1 -->
+                <li class="active">
+                    <a href="#sistema" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Sistema</a>
+                    <ul class="collapse list-unstyled" id="sistema">
+                        <li>
+                            <a href="/cambioPassword">Cambiar contraseña</a>
+                        </li>
+                        <li>
+                            <a href="#">Reiniciar sesión</a>
+                        </li>
+                        <li>
+                            <a href="/paginaPrincipal">Salir</a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- 2 -->
+                <li class="active">
+                    <a href="#parametros" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Parámetros</a>
+                    <ul class="collapse list-unstyled" id="parametros">
+                        <li>
+                            <a href="/parametrosGen">Parámetros generales</a>
+                        </li>
+                        <li>
+                            <a href="/consecutivos">Consecutivos</a>
+                        </li>
+                        <li>
+                            <a href="#">Idioma</a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- 3 -->
+                <li class="active">
+                    <a href="#administracion" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Administración</a>
+                    <ul class="collapse list-unstyled" id="administracion">
+                        <li>
+                            <a href="/bodegas">Bodegas</a>
+                        </li>
+                        <li>
+                            <a href="/camiones">Camiones</a>
+                        </li>
+                        <li>
+                            <a href="/tipoMateriaPrima">Tipos de materia prima</a>
+                        </li>
+                        <li>
+                            <a href="/materiaPrima">Materia prima</a>
+                        </li>
+                        <li>
+                            <a href="/productos">Productos</a>
+                        </li>
+                        <li>
+                            <a href="/proveedores">Proveedores</a>
+                        </li>
+                        <li>
+                            <a href="/clientes">Clientes</a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- 4 -->
+                <li class="active">
+                    <a href="#procesos" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Procesos</a>
+                    <ul class="collapse list-unstyled" id="procesos">
+                        <li>
+                            <a href="/crearPedidosMateria">Crear pedidos materia</a>
+                        </li>
+                        <li>
+                            <a href="#">Comprobar orden del pedido</a>
+                        </li>
+                        <li>
+                            <a href="/entradaInventario">Entrada de inventario</a>
+                        </li>
+                        <li>
+                            <a href="#">Producción en lote</a>
+                        </li>
+                        <li>
+                            <a href="#">Punto de venta</a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- 5 -->
+                <li class="active">
+                    <a href="#cajas" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Cajas</a>
+                    <ul class="collapse list-unstyled" id="cajas">
+                        <li>
+                            <a href="#">Apertura de caja</a>
+                        </li>
+                        <li>
+                            <a href="#">Arqueo de caja</a>
+                        </li>
+                        <li>
+                            <a href="#">Pases de dinero</a>
+                        </li>
+                        <li>
+                            <a href="#">Exportar facturas XML</a>
+                        </li>
+                        <li>
+                            <a href="#">Cierre de caja</a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- 6 -->
+                <li class="active">
+                    <a href="#seguridad" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Seguridad</a>
+                    <ul class="collapse list-unstyled" id="seguridad">
+                        <li>
+                            <a href="#">Eventos</a>
+                        </li>
+                        <li>
+                            <a href="#">Roles</a>
+                        </li>
+                        <li>
+                            <a href="#">Usuarios</a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- 7 -->
+                <li class="active">
+                    <a href="#consultas" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Consultas</a>
+                    <ul class="collapse list-unstyled" id="consultas">
+                        <li>
+                            <a href="/bitacora">Bitácora</a>
+                        </li>
+                        <li>
+                            <a href="#">Clientes</a>
+                        </li>
+                        <li>
+                            <a href="#">Pedidos pendientes</a>
+                        </li>
+                        <li>
+                            <a href="#">Facturas</a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- 8 -->
+                <li class="active">
+                    <a href="#reportes" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Reportes</a>
+                    <ul class="collapse list-unstyled" id="reportes">
+                        <li>
+                            <a href="#">Productos</a>
+                        </li>
+                        <li>
+                            <a href="#">Clientes</a>
+                        </li>
+                        <li>
+                            <a href="#">Inventarios</a>
+                        </li>
+                        <li>
+                            <a href="#">Ventas</a>
+                        </li>
+                        <li>
+                            <a href="#">Costo de producción</a>
+                        </li>
+                        <li>
+                            <a href="#">Estadísticas</a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- 9 -->
+                <li class="active">
+                    <a href="#ayuda" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Ayuda</a>
+                    <ul class="collapse list-unstyled" id="ayuda">
+                        <li>
+                            <a href="/acercaDe">Acerca de</a>
+                        </li>
+                        <li>
+                            <a href="/ayuda">Ayuda</a>
+                        </li>
+                    </ul>
+                </li>
+
+
+
+            </ul>
+
+            <ul class="list-unstyled CTAs">
+                <li>
+                    <a href="/" class="download">Cerrar sesión</a>
+                </li>
+            </ul>
+        </nav>
+        <!-- Contenido general -->
+        <div id="content">
+            <!-- Navbar -->
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container-fluid">
+
+                    <button type="button" id="sidebarCollapse" class="navbar-btn">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                    <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse"
+                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="fas fa-align-justify"></i>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="nav navbar-nav ml-auto">
+                            <li class="nav-item active">
+                                <img src="../../Imagenes/Logo2.png" width="130" height="50" />
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- Formulario -->
+            <div class="container">
+                <h2>Pedidos de Materia - Maestro</h2>
+                </br>
+                <div class="form-row">
+                    <div class="form-group col-md-10">
+                        <input class="form-control" id="buscar" type="text" placeholder="Buscar..">
+                    </div>
+                    <div class="form-group">
+                        <a type="button" href="/formCrearPedidosMateria" class="btn btn-success"><i class="fas fa-plus"></i> Agregar nuevo</a>
+                    </div>
+                </div>
+                <table class="table table-light table-bordered table-responsive-sm">
+                    <thead>
+                        <tr>
+                            <th>Orden Pedido</th>
+                            <th>Fecha</th>
+                            <th>Proveedor</th>
+                            <th>Comprobante</th>
+                            <th>Nombre Corto</th>
+                            <th>Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody id="pedidosMateriaM">
+                        <%if (Resultado != ''){ %>
+                        <% Resultado.forEach(function(row){ %>
+                        <tr>
+                            <td><%= row.ordenPedido %></td>
+                            <td><%= row.fechaOrden %></td>
+                            <td><%= row.proveedor %></td>
+                            <td><%= row.comprobante %></td>
+                            <td><%= row.nombreCorto %></td>
+
+                            <td>
+                                <button class="btn"><i class="fas fa-trash"></i></button>
+                                <button class="btn"><i class="fas fa-pencil-alt"></i></button>
+                            </td>
+                        </tr>
+                        <% })}else{ %>
+                        <tr>
+                            <td colspan="6">No Record Found</td>
+                        </tr>
+                        <% } %>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Para el menú -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"
+        integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"
+        integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#sidebarCollapse').on('click', function () {
+            $('#sidebar').toggleClass('active');
+            $(this).toggleClass('active');
+        });
+    });
+
+    $(document).ready(function () {
+        $("#buscar").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#pedidosMateriaM tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+</script>
