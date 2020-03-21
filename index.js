@@ -4,6 +4,14 @@ app.set("port", 8000);
 app.engine('html',require('ejs').renderFile);
 app.set('view engine', 'ejs');
 
+//Middleware
+const bodyParser = require('body-parser');
+
+
+app.use(bodyParser.urlencoded({ extended: true }));
+
+
+
 app.use(require('./Rutas/index'));
 app.use(express.static(__dirname + '/public'));
 
