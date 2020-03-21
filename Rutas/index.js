@@ -76,8 +76,8 @@ router.get('/crearPedidosMateria', (req, res) => { //Browser
 });
 
 //rutas Filtrar pedidos materia
-router.get('/crearPedidosMateria', (req, res) => { //Browser
-  res.render('../HTML/Procesos/crearPedidosMateria.html'); //Busca en el código
+router.get('/filtrarPedidosMateria', (req, res) => { //Browser
+  res.render('../HTML/Procesos/filtrarPedidosMateria.html'); //Busca en el código
 });
 
 
