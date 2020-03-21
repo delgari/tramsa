@@ -52,12 +52,30 @@
             <!-- Contenedor de la bitacora -->
             <div class="container">
 
-            <h3>Bitácora</h3>
-            <br>
-            <form>Busqueda: <input id="txtBusqueda" type="text" onkeyup="Buscar();" /></form>
-            <br>
-            
-               <table class="table table-light table-bordered table-responsive-sm">
+                <h3>Bitácora</h3>
+                <br>
+                <form>
+                    <div class="row">
+                        <div class="form-group col-md-4">
+                            <label type="text" id="lbtUser" style="color: white;"> Usuario </label> &nbsp
+                            <input type="text" name="" id="txtUser" placeholder="Usuario" onkeyup="filtrar()">
+                        </div>
+
+                        <div class="col-md-4">
+                            <label type="text" id="lbtMinDate" style="color: white;"> Desde: </label> &nbsp
+                            <input type="date" id="datepicker_from" class="date-range-filter" onchange="filtrar()">
+                        </div>
+
+                        <div class="col-md-4">
+                            <label type="text" id="lbtMaxDate" style="color: white;"> Hasta: </label> &nbsp
+                            <input type="date" id="datepicker_to" class="date-range-filter" onchange="filtrar()">
+                        </div>
+                    </div>
+
+                </form>
+                <br>
+
+               <table class="table table-light table-bordered table-responsive-sm" id="bitacoraTable">
                     <thead>
                         <tr>
                             <th>Codigo Bitacora</th>
@@ -83,10 +101,49 @@
                         <% } %>
                     </tbody>
                 </table>
-                <div id="tableString"></div>
             </div>
         </div>
     </div>
 </body>
 
 </html>
+<script>
+    
+function filtrar() {
+    var input, filter, table, tr, td, i, inputDateMin,inputDateMax;
+    input = document.getElementById("txtUser");
+    inputDateMin =document.getElementById("datepicker_from");
+    inputDateMax= document.getElementById("datepicker_to")
+    filter = input.value.toUpperCase();
+    filterDateMin= inputDateMin.value;
+    filterDateMax= inputDateMax.value;
+
+    table = document.getElementById("bitacoraTable");
+    tr = table.getElementsByTagName("tr");
+  
+    for (i = 0; i < tr.length; i++) {
+      td = tr[i].getElementsByTagName("td");
+      if(td.length > 0){ 
+         if (td[0].innerHTML.toUpperCase().indexOf(filter) > -1 || td[1].innerHTML.toUpperCase().indexOf(filter) > -1)
+         {
+             var cellDate = td[2].innerHTML;
+             if(inputDateMin == null && inputDateMax == null){
+                 break;
+             } 
+             if(inputDateMin == null || cellDate <= inputDateMax){
+                tr[i].style.display = "";
+             }
+
+             if(inputDateMax == null || cellDate >= inputDateMin){
+                tr[i].style.display = "";
+             }
+             if(cellDate <= inputDateMax && cellDate >= inputDateMin){
+                tr[i].style.display = "";
+             }     
+         } else {
+           tr[i].style.display = "none";
+         }
+      }
+   }
+  }
+</script>

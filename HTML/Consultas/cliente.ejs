@@ -54,16 +54,27 @@
 
                 <h3>Clientes</h3>
                 <br>
+                <label type="text" id="lbtCliente" style="color: white;"> Lista de clientes </label> &nbsp 
                 <select name="" id="listaCliente">
                     <option value="0">
                         <--Selecciona una opción-->
                     </option>
-                    <option value="1">Listado de clientes por estado </option>
+                    <option value="1">Listado general de clientes</option>
                     <option value="1">Listado de clientes por estado </option>
                 </select>
                 <br>
                 <br>
-                <table class="table table-light table-bordered table-responsive-sm">
+                <label type="text" id="lbtEstado" style="color: white;"> Estado </label> &nbsp 
+                <select name="" id="listaEstado">
+                    <option value="0">
+                        <--Selecciona una opción-->
+                    </option>
+                    <option value="1">Activo </option>
+                    <option value="1">Inactivo </option>
+                </select>
+                <br>
+                <br>
+                <table class="table table-light table-bordered table-responsive-sm" id="">
                     <thead>
                         <tr>
                             <th>Codigo cliente</th>
@@ -108,3 +119,23 @@
 </body>
 
 </html>
+<script>
+    function filtrar() {
+    var input, filter, table, tr, td, i;
+    input = document.getElementById("txtEstado");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("clienteTable");
+    tr = table.getElementsByTagName("tr");
+  
+    for (i = 0; i < tr.length; i++) {
+      td = tr[i].getElementsByTagName("td");
+      if(td.length > 0){ 
+         if (td[0].innerHTML.toUpperCase().indexOf(filter) > -1 || td[5].innerHTML.toUpperCase().indexOf(filter) > -1){
+           tr[i].style.display = "";
+         } else {
+           tr[i].style.display = "none";
+         }
+      }
+   }
+  }
+</script>
