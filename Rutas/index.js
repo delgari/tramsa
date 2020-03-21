@@ -19,7 +19,6 @@ router.get('/paginaPrincipal', (req, res) => { //Browser
   res.render('../HTML/paginaPrincipal.html'); //Busca en el código
 });
 
-
 //rutas Productos
 router.get('/productos', (req, res) => { //Browser
   res.render('../HTML/Administracion/productos.html'); //Busca en el código
