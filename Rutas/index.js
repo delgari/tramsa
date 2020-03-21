@@ -318,21 +318,24 @@ router.get('/formProduccionLote', (req, res) => {
 });
 
 
+
+
 router.post('/formProduccionLote', (req, res) => {
+  const MongoClient = require('mongodb').MongoClient;
+  const uri = "mongodb+srv://diseno:Ulacit1234@cluster0-40do9.mongodb.net/test?retryWrites=true&w=majority";
+  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: false });
+
+  client.connect(err => {
+    const collection = client.db("tramsadb").collection("produccionLote");
+    collection.insertOne(req.body,function(err, res) {
+      if (err) throw err;
+      client.close();
+    })
+  }),
   res.render('../HTML/Procesos/Forms/formProduccionLote.html', {
-    data: req.body, // { message, email }
-    /*errors: {
-      message: {
-        msg: 'A message is required'
-      },
-      email: {
-        msg: 'That email doesn‘t look right'
-      }
-    }*/
-    
-  },
-  console.log(req.body)
-  );
+    data: req.body
+  }),
+    console.log(req.body)
 });
 
 
