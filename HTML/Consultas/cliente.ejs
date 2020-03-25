@@ -43,16 +43,22 @@
 
                 <h3>Clientes</h3>
                 <br>
-                <select name="" id="listaCliente">
-                    <option value="0">
-                        <--Selecciona una opción-->
-                    </option>
-                    <option value="1">Listado de clientes por estado </option>
-                    <option value="1">Listado de clientes por estado </option>
+                <label type="text" id="lbtCliente" style="color: white;"> Lista de clientes </label> &nbsp 
+                <select name="" id="listaCliente" onchange="mostrardropdownEstado()">
+                    <option value="0" > <--Selecciona una opción--> </option>
+                    <option value="1">Listado general de clientes</option>
+                    <option value="2">Listado de clientes por estado </option>
+                </select>
+                &nbsp&nbsp
+                <label type="text" id="lbtEstado" style="color: white; display: none;"> Estado </label> &nbsp 
+                <select name="" id="listaEstado" style="display: none;" onchange="filtrarEstado()">
+                    <option value="0"> <--Selecciona una opción--> </option>
+                    <option value="1">Activo </option>
+                    <option value="2">Inactivo </option>
                 </select>
                 <br>
                 <br>
-                <table class="table table-light table-bordered table-responsive-sm">
+                <table class="table table-light table-bordered table-responsive-sm" id="clienteTable">
                     <thead>
                         <tr>
                             <th>Codigo cliente</th>
@@ -97,3 +103,73 @@
 </body>
 
 </html>
+<script>
+
+    function mostrardropdownEstado() {
+        var select, filter, table, tr, td, i;
+        select = document.getElementById("listaCliente");
+        filter = select.value;
+        table = document.getElementById("clienteTable");
+
+        switch(filter) {
+            case "0":
+                document.getElementById("lbtEstado").style.display = "none";
+                document.getElementById("listaEstado").style.display = "none";
+                alert("Por favor seleccione una opcion");
+                resetTable(table);
+                break;
+            case "1":
+                document.getElementById("lbtEstado").style.display = "none";
+                document.getElementById("listaEstado").style.display = "none";
+                resetTable(table);
+                break;
+            case "2":
+                document.getElementById("lbtEstado").style.display = "inline-block";
+                document.getElementById("listaEstado").style.display = "inline-block";
+                break;
+
+        }
+    }
+    
+    function filtrarEstado() {
+    var select, filter, table, tr, td, i,estadoActivo, estadoInactivo;
+    select = document.getElementById("listaEstado");
+    filter = select.value;
+    table = document.getElementById("clienteTable");
+    tr = table.getElementsByTagName("tr");
+    estadoActivo = "ACTIVO";
+    estadoInactivo = "INACTIVO";
+
+    if(filter == "0") {
+        alert("Por favor seleccione una opcion");
+        resetTable(table);
+    } else {
+  
+            for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td");
+            if(td.length > 0) { 
+                var celdaEstado = td[5].innerHTML.toUpperCase();
+                console.log(celdaEstado);
+                if (celdaEstado == "ACTIVO" && filter == "1") {
+                    tr[i].style.display = "";  
+                } else if (celdaEstado == "INACTIVO" && filter == "2") {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+  }
+
+  function resetTable(table) {
+    var tr = table.getElementsByTagName("tr");
+
+    for (var i = 0; i < tr.length; i++) {
+            var td = tr[i].getElementsByTagName("td");
+            if(td.length > 0) { 
+                tr[i].style.display = "";
+            }
+        }
+  }
+</script>

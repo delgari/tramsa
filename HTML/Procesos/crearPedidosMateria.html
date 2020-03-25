@@ -21,87 +21,48 @@
                         <span></span>
                         <span></span>
                     </button>
-                    <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse"
+                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
                         <i class="fas fa-align-justify"></i>
                     </button>
 
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="nav navbar-nav ml-auto">
                             <li class="nav-item active">
-                                <img src="../../Imagenes/Logo2.png" width="120" height="50" />
+                                <img src="../../Imagenes/Logo2.png" width="130" height="50" />
                             </li>
                         </ul>
                     </div>
                 </div>
             </nav>
+
             <!-- Formulario -->
             <div class="container">
                 <h2>Crear Pedidos Materia</h2>
                 </br>
-                <h3>Maestro</h3>
-                <form>
-                    <div class="form-row">
-                        <div class="form-group col-md-2">
-                            <label for="ordenPedido">Orden de Pedido</label>
-                            <input type="text" class="form-control" id="OrdenPedido">
+                <div class="row">
+                    <div class="col-sm-6">
+                      <div class="card">
+                        <div class="card-body">
+                          <h5 class="card-title">Maestro</h5>
+                          <p class="card-text">Esto permite administrar el proceso para la adquisición o solicitud de materia prima a cada uno de los proveedores de una manera más eficiente y rápida.</p>
+                          <a href="/pedidosMateriaM" class="btn btn-primary"><i class="fas fa-edit"></i> Ir a página</a>
                         </div>
-                        <div class="form-group col-md-4">
-                            <label for="fechaOrden">Fecha Orden</label>
-                            <input type="date" class="form-control" id="fechaOrden">
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="card">
+                        <div class="card-body">
+                          <h5 class="card-title">Detalle</h5>
+                          <p class="card-text">La empresa lleva un control de la lista de pedidos, así como el detalle de materia o ingredientes de cada uno de ellos.</p>
+                          <a href="/pedidosMateriaD" class="btn btn-primary"><i class="fas fa-edit"></i> Ir a página</a>
                         </div>
-                        <div class="form-group col-md-1">
-                            <label for="comprobante">Comprobante</label>
-                            <select id="comprobante" class="form-control">
-                                <option selected>P</option>
-                                <option>E</option>
-                              </select>
-                        </div>
+                      </div>
                     </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="proveedor">Proveedor</label>
-                            <input type="text" class="form-control" id="proveedor">
-                        </div>
-                    </div>
-                
-                </br>
-
-                <h3>Detalles</h3>
-                <div class="form-row">
-                    <div class="form-group col-md-3">
-                        <label for="codigoOrdenPedido">Codigo Orden de Pedido</label>
-                        <input type="text" class="form-control" id="codigoOrdenPedido">
-                    </div>
-                    <div class="form-group col-md-3">
-                        <label for="codigoMateriaPrima">Codigo Materia Prima</label>
-                        <input type="text" class="form-control" id="codigoMateriaPrima">
-                    </div>
-                    <div class="form-group col-md-3">
-                        <label for="nombreMateriaPrima">Nombre Materia Prima</label>
-                        <input type="text" class="form-control" id="nombreMateriaPrima">
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group col-md-3">
-                        <label for="cantidadPedir">Cantidad a Pedir</label>
-                        <input type="text" class="form-control" id="cantidadPedir">
-                    </div>
-                    <div class="form-group col-md-3">
-                        <label for="estado">Estado</label>
-                        <input type="text" class="form-control" id="estado">
-                    </div>
-                </div>
-
-
-                    <button type="submit" class="btn btn-primary">Crear</button>
-                    <button type="submit" class="btn btn-primary">Filtrar</button>
-                    <button class="btn btn-danger">Salir</button>
-                    
-                    
-                </form>
-                </br>
+                  </div>
             </div>
+
         </div>
     </div>
 </body>
