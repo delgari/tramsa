@@ -77,10 +77,32 @@ router.get('/bodegas', (req, res) => { //busqueda del browser
 
 router.post('/bodegas', (req, res) => {
   //console.log(req , 'req.body');
-  console.log(res);
+  
 
+  const MongoClient = require('mongodb').MongoClient;
+  const Mongodb = require('mongodb');
+  const uri = "mongodb+srv://diseno:Ulacit1234@cluster0-40do9.mongodb.net/test?retryWrites=true&w=majority";
+  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: false });
+
+  client.connect(err => {
+    const collection = client.db("tramsadb").collection("bodega");
+    console.log(req.body);
+
+
+    collection.deleteOne({_id: new Mongodb.ObjectID(req.body._id),function(err, res) {
+      if (err) throw err;
+      client.close();
+      
+    }})
+
+  }),
+  //res.redirect(req.get('/bodegas'));
   res.redirect('/bodegas');
+
 });
+
+
+
 
 //ruta de conexion  Insertar en /HTML/Administracion/Forms/formBodegas
 router.get('/formBodegas', (req, res) => {
