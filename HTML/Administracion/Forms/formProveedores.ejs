@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bodegas</title>
+    <title>Proveedores</title>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -20,7 +20,7 @@
 <body>
 
     <div class="wrapper">
-        <%- include ('../partials/navegacion') %>
+        <%- include ('../../partials/navegacion') %>
         <!-- Contenido general -->
         <div id="content">
             <!-- Navbar -->
@@ -53,47 +53,50 @@
                     <div class="col-sm-10 col-md-7 col-lg-8 mx-auto">
                         <div class="card card-signin my-3">
                             <div class="card-body">
-                                <h4 class="card-title text-center">Bodegas</h4>
+                                <h4 class="card-title text-center">Proveedores</h4>
                                 </br>
-                                <form>
+                                <form method="post" action="/formProveedores" novalidate>
                                     <div class="form-row">
-                                        <div class="form-group col-md-6">
+                                        <div class="form-group col-md-4">
+                                            <label for="cedula">Cédula</label>
+                                            <input type="text" class="form-control" id="cedula" name="cedula">
+                                        </div>
+                                        <div class="form-group col-md-4">
                                             <label for="nombre">Nombre</label>
-                                            <input type="text" class="form-control" id="nombre">
+                                            <input type="text" class="form-control" id="nombre" name="nombre">
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label for="nombreCorto">Nombre Corto</label>
+                                            <input type="text" class="form-control" id="nombreCorto" name="nombreCorto">
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <label for="email">Correo electrónico</label>
+                                            <input type="text" class="form-control" id="email" name="correo">
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <label for="nombreCorto">Nombre corto</label>
-                                            <input type="text" class="form-control" id="nombreCorto">
-                                        </div>
-                                    </div>
-                                    <div class="form-row">
-                                        <div class="form-group col-md-8">
-                                            <label for="ubicacion">Ubación</label>
-                                            <input type="text" class="form-control" id="ubicacion">
-                                        </div>
-                                        <div class="form-group col-md-4">
-                                            <label for="alias">Alias</label>
-                                            <input type="text" class="form-control" id="alias">
+                                            <label for="dirección">Dirección</label>
+                                            <input type="text" class="form-control" id="dirección" name="direccion">
                                         </div>
                                     </div>
                                     <div class="form-row">
                                         <div class="form-group col-md-4">
-                                            <label for="unidadMedida">Unidad de medida</label>
-                                            <input type="text" class="form-control" id="unidadMedida"
-                                                placeholder="Metros, litros">
+                                            <label for="tel">Teléfonos</label>
+                                            <input type="tel" class="form-control" id="tel" name="telefono">
                                         </div>
                                         <div class="form-group col-md-4">
-                                            <label for="espacio">Espacio</label>
-                                            <input type="text" class="form-control" id="espacio">
+                                            <label for="contacto">Contacto</label>
+                                            <input type="text" class="form-control" id="contacto" name="contacto">
                                         </div>
                                         <div class="form-group col-md-4">
-                                            <label for="tipo">Tipo</label>
-                                            <input type="text" class="form-control" id="tipo">
+                                            <label for="telContacto">Teléfono de contacto</label>
+                                            <input type="tel" class="form-control" id="telContacto" name="telefonoCont">
                                         </div>
                                     </div>
-                                    <a type="submit" class="btn btn-success" href="/bodegas"><i class="fas fa-check"></i>
-                                        Crear</a>
-                                    <a class="btn btn-danger" href="/bodegas"><i class="fas fa-times"></i>
+                                    <button type="submit" class="btn btn-success"><i class="fas fa-check"></i>
+                                        Crear</button>
+                                    <a class="btn btn-danger" href="/proveedores"><i class="fas fa-times"></i>
                                         Salir</a>
                                 </form>
                             </div>
@@ -103,7 +106,6 @@
             </div>
         </div>
     </div>
-
 </body>
 
 </html>
