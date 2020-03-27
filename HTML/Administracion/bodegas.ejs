@@ -9,7 +9,7 @@
 <body>
     <div class="wrapper">
         <%- include ('../partials/navegacion') %>
-         <!-- Contenido general -->
+        <!-- Contenido general -->
         <div id="content">
             <!-- Navbar -->
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -48,9 +48,10 @@
                             nuevo</a>
                     </div>
                 </div>
-                <table class="table table-light table-bordered table-responsive-sm">
+                <table id="tableBodega" class="table table-light table-bordered table-responsive-sm">
                     <thead>
                         <tr>
+                            <th style="display: none;">id</th>
                             <th>Código</th>
                             <th>Nombre</th>
                             <th>Alias</th>
@@ -66,6 +67,7 @@
                         <%if (Resultado != ''){ %>
                         <% Resultado.forEach(function(row){ %>
                         <tr>
+                            <td style="display: none;"><%= row._id %></td>
                             <td><%= row.codigoBodega %></td>
                             <td><%= row.nombre %></td>
                             <td><%= row.alias %></td>
@@ -76,13 +78,13 @@
                             <td><%= row.nombreCorto %></td>
                             <td>
                                 <button class="btn"><i class="fas fa-trash" onclick="getRowSelected(this)"></i></button>
+                
                                 <button class="btn"><i class="fas fa-pencil-alt"></i></button>
                             </td>
                         </tr>
                         <% })}else{ %>
                         <tr>
                             <td colspan="6">No Record Found</td>
-
                         </tr>
                         <% } %>
                     </tbody>
@@ -106,38 +108,26 @@
         });
     });
 
+
+
     function getRowSelected(objectPressed) {
-	//Obteniendo la linea que se esta eliminando
-    var a=objectPressed.parentNode.parentNode.parentNode;
-	//b=(fila).(obtener elementos de clase columna y traer la posicion 0).(obtener los elementos de tipo parrafo y traer la posicion0).(contenido en el nodo)
-	var numero=a.getElementsByTagName("td")[0].innerHTML;
-	var codigo=a.getElementsByTagName("td")[1].innerHTML;
-	var descripcion=a.getElementsByTagName("td")[2].innerHTML;
-	var cantidad=a.getElementsByTagName("td")[3].innerHTML;
-	var precio=a.getElementsByTagName("td")[4].innerHTML;
-	var subtotal=a.getElementsByTagName("td")[5].innerHTML;
-	var impuesto=a.getElementsByTagName("td")[6].innerHTML;
-	var total=a.getElementsByTagName("td")[7].innerHTML;
-
-    var array_fila = [numero, codigo, descripcion, cantidad, precio, subtotal, impuesto, total];
-    
-    //ver como hacer un post
-
-    //console.log(array_fila);
-    post("/bodegas", {body: array_fila[1]});
-    /*var xhr = new XMLHttpRequest();
-    xhr.open("POST",'/bodegas', true);
-    xhr.setRequestHeader('Content-Type', 'application/json');
-    xhr.send(JSON.stringify({
-        body: array_fila
-    }));
-	return array_fila;
-    //console.log(numero+' '+codigo+' '+descripcion);
-    */
+        var objeto = objectPressed.parentNode.parentNode.parentNode;
+        var numero = objeto.getElementsByTagName("td")[0].innerHTML;
+        post("/bodegas", { _id: numero});
+        document.getElementById("tableBodega").deleteRow(a.rowIndex);
     }
 
-    window.post = function(url, data) {
-        console.log(data);
-        return fetch(url, {method: "POST", body: data});
+    window.post = function (url, data) {
+        const request = new Request(url, {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: new Headers({
+                'Content-Type': 'application/json'
+            })
+        });
+        return fetch(request);
     }
 </script>
+
+
+
