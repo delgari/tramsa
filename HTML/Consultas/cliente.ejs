@@ -43,14 +43,14 @@
 
                 <h3>Clientes</h3>
                 <br>
-                <label type="text" id="lbtCliente" style="color: white;"> Lista de clientes </label> &nbsp 
+                <label type="text" id="lbtCliente" style="color: white;"> <i class="fas fa-list"></i> Lista de clientes: </label> &nbsp 
                 <select name="" id="listaCliente" onchange="mostrardropdownEstado()">
                     <option value="0" > <--Selecciona una opción--> </option>
                     <option value="1">Listado general de clientes</option>
                     <option value="2">Listado de clientes por estado </option>
                 </select>
                 &nbsp&nbsp
-                <label type="text" id="lbtEstado" style="color: white; display: none;"> Estado </label> &nbsp 
+                <label type="text" id="lbtEstado" style="color: white; display: none;"> <i class="fas fa-user-check"></i> Estado: </label> &nbsp 
                 <select name="" id="listaEstado" style="display: none;" onchange="filtrarEstado()">
                     <option value="0"> <--Selecciona una opción--> </option>
                     <option value="1">Activo </option>
@@ -58,8 +58,8 @@
                 </select>
                 <br>
                 <br>
-                <table class="table table-light table-bordered table-responsive-sm" id="clienteTable">
-                    <thead>
+                <table class="table table-striped table-light table-bordered table-hover table-responsive-sm" id="clienteTable" >
+                    <thead class="thead-dark">
                         <tr>
                             <th>Codigo cliente</th>
                             <th>Cedula</th>
@@ -149,7 +149,6 @@
             td = tr[i].getElementsByTagName("td");
             if(td.length > 0) { 
                 var celdaEstado = td[5].innerHTML.toUpperCase();
-                console.log(celdaEstado);
                 if (celdaEstado == "ACTIVO" && filter == "1") {
                     tr[i].style.display = "";  
                 } else if (celdaEstado == "INACTIVO" && filter == "2") {
