@@ -79,10 +79,15 @@ router.get('/filtrarPedidosMateria', (req, res) => { //Browser
   res.render('../HTML/Procesos/filtrarPedidosMateria.html'); //Busca en el código
 });
 
-//rutas formProduccionLote
-/*router.get('/formProduccionLote', (req, res) => { //Browser
-  res.render('../HTML/Procesos/Forms/formProduccionLote.html'); //Busca en el código
-});*/
+//rutas reportes
+router.get('/reportes', (req, res) => { //Browser
+  res.render('../HTML/Reportes/reporte'); //Busca en el código
+});
+
+//rutas Producto reportes
+router.get('/productoReporte', (req, res) => { //Browser
+  res.render('../HTML/Reportes/productoReporte'); //Busca en el código
+});
 
 //rutas formPuntoVenta
 router.get('/puntoVenta', (req, res) => { //Browser
@@ -102,8 +107,14 @@ router.get('/bodegas', (req, res) => { //busqueda del browser
       client.close();
     });
   });
-
 })
+
+router.post('/bodegas', (req, res) => {
+  //console.log(req , 'req.body');
+  console.log(res);
+
+  res.redirect('/bodegas');
+});
 
 //ruta de conexion Administracion/Camiones
 router.get('/camiones', (req, res) => { //busqueda del browser
@@ -310,7 +321,6 @@ router.post('/formProduccionLote', (req, res) => {
     data: req.body
   })
 });
-
 
 //ruta de conexion Consulta/bitacora
 router.get('/bitacora', (req, res) => { //busqueda del browser

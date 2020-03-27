@@ -45,18 +45,18 @@
                 <br>
                 <form>
                     <div class="row">
-                        <div class="form-group col-md-4">
-                            <label type="text" id="lbtUser" style="color: white;"> Usuario </label> &nbsp
-                            <input type="text" name="" id="txtUser" placeholder="Usuario" onkeyup="filtrar()">
+                        <div class="form-group col-md-4 " >
+                            <label type="text" id="lbtUser" style="color: white;"> <i class="fas fa-user"></i> Usuario: </label> &nbsp
+                            <input type="text" name="" id="txtUser" placeholder="Usuario" onkeyup="filtrar()" >
                         </div>
 
                         <div class="col-md-4">
-                            <label type="text" id="lbtMinDate" style="color: white;"> Desde: </label> &nbsp
+                            <label type="text" id="lbtMinDate" style="color: white;"><i class="fas fa-calendar-alt"></i> Desde: </label> &nbsp
                             <input type="date" id="datepicker_from" class="date-range-filter" onchange="filtrar()">
                         </div>
 
                         <div class="col-md-4">
-                            <label type="text" id="lbtMaxDate" style="color: white;"> Hasta: </label> &nbsp
+                            <label type="text" id="lbtMaxDate" style="color: white;"><i class="fas fa-calendar-alt"></i> Hasta: </label> &nbsp
                             <input type="date" id="datepicker_to" class="date-range-filter" onchange="filtrar()">
                         </div>
                     </div>
@@ -64,8 +64,8 @@
                 </form>
                 <br>
 
-               <table class="table table-light table-bordered table-responsive-sm" id="bitacoraTable">
-                    <thead>
+               <table class="table table-striped table-light table-bordered table-hover table-responsive-sm" id="bitacoraTable">
+                    <thead class="thead-dark">
                         <tr>
                             <th>Codigo Bitacora</th>
                             <th>Usuario</th>
@@ -99,13 +99,30 @@
 <script>
     
 function filtrar() {
-    var input, filter, table, tr, td, i, inputDateMin,inputDateMax;
+    var input, filter, table, tr, td, i, inputDateMin,inputDateMax, filterDateMin, arrFilterDateMin, stringDateMin, dateMin,
+    filterDateMax, arrFilterDateMax, stringDateMax, dateMax;
     input = document.getElementById("txtUser");
     inputDateMin =document.getElementById("datepicker_from");
     inputDateMax= document.getElementById("datepicker_to")
     filter = input.value.toUpperCase();
-    filterDateMin= inputDateMin.value;
-    filterDateMax= inputDateMax.value;
+
+    if(inputDateMin.value != "") {
+         filterDateMin= inputDateMin.value;
+         arrFilterDateMin = filterDateMin.split("-");
+         stringDateMin = arrFilterDateMin[0] + "-" + arrFilterDateMin[1] + "-" + (+arrFilterDateMin[2]+1);
+         dateMin = new Date(stringDateMin);
+    } else {
+        dateMin = null;
+    }
+
+    if(inputDateMax.value != "") {
+        filterDateMax= inputDateMax.value;
+        arrFilterDateMax = filterDateMax.split("-");
+        stringDateMax = arrFilterDateMax[0] + "-" + arrFilterDateMax[1] + "-" + (+arrFilterDateMax[2]+1);
+        dateMax = new Date(stringDateMax);
+    } else {
+        dateMax = null;
+    }
 
     table = document.getElementById("bitacoraTable");
     tr = table.getElementsByTagName("tr");
@@ -113,22 +130,35 @@ function filtrar() {
     for (i = 0; i < tr.length; i++) {
       td = tr[i].getElementsByTagName("td");
       if(td.length > 0){ 
-         if (td[0].innerHTML.toUpperCase().indexOf(filter) > -1 || td[1].innerHTML.toUpperCase().indexOf(filter) > -1)
-         {
              var cellDate = td[2].innerHTML;
-             if(inputDateMin == null && inputDateMax == null){
-                 break;
-             } 
-             if(inputDateMin == null || cellDate <= inputDateMax){
-                tr[i].style.display = "";
-             }
+             arrCellDate = cellDate.split("/");
+             var stringDate = arrCellDate[2] + "-" + arrCellDate[1] + "-" + (+arrCellDate[0]+1);
+             DateCell = new Date(stringDate);
+         if (td[1].innerHTML.toUpperCase().indexOf(filter) > -1)
+         {
+            if(dateMin != null || dateMax != null ) {
+                if(dateMin != "" && dateMax == null) {
+                    if(dateMin <= DateCell) {
+                        tr[i].style.display = "";
+                    } else {tr[i].style.display = "none";}
+                }
 
-             if(inputDateMax == null || cellDate >= inputDateMin){
+                if(dateMin == null && dateMax != "") {
+                    if(dateMax >= DateCell) {
+                        tr[i].style.display = "";
+                    } else {tr[i].style.display = "none";} 
+                }
+
+                if(dateMin != null && dateMax != null) {
+                    if(dateMin <= DateCell && dateMax >= DateCell) {
+                        tr[i].style.display = "";
+                    } else {tr[i].style.display = "none";}
+                }
+
+            } else {
                 tr[i].style.display = "";
-             }
-             if(cellDate <= inputDateMax && cellDate >= inputDateMin){
-                tr[i].style.display = "";
-             }     
+            }
+             
          } else {
            tr[i].style.display = "none";
          }
