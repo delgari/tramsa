@@ -76,9 +76,7 @@ router.get('/bodegas', (req, res) => { //busqueda del browser
 })
 
 router.post('/bodegas', (req, res) => {
-  //console.log(req , 'req.body');
   
-
   const MongoClient = require('mongodb').MongoClient;
   const Mongodb = require('mongodb');
   const uri = "mongodb+srv://diseno:Ulacit1234@cluster0-40do9.mongodb.net/test?retryWrites=true&w=majority";
@@ -96,7 +94,6 @@ router.post('/bodegas', (req, res) => {
     }})
 
   }),
-  //res.redirect(req.get('/bodegas'));
   res.redirect('/bodegas');
 
 });
@@ -146,6 +143,30 @@ router.get('/camiones', (req, res) => { //busqueda del browser
 
 })
 
+router.post('/camiones', (req, res) => {
+  
+  const MongoClient = require('mongodb').MongoClient;
+  const Mongodb = require('mongodb');
+  const uri = "mongodb+srv://diseno:Ulacit1234@cluster0-40do9.mongodb.net/test?retryWrites=true&w=majority";
+  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: false });
+
+  client.connect(err => {
+    const collection = client.db("tramsadb").collection("camion");
+    console.log(req.body);
+
+
+    collection.deleteOne({_id: new Mongodb.ObjectID(req.body._id),function(err, res) {
+      if (err) throw err;
+      client.close();
+      
+    }})
+
+  }),
+  res.redirect('/camiones');
+
+});
+
+
 //ruta de conexion  Insertar en /HTML/Administracion/Forms/formCamiones
 router.get('/formCamiones', (req, res) => {
   res.render('../HTML/Administracion/Forms/formCamiones', {
@@ -186,6 +207,30 @@ router.get('/clientes', (req, res) => { //busqueda del browser
   });
 
 })
+
+router.post('/clientes', (req, res) => {
+  
+  const MongoClient = require('mongodb').MongoClient;
+  const Mongodb = require('mongodb');
+  const uri = "mongodb+srv://diseno:Ulacit1234@cluster0-40do9.mongodb.net/test?retryWrites=true&w=majority";
+  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: false });
+
+  client.connect(err => {
+    const collection = client.db("tramsadb").collection("cliente");
+    console.log(req.body);
+
+
+    collection.deleteOne({_id: new Mongodb.ObjectID(req.body._id),function(err, res) {
+      if (err) throw err;
+      client.close();
+      
+    }})
+
+  }),
+  res.redirect('/clientes');
+
+});
+
 
 //ruta de conexion  Insertar en /HTML/Administracion/Forms/formClientes
 router.get('/formClientes', (req, res) => {
@@ -228,6 +273,29 @@ router.get('/materiaPrima', (req, res) => { //busqueda del browser
 
 })
 
+router.post('/materiaPrima', (req, res) => {
+  
+  const MongoClient = require('mongodb').MongoClient;
+  const Mongodb = require('mongodb');
+  const uri = "mongodb+srv://diseno:Ulacit1234@cluster0-40do9.mongodb.net/test?retryWrites=true&w=majority";
+  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: false });
+
+  client.connect(err => {
+    const collection = client.db("tramsadb").collection("materiaPrima");
+    console.log(req.body);
+
+
+    collection.deleteOne({_id: new Mongodb.ObjectID(req.body._id),function(err, res) {
+      if (err) throw err;
+      client.close();
+      
+    }})
+
+  }),
+  res.redirect('/materiaPrima');
+
+});
+
 //ruta de conexion  Insertar en /HTML/Administracion/Forms/formMateriaPrima
 router.get('/formMateriaPrima', (req, res) => {
   res.render('../HTML/Administracion/Forms/formMateriaPrima', {
@@ -264,7 +332,7 @@ router.get('/productosD', (req, res) => { //busqueda del browser
   const uri = "mongodb+srv://diseno:Ulacit1234@cluster0-40do9.mongodb.net/test?retryWrites=true&w=majority";
   const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: false });
   client.connect(err => {
-    const collection = client.db("tramsadb").collection("productoD");
+    const collection = client.db("tramsadb").collection("productoDetalle");
     collection.find({}).toArray(function (err, result) {
       if (err) throw err;
       res.render('../HTML/Administracion/productosD', { Resultado: result }); //busqueda en code
@@ -273,6 +341,29 @@ router.get('/productosD', (req, res) => { //busqueda del browser
   });
 
 })
+
+router.post('/productosD', (req, res) => {
+  
+  const MongoClient = require('mongodb').MongoClient;
+  const Mongodb = require('mongodb');
+  const uri = "mongodb+srv://diseno:Ulacit1234@cluster0-40do9.mongodb.net/test?retryWrites=true&w=majority";
+  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: false });
+
+  client.connect(err => {
+    const collection = client.db("tramsadb").collection("productoDetalle");
+    console.log(req.body);
+
+
+    collection.deleteOne({_id: new Mongodb.ObjectID(req.body._id),function(err, res) {
+      if (err) throw err;
+      client.close();
+      
+    }})
+
+  }),
+  res.redirect('/productosD');
+
+});
 
 //ruta de conexion  Insertar en /HTML/Administracion/Forms/formProducD
 router.get('/formProducD', (req, res) => {
@@ -288,7 +379,7 @@ router.post('/formProducD', (req, res) => {
   const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: false });
 
   client.connect(err => {
-    const collection = client.db("tramsadb").collection("productoD");
+    const collection = client.db("tramsadb").collection("productoDetalle");
     collection.insertOne(req.body,function(err, res) {
       if (err) throw err;
       client.close();
@@ -305,7 +396,7 @@ router.get('/productosM', (req, res) => { //busqueda del browser
   const uri = "mongodb+srv://diseno:Ulacit1234@cluster0-40do9.mongodb.net/test?retryWrites=true&w=majority";
   const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: false });
   client.connect(err => {
-    const collection = client.db("tramsadb").collection("productoM");
+    const collection = client.db("tramsadb").collection("productoMaestro");
     collection.find({}).toArray(function (err, result) {
       if (err) throw err;
       res.render('../HTML/Administracion/productosM', { Resultado: result }); //busqueda en code
@@ -314,6 +405,29 @@ router.get('/productosM', (req, res) => { //busqueda del browser
   });
 
 })
+
+router.post('/productosM', (req, res) => {
+  
+  const MongoClient = require('mongodb').MongoClient;
+  const Mongodb = require('mongodb');
+  const uri = "mongodb+srv://diseno:Ulacit1234@cluster0-40do9.mongodb.net/test?retryWrites=true&w=majority";
+  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: false });
+
+  client.connect(err => {
+    const collection = client.db("tramsadb").collection("productoMaestro");
+    console.log(req.body);
+
+
+    collection.deleteOne({_id: new Mongodb.ObjectID(req.body._id),function(err, res) {
+      if (err) throw err;
+      client.close();
+      
+    }})
+
+  }),
+  res.redirect('/productosM');
+
+});
 
 //ruta de conexion  Insertar en /HTML/Administracion/Forms/formProducM
 router.get('/formProducM', (req, res) => {
@@ -329,7 +443,7 @@ router.post('/formProducM', (req, res) => {
   const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: false });
 
   client.connect(err => {
-    const collection = client.db("tramsadb").collection("productoM");
+    const collection = client.db("tramsadb").collection("productoMaestro");
     collection.insertOne(req.body,function(err, res) {
       if (err) throw err;
       client.close();
@@ -355,6 +469,29 @@ router.get('/proveedores', (req, res) => { //busqueda del browser
   });
 
 })
+
+router.post('/proveedores', (req, res) => {
+  
+  const MongoClient = require('mongodb').MongoClient;
+  const Mongodb = require('mongodb');
+  const uri = "mongodb+srv://diseno:Ulacit1234@cluster0-40do9.mongodb.net/test?retryWrites=true&w=majority";
+  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: false });
+
+  client.connect(err => {
+    const collection = client.db("tramsadb").collection("proveedores");
+    console.log(req.body);
+
+
+    collection.deleteOne({_id: new Mongodb.ObjectID(req.body._id),function(err, res) {
+      if (err) throw err;
+      client.close();
+      
+    }})
+
+  }),
+  res.redirect('/proveedores');
+
+});
 
 //ruta de conexion  Insertar en /HTML/Administracion/Forms/formProveedores
 router.get('/formProveedores', (req, res) => {
@@ -396,6 +533,29 @@ router.get('/tipoMateriaPrima', (req, res) => { //busqueda del browser
   });
 
 })
+
+router.post('/tipoMateriaPrima', (req, res) => {
+  
+  const MongoClient = require('mongodb').MongoClient;
+  const Mongodb = require('mongodb');
+  const uri = "mongodb+srv://diseno:Ulacit1234@cluster0-40do9.mongodb.net/test?retryWrites=true&w=majority";
+  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: false });
+
+  client.connect(err => {
+    const collection = client.db("tramsadb").collection("tipoMateriaPrima");
+    console.log(req.body);
+
+
+    collection.deleteOne({_id: new Mongodb.ObjectID(req.body._id),function(err, res) {
+      if (err) throw err;
+      client.close();
+      
+    }})
+
+  }),
+  res.redirect('/tipoMateriaPrima');
+
+});
 
 //ruta de conexion  Insertar en /HTML/Administracion/Forms/formTipoMateria
 router.get('/formTipoMateria', (req, res) => {

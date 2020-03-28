@@ -77,7 +77,7 @@
                             <td><%= row.espacioBodega %></td>
                             <td><%= row.nombreCorto %></td>
                             <td>
-                                <button class="btn"><i class="fas fa-trash" onclick="getRowSelected(this)"></i></button>
+                                <button class="btn"><i class="fas fa-trash" onclick="eliminar(this)"></i></button>
                 
                                 <button class="btn"><i class="fas fa-pencil-alt"></i></button>
                             </td>
@@ -109,12 +109,11 @@
     });
 
 
-
-    function getRowSelected(objectPressed) {
+    function eliminar(objectPressed) {
         var objeto = objectPressed.parentNode.parentNode.parentNode;
         var numero = objeto.getElementsByTagName("td")[0].innerHTML;
         post("/bodegas", { _id: numero});
-        document.getElementById("tableBodega").deleteRow(a.rowIndex);
+        document.getElementById("tableBodega").deleteRow(objeto.rowIndex);
     }
 
     window.post = function (url, data) {
