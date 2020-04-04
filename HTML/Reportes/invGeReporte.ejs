@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reporte producto</title>
+    <title>Reporte general</title>
     <%- include ('../partials/head') %>
 </head>
 <body>
@@ -47,25 +47,28 @@
                     <table class="table table-striped table-light table-bordered table-hover table-responsive-sm" id="reporteProductoTable">
                         <thead class="thead-dark">
                             <tr>
-                                <th colspan="3">Reporte de los productos</th>
+                                <th colspan="4">Reporte del inventario general</th>
                             </tr>
                             <tr>
-                                <th>Codigo</th>
+                                <th>Código</th>
                                 <th>Nombre</th>
-                                <th>Unidad Medida</th>
+                                <th>Unidad de medida</th>
+                                <th>Punto de re-orden</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="maestro">
                             <%if (Resultado != ''){ %>
                             <% Resultado.forEach(function(row){ %>
                             <tr>
                                 <td><%= row.codigoProducto %></td>
                                 <td><%= row.descripcion %></td>
                                 <td><%= row.unidadMedida %></td>
+                                <td><%= row.puntoReOrden %></td>
                             </tr>
                             <% })}else{ %>
                             <tr>
                                 <td colspan="6">No Record Found</td>
+    
                             </tr>
                             <% } %>
                         </tbody>

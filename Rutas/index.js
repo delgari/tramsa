@@ -19,17 +19,6 @@ router.get('/paginaPrincipal', (req, res) => { //Browser
   res.render('../HTML/paginaPrincipal'); //Busca en el código
 });
 
-
-//rutas Acerca De
-router.get('/acercaDe', (req, res) => { //Browser
-  res.render('../HTML/Ayuda/acercaDe.html'); //Busca en el código
-});
-
-//rutas Ayuda
-router.get('/ayuda', (req, res) => { //Browser
-  res.render('../HTML/Ayuda/ayuda.html'); //Busca en el código
-});
-
 //rutas Parámetros generales
 router.get('/parametrosGen', (req, res) => { //Browser
   res.render('../HTML/Parametros/parametrosGen.html'); //Busca en el código
@@ -55,6 +44,50 @@ router.get('/productoReporte', (req, res) => { //Browser
   res.render('../HTML/Reportes/productoReporte'); //Busca en el código
 });
 
+//rutas inventario reportes
+router.get('/inventario', (req, res) => { //Browser
+  res.render('../HTML/Reportes/inventario'); //Busca en el código
+});
+
+//rutas inventario bodega/reportes
+router.get('/inventarioBodega', (req, res) => { //Browser
+
+  const MongoClient = require('mongodb').MongoClient;
+  const uri = "mongodb+srv://diseno:Ulacit1234@cluster0-40do9.mongodb.net/test?retryWrites=true&w=majority";
+  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: false });
+  client.connect(err => {
+    const collection = client.db("tramsadb").collection("bodega");
+    collection.find({}).toArray(function (err, result) {
+      if (err) throw err;
+      res.render('../HTML/Administracion/bodegas', { Resultado: result }); //busqueda en code
+      client.close();
+    });
+  });
+
+
+
+  res.render('../HTML/Reportes/bodegaReporte'); //Busca en el código
+});
+//rutas inventario general reportes
+router.get('/inventarioGeneral', (req, res) => { //Browser
+
+
+
+
+
+  res.render('../HTML/Reportes/invGeReporte'); //Busca en el código
+});
+
+//rutas Acerca De
+router.get('/acercaDe', (req, res) => { //Browser
+  res.render('../HTML/Ayuda/acercaDe.html'); //Busca en el código
+});
+
+//rutas Ayuda
+router.get('/ayuda', (req, res) => { //Browser
+  res.render('../HTML/Ayuda/ayuda.html'); //Busca en el código
+});
+
 //rutas formPuntoVenta
 router.get('/puntoVenta', (req, res) => { //Browser
   res.render('../HTML/Procesos/Forms/formPuntoVenta.html'); //Busca en el código
@@ -77,32 +110,10 @@ router.get('/bodegas', (req, res) => { //busqueda del browser
 
 router.post('/bodegas', (req, res) => {
   //console.log(req , 'req.body');
-  
+  console.log(res);
 
-  const MongoClient = require('mongodb').MongoClient;
-  const Mongodb = require('mongodb');
-  const uri = "mongodb+srv://diseno:Ulacit1234@cluster0-40do9.mongodb.net/test?retryWrites=true&w=majority";
-  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: false });
-
-  client.connect(err => {
-    const collection = client.db("tramsadb").collection("bodega");
-    console.log(req.body);
-
-
-    collection.deleteOne({_id: new Mongodb.ObjectID(req.body._id),function(err, res) {
-      if (err) throw err;
-      client.close();
-      
-    }})
-
-  }),
-  //res.redirect(req.get('/bodegas'));
   res.redirect('/bodegas');
-
 });
-
-
-
 
 //ruta de conexion  Insertar en /HTML/Administracion/Forms/formBodegas
 router.get('/formBodegas', (req, res) => {
@@ -422,8 +433,6 @@ router.post('/formTipoMateria', (req, res) => {
   })
 });
 
-
-
 //ruta de conexion Procesos/Pedido Maestro
 router.get('/pedido', (req, res) => { //busqueda del browser
   const MongoClient = require('mongodb').MongoClient;
@@ -440,8 +449,6 @@ router.get('/pedido', (req, res) => { //busqueda del browser
 
 })
 
-
-
 //ruta de conexion Procesos/Pedido Maestro
 router.get('/pedidosMateriaM', (req, res) => { //busqueda del browser
   const MongoClient = require('mongodb').MongoClient;
@@ -456,8 +463,6 @@ router.get('/pedidosMateriaM', (req, res) => { //busqueda del browser
     });
   });
 })
-
-
 
 //ruta de conexion Procesos/Pedido Detalle
 router.get('/pedidosMateriaD', (req, res) => { //busqueda del browser
@@ -548,6 +553,51 @@ router.get('/cliente', (req, res) => { //busqueda del browser
 
 })
 
+//ruta de conexion Reportes/Productos Maestro
+router.get('/productosReporte', (req, res) => { //busqueda del browser
+  const MongoClient = require('mongodb').MongoClient;
+  const uri = "mongodb+srv://diseno:Ulacit1234@cluster0-40do9.mongodb.net/test?retryWrites=true&w=majority";
+  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: false });
+  client.connect(err => {
+    const collection = client.db("tramsadb").collection("productoMaestro");
+    collection.find({}).toArray(function (err, result) {
+      if (err) throw err;
+      res.render('../HTML/Reportes/productoReporte', { Resultado: result }); //busqueda en code
+      client.close();
+    });
+  });
+
+})
+
+//ruta de conexion Reportes/InvBodegas
+router.get('/bodegaReporte', (req, res) => { //busqueda del browser
+  const MongoClient = require('mongodb').MongoClient;
+  const uri = "mongodb+srv://diseno:Ulacit1234@cluster0-40do9.mongodb.net/test?retryWrites=true&w=majority";
+  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: false });
+  client.connect(err => {
+    const collection = client.db("tramsadb").collection("produccionLote");
+    collection.find({}).toArray(function (err, result) {
+      if (err) throw err;
+      res.render('../HTML/Reportes/bodegaReporte', { Resultado: result }); //busqueda en code
+      client.close();
+    });
+  });
+})
+//ruta de conexion Reportes/InvGeneral
+router.get('/invGeReporte', (req, res) => { //busqueda del browser
+  const MongoClient = require('mongodb').MongoClient;
+  const uri = "mongodb+srv://diseno:Ulacit1234@cluster0-40do9.mongodb.net/test?retryWrites=true&w=majority";
+  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: false });
+  client.connect(err => {
+    const collection = client.db("tramsadb").collection("productoMaestro");
+    collection.find({}).toArray(function (err, result) {
+      if (err) throw err;
+      res.render('../HTML/Reportes/invGeReporte', { Resultado: result }); //busqueda en code
+      client.close();
+    });
+  });
+
+})
 
 module.exports = router;
 
