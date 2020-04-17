@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Producción en lote</title>
+    <title>Punto de venta</title>
     <%- include ('../partials/head') %>
 </head>
 
@@ -37,53 +37,51 @@
             </nav>
             <!-- Formulario -->
             <div class="container">
-                <h2>Producción en lote</h2>
+                <h2>Punto de venta</h2>
                 </br>
                 <div class="form-row">
                     <div class="form-group col-md-10">
                         <input class="form-control" id="buscar" type="text" placeholder="Buscar..">
                     </div>
                     <div class="form-group">
-                        <a type="button" href="/formProduccionLote" class="btn btn-success"><i class="fas fa-plus"></i>
-                            Agregar
+                        <a type="button" href="/formPuntoVenta" class="btn btn-success"><i class="fas fa-plus"></i> Agregar
                             nuevo</a>
                     </div>
                 </div>
-                <table id="tableProduccionLote" class="table table-light table-bordered table-responsive-sm">
+                <table class="table table-light table-bordered table-responsive-sm">
                     <thead>
                         <tr>
-                            <th style="display: none;">id</th>
-                            <th>Numero</th>
+                            <th>Factura</th>
                             <th>Fecha</th>
-                            <th>Codigo</th>
+                            <th>Cliente</th>
                             <th>Producto</th>
-                            <th>Bodega</th>
-                            <th>Cantidad</th>
-                            <th>Tiempo</th>
+                            <th>Cant Producto</th>
+                            <th>Descuento</th>
+                            <th>Impuesto</th>
+                            <th>Total</th>
                             <th>Accion</th>
                         </tr>
                     </thead>
-                    <tbody id="produccionLote">
+                    <tbody id="puntoVenta">
                         <%if (Resultado != ''){ %>
                         <% Resultado.forEach(function(row){ %>
                         <tr>
-                            <td style="display: none;"><%= row._id %></td>
-                            <td><%= row.numProduccion %></td>
+                            <td><%= row.numeroFactura %></td> 
                             <td><%= row.Fecha %></td>
-                            <td><%= row.codigoProducto %></td>
-                            <td><%= row.Producto %></td>
-                            <td><%= row.Bodega %></td>
-                            <td><%= row.Cantidad %></td>
-                            <td><%= row.Tiempo %></td>
+                            <td><%= row.cliente %></td>
+                            <td><%= row.producto %></td>
+                            <td><%= row.cantidadProducto %></td>
+                            <td><%= row.descuento %></td>
+                            <td><%= row.impuesto %></td>
+                            <td><%= row.total %></td>
                             <td>
-                                <button class="btn"><i class="fas fa-trash" onclick="getRowSelected(this)"></i></button>
+                                <button class="btn"><i class="fas fa-trash"></i></button>
                                 <button class="btn"><i class="fas fa-pencil-alt"></i></button>
                             </td>
                         </tr>
                         <% })}else{ %>
                         <tr>
                             <td colspan="6">No Record Found</td>
-
                         </tr>
                         <% } %>
                     </tbody>
@@ -91,43 +89,14 @@
             </div>
         </div>
     </div>
-
 </body>
-
 </html>
 
-<script type="text/javascript">
-    $(document).ready(function () {
-        $('#sidebarCollapse').on('click', function () {
-            $('#sidebar').toggleClass('active');
-            $(this).toggleClass('active');
-        });
-    });
-
-
-    function getRowSelected(objectPressed) {
-        var objeto = objectPressed.parentNode.parentNode.parentNode;
-        var numero = objeto.getElementsByTagName("td")[0].innerHTML;
-        post("/produccionLote", { _id: numero });
-        document.getElementById("tableProduccionLote").deleteRow(objeto.rowIndex);
-    }
-
-    window.post = function (url, data) {
-        const request = new Request(url, {
-            method: 'POST',
-            body: JSON.stringify(data),
-            headers: new Headers({
-                'Content-Type': 'application/json'
-            })
-        });
-        return fetch(request);
-    }
-
-
+<script >
     $(document).ready(function () {
         $("#buscar").on("keyup", function () {
             var value = $(this).val().toLowerCase();
-            $("#produccionLote tr").filter(function () {
+            $("#puntoVenta tr").filter(function () {
                 $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
             });
         });

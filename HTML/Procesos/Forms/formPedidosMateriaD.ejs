@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Pedidos Materia</title>
+    <%- include ('../../partials/head') %>
+</head>
+
+<body>
+    <div class="wrapper">
+        <%- include ('../../partials/navegacion') %>
+        <!-- Contenido general -->
+        <div id="content">
+            <!-- Navbar -->
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container-fluid">
+
+                    <button type="button" id="sidebarCollapse" class="navbar-btn">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                    <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse"
+                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="fas fa-align-justify"></i>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="nav navbar-nav ml-auto">
+                            <li class="nav-item active">
+                                <img src="../../../Imagenes/Logo2.png" width="130" height="50" />
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <!-- Formulario -->
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-10 col-md-7 col-lg-8 mx-auto">
+                        <div class="card card-signin my-3">
+                            <div class="card-body">
+                                <h4 class="card-title text-center">Pedidos Materia - Detalle</h4>
+                                </br>
+                                <form method="post" action="/formPedidosMateriaD" novalidate>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-3">
+                                            <label for="codigoOrdenPedido">Orden de Pedido</label>
+                                            <input type="text" class="form-control" id="codigoPedido" name="codigoPedido">
+                                        </div>
+                                        <div class="form-group col-md-3">
+                                            <label for="codigoMateriaPrima">Cod Materia Prima</label>
+                                            <input type="text" class="form-control" id="codigoMateriaPr" name="codigoMateriaPr">
+                                        </div>
+                                        <div class="form-group col-md-3">
+                                            <label for="nombreMateriaPrima">Materia Prima</label>
+                                            <input type="text" class="form-control" id="nombreMateriaPr" name="nombreMateriaPr">
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-3">
+                                            <label for="cantidadPedir">Cantidad a Pedir</label>
+                                            <input type="text" class="form-control" id="cantidadMateriaP" name="cantidadMateriaP">
+                                        </div>
+                                        <div class="form-group col-md-3">
+                                            <label for="estado">Estado</label>
+                                            <input type="text" class="form-control" id="estado" name="estado">
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-success"><i class="fas fa-check"></i>
+                                        Crear</button>
+                                    <a class="btn btn-danger" href="/pedidosMateriaD"><i class="fas fa-times"></i>
+                                        Salir</a>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
