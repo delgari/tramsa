@@ -118,6 +118,30 @@ router.post('/formBodegas', (req, res) => {
     })
 });
 
+//Eliminar Bodegas
+router.post('/bodegas', (req, res) => {
+  
+  const MongoClient = require('mongodb').MongoClient;
+  const Mongodb = require('mongodb');
+  const uri = "mongodb+srv://diseno:Ulacit1234@cluster0-40do9.mongodb.net/test?retryWrites=true&w=majority";
+  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: false });
+
+  client.connect(err => {
+    const collection = client.db("tramsadb").collection("bodega");
+    console.log(req.body);
+
+
+    collection.deleteOne({_id: new Mongodb.ObjectID(req.body._id),function(err, res) {
+      if (err) throw err;
+      client.close();
+      
+    }})
+
+  }),
+  res.redirect('/bodegas');
+
+});
+
 
 
 //################Administracion/Camiones################
@@ -157,7 +181,29 @@ router.post('/formCamiones', (req, res) => {
     })
 });
 
+//Eliminar Camiones
+router.post('/camiones', (req, res) => {
+  
+  const MongoClient = require('mongodb').MongoClient;
+  const Mongodb = require('mongodb');
+  const uri = "mongodb+srv://diseno:Ulacit1234@cluster0-40do9.mongodb.net/test?retryWrites=true&w=majority";
+  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: false });
 
+  client.connect(err => {
+    const collection = client.db("tramsadb").collection("camion");
+    console.log(req.body);
+
+
+    collection.deleteOne({_id: new Mongodb.ObjectID(req.body._id),function(err, res) {
+      if (err) throw err;
+      client.close();
+      
+    }})
+
+  }),
+  res.redirect('/camiones');
+
+});
 
 //################Administracion/Clientes################
 router.get('/clientes', (req, res) => {
@@ -196,6 +242,29 @@ router.post('/formClientes', (req, res) => {
     })
 });
 
+//Eliminar Clientes
+router.post('/clientes', (req, res) => {
+  
+  const MongoClient = require('mongodb').MongoClient;
+  const Mongodb = require('mongodb');
+  const uri = "mongodb+srv://diseno:Ulacit1234@cluster0-40do9.mongodb.net/test?retryWrites=true&w=majority";
+  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: false });
+
+  client.connect(err => {
+    const collection = client.db("tramsadb").collection("cliente");
+    console.log(req.body);
+
+
+    collection.deleteOne({_id: new Mongodb.ObjectID(req.body._id),function(err, res) {
+      if (err) throw err;
+      client.close();
+      
+    }})
+
+  }),
+  res.redirect('/clientes');
+
+});
 
 
 //################Administracion/MateriaPrima################
@@ -235,7 +304,29 @@ router.post('/formMateriaPrima', (req, res) => {
     })
 });
 
+//Eliminar Materia Prima
+router.post('/materiaPrima', (req, res) => {
+  
+  const MongoClient = require('mongodb').MongoClient;
+  const Mongodb = require('mongodb');
+  const uri = "mongodb+srv://diseno:Ulacit1234@cluster0-40do9.mongodb.net/test?retryWrites=true&w=majority";
+  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: false });
 
+  client.connect(err => {
+    const collection = client.db("tramsadb").collection("materiaPrima");
+    console.log(req.body);
+
+
+    collection.deleteOne({_id: new Mongodb.ObjectID(req.body._id),function(err, res) {
+      if (err) throw err;
+      client.close();
+      
+    }})
+
+  }),
+  res.redirect('/materiaPrima');
+
+});
 
 //################Administracion/Productos################
 router.get('/productos', (req, res) => {
@@ -245,19 +336,21 @@ router.get('/productos', (req, res) => {
 
 
 //################Administracion/ProductosDetalle################
-router.get('/productosD', (req, res) => {
+router.get('/productosD', (req, res) => { //busqueda del browser
   const MongoClient = require('mongodb').MongoClient;
   const uri = "mongodb+srv://diseno:Ulacit1234@cluster0-40do9.mongodb.net/test?retryWrites=true&w=majority";
-  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: false });
   client.connect(err => {
-    const collection = client.db("tramsadb").collection("productoD");
+    const collection = client.db("tramsadb").collection("productoDetalle");
     collection.find({}).toArray(function (err, result) {
       if (err) throw err;
-      res.render('../HTML/Administracion/productosD', { Resultado: result });
+      res.render('../HTML/Administracion/productosD', { Resultado: result }); //busqueda en code
       client.close();
     });
   });
+
 })
+
 //Insertar ProductosDetalle
 router.get('/formProducD', (req, res) => {
   res.render('../HTML/Administracion/Forms/formProducD', {
@@ -265,23 +358,47 @@ router.get('/formProducD', (req, res) => {
     errors: {}
   });
 });
+
 router.post('/formProducD', (req, res) => {
   const MongoClient = require('mongodb').MongoClient;
   const uri = "mongodb+srv://diseno:Ulacit1234@cluster0-40do9.mongodb.net/test?retryWrites=true&w=majority";
-  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: false });
+
   client.connect(err => {
-    const collection = client.db("tramsadb").collection("productoD");
-    collection.insertOne(req.body, function (err, res) {
+    const collection = client.db("tramsadb").collection("productoDetalle");
+    collection.insertOne(req.body,function(err, res) {
       if (err) throw err;
       client.close();
     })
   }),
-    res.render('../HTML/Administracion/Forms/formProducD', {
-      data: req.body
-    })
+  res.render('../HTML/Administracion/Forms/formProducD', {
+    data: req.body
+  })
 });
 
+//Eliminar Producto Detalle
+router.post('/productosD', (req, res) => {
+  
+  const MongoClient = require('mongodb').MongoClient;
+  const Mongodb = require('mongodb');
+  const uri = "mongodb+srv://diseno:Ulacit1234@cluster0-40do9.mongodb.net/test?retryWrites=true&w=majority";
+  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: false });
 
+  client.connect(err => {
+    const collection = client.db("tramsadb").collection("productoDetalle");
+    console.log(req.body);
+
+
+    collection.deleteOne({_id: new Mongodb.ObjectID(req.body._id),function(err, res) {
+      if (err) throw err;
+      client.close();
+      
+    }})
+
+  }),
+  res.redirect('/productosD');
+
+});
 
 
 //################Administracion/ProductosMaestro################
@@ -290,7 +407,7 @@ router.get('/productosM', (req, res) => {
   const uri = "mongodb+srv://diseno:Ulacit1234@cluster0-40do9.mongodb.net/test?retryWrites=true&w=majority";
   const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
   client.connect(err => {
-    const collection = client.db("tramsadb").collection("productoM");
+    const collection = client.db("tramsadb").collection("productoMaestro");
     collection.find({}).toArray(function (err, result) {
       if (err) throw err;
       res.render('../HTML/Administracion/productosM', { Resultado: result });
@@ -310,7 +427,7 @@ router.post('/formProducM', (req, res) => {
   const uri = "mongodb+srv://diseno:Ulacit1234@cluster0-40do9.mongodb.net/test?retryWrites=true&w=majority";
   const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
   client.connect(err => {
-    const collection = client.db("tramsadb").collection("productoM");
+    const collection = client.db("tramsadb").collection("productoMaestro");
     collection.insertOne(req.body, function (err, res) {
       if (err) throw err;
       client.close();
@@ -321,7 +438,29 @@ router.post('/formProducM', (req, res) => {
     })
 });
 
+//Eliminar Producto Maestro
+router.post('/productosM', (req, res) => {
+  
+  const MongoClient = require('mongodb').MongoClient;
+  const Mongodb = require('mongodb');
+  const uri = "mongodb+srv://diseno:Ulacit1234@cluster0-40do9.mongodb.net/test?retryWrites=true&w=majority";
+  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: false });
 
+  client.connect(err => {
+    const collection = client.db("tramsadb").collection("productoMaestro");
+    console.log(req.body);
+
+
+    collection.deleteOne({_id: new Mongodb.ObjectID(req.body._id),function(err, res) {
+      if (err) throw err;
+      client.close();
+      
+    }})
+
+  }),
+  res.redirect('/productosM');
+
+});
 
 
 //################Administracion/Proveedores################
@@ -361,7 +500,29 @@ router.post('/formProveedores', (req, res) => {
     })
 });
 
+//Eliminar Proveedores
+router.post('/proveedores', (req, res) => {
+  
+  const MongoClient = require('mongodb').MongoClient;
+  const Mongodb = require('mongodb');
+  const uri = "mongodb+srv://diseno:Ulacit1234@cluster0-40do9.mongodb.net/test?retryWrites=true&w=majority";
+  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: false });
 
+  client.connect(err => {
+    const collection = client.db("tramsadb").collection("proveedores");
+    console.log(req.body);
+
+
+    collection.deleteOne({_id: new Mongodb.ObjectID(req.body._id),function(err, res) {
+      if (err) throw err;
+      client.close();
+      
+    }})
+
+  }),
+  res.redirect('/proveedores');
+
+});
 
 //################Administracion/TipoMateriaPrima################
 router.get('/tipoMateriaPrima', (req, res) => {
@@ -400,6 +561,29 @@ router.post('/formTipoMateria', (req, res) => {
     })
 });
 
+//Eliminar Tipo Materia Prima
+router.post('/tipoMateriaPrima', (req, res) => {
+  
+  const MongoClient = require('mongodb').MongoClient;
+  const Mongodb = require('mongodb');
+  const uri = "mongodb+srv://diseno:Ulacit1234@cluster0-40do9.mongodb.net/test?retryWrites=true&w=majority";
+  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: false });
+
+  client.connect(err => {
+    const collection = client.db("tramsadb").collection("tipoMateriaPrima");
+    console.log(req.body);
+
+
+    collection.deleteOne({_id: new Mongodb.ObjectID(req.body._id),function(err, res) {
+      if (err) throw err;
+      client.close();
+      
+    }})
+
+  }),
+  res.redirect('/tipoMateriaPrima');
+
+});
 
 
 //################Consultas/Pedido################
