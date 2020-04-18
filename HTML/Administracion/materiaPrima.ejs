@@ -47,9 +47,10 @@
                         <a type="button" href="/formMateriaPrima" class="btn btn-success"><i class="fas fa-plus"></i> Agregar nuevo</a>
                     </div>
                 </div>
-                <table class="table table-light table-bordered table-responsive-sm">
+                <table id="tableMateria" class="table table-light table-bordered table-responsive-sm">
                     <thead>
                         <tr>
+                            <th style="display: none;">id</th>
                             <th>Código</th>
                             <th>Nombre</th>
                             <th>Nombre corto</th>
@@ -62,13 +63,14 @@
                         <%if (Resultado != ''){ %>
                         <% Resultado.forEach(function(row){ %>
                         <tr>
+                            <td style="display: none;"><%= row._id %></td>
                             <td><%= row.codigoMateriaPr %></td>
                             <td><%= row.nombre %></td>
                             <td><%= row.nombreCorto %></td>
                             <td><%= row.cantidadExistente %></td>
                             <td><%= row.unidadMedida %></td>
                             <td>
-                                <button class="btn"><i class="fas fa-trash"></i></button>
+                                <button class="btn"><i class="fas fa-trash" onclick="eliminar(this)"></i></button>
                                 <button class="btn"><i class="fas fa-pencil-alt"></i></button>
                             </td>
                         </tr>
@@ -96,4 +98,22 @@
             });
         });
     });
+
+    function eliminar(objectPressed) {
+        var objeto = objectPressed.parentNode.parentNode.parentNode;
+        var numero = objeto.getElementsByTagName("td")[0].innerHTML;
+        post("/materiaPrima", { _id: numero});
+        document.getElementById("tableMateria").deleteRow(objeto.rowIndex);
+    }
+
+    window.post = function (url, data) {
+        const request = new Request(url, {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: new Headers({
+                'Content-Type': 'application/json'
+            })
+        });
+        return fetch(request);
+    }
 </script>
