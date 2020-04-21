@@ -43,44 +43,50 @@
                             <div class="card-body">
                                 <h4 class="card-title text-center">Modificar Producción en lote</h4>
                                 </br>
-                                <form method="post" action="/formProdModificar/<%= Resultado[0]._id %>" novalidate>
+                                <script>
+                                    var mensaje = '<%= Updated %>';
+                                    if(mensaje != '')
+                                      alert('<%= Updated %>');
+                                </script>
+                                
+                                <form method="post" action="/formProdModificar/<%= Resultado._id %>" novalidate>
                                     <div class="form-row">
                                         <div class="form-group col-md-12">
-                                            <input type="hidden" class="form-control" id="id" value="<%= Resultado[0]._id %>" name="_id">
+                                            <input type="hidden" class="form-control" id="id" value="<%= Resultado._id %>" name="_id">
                                         </div>
                                     </div>
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
                                             <label for="numero">Numero</label>
-                                            <input type="text" class="form-control" id="numero" value="<%= Resultado[0].numProduccion %>" name="numProduccion">
+                                            <input type="text" class="form-control" id="numero" value="<%= Resultado.numProduccion %>" name="numProduccion">
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label for="fecha">Fecha </label>
-                                            <input type="date" class="form-control" id="fecha" value="<%= Resultado[0].Fecha %>" name="Fecha">
+                                            <input type="date" class="form-control" id="fecha" value="<%= Resultado.Fecha %>" name="Fecha">
                                         </div>
                                     </div>
                                     <div class="form-row">
                                         <div class="form-group col-md-8">
                                             <label for="codigo">Codigo</label>
-                                            <input type="text" class="form-control" id="codigo" value="<%= Resultado[0].codigoProducto %>" name="codigoProducto">
+                                            <input type="text" class="form-control" id="codigo" value="<%= Resultado.codigoProducto %>" name="codigoProducto">
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label for="producto">Producto</label>
-                                            <input type="text" class="form-control" id="producto" value="<%= Resultado[0].Producto %>" name="Producto"> 
+                                            <input type="text" class="form-control" id="producto" value="<%= Resultado.Producto %>" name="Producto"> 
                                         </div>
                                     </div>
                                     <div class="form-row">
                                         <div class="form-group col-md-4">
                                             <label for="bodega">Bodega</label>
-                                            <input type="text" class="form-control" id="bodega" value="<%= Resultado[0].Bodega %>" name="Bodega">
+                                            <input type="text" class="form-control" id="bodega" value="<%= Resultado.Bodega %>" name="Bodega">
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label for="cantidad">Cantidad</label>
-                                            <input type="text" class="form-control" id="cantidad" value="<%= Resultado[0].Cantidad %>" name="Cantidad">
+                                            <input type="text" class="form-control" id="cantidad" value="<%= Resultado.Cantidad %>" name="Cantidad">
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label for="tiempo">Tiempo</label>
-                                            <input type="text" class="form-control" id="tiempo"value="<%= Resultado[0].Tiempo %>"  name="Tiempo">
+                                            <input type="text" class="form-control" id="tiempo"value="<%= Resultado.Tiempo %>"  name="Tiempo">
                                         </div>
                                     </div>
                                     <button type="submit" class="btn btn-success"><i class="fas fa-check"></i>

@@ -735,11 +735,14 @@ router.get('/formProdModificar/:id', (req, res) => {
   const MongoClient = require('mongodb').MongoClient;
   const uri = "mongodb+srv://diseno:Ulacit1234@cluster0-40do9.mongodb.net/test?retryWrites=true&w=majority";
   const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+  const Mongodb = require('mongodb');
   client.connect(err => {
     const collection = client.db("tramsadb").collection("produccionLote");
-    collection.find(req.params.id).toArray(function (err, result) {
+    collection.findOne({_id: new Mongodb.ObjectId(req.params.id) }, function(err, result) {
       if (err) throw err;
-      res.render('../HTML/Procesos/Forms/formProdModificar', { Resultado: result });
+      res.render('../HTML/Procesos/Forms/formProdModificar', 
+      { Resultado: result,
+        Updated: ""  });
       client.close();
     });
   });
@@ -751,6 +754,7 @@ router.post('/formProdModificar/:id', (req, res) => {
   const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
   const Mongodb = require('mongodb');
   const request = req;
+  var mensaje = "";
   client.connect(err => {
     const collection = client.db("tramsadb").collection("produccionLote");
     const myquery = { _id: new Mongodb.ObjectId(request.params.id) };
@@ -765,10 +769,15 @@ router.post('/formProdModificar/:id', (req, res) => {
     } };
     collection.findOneAndUpdate(myquery, newvalues, {upsert: true}, function(err,doc) {
       if (err) { throw err; }
-      else { console.log("Updated"); }
+      else {
+        mensaje = "Objeto actualizado";
+        res.render('../HTML/Procesos/Forms/formProdModificar', 
+        { Resultado: req.body,
+          Updated: mensaje 
+        } );
+      }
     })
-  }),
-    res.redirect('/formProdModificar/'+ req.params.id );
+  })
 });
 
 
