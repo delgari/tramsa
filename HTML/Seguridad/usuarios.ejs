@@ -2,9 +2,8 @@
 <html lang="en">
 
 <head>
-    <title>Productos</title>
+    <title>Usuarios</title>
     <%- include ('../partials/head') %>
-
 </head>
 
 <body>
@@ -36,41 +35,42 @@
                     </div>
                 </div>
             </nav>
-
             <!-- Formulario -->
             <div class="container">
-                <h2>Productos - Maestro</h2>
+                <h2>Usuarios</h2>
                 </br>
                 <div class="form-row">
                     <div class="form-group col-md-10">
                         <input class="form-control" id="buscar" type="text" placeholder="Buscar..">
                     </div>
                     <div class="form-group">
-                        <a type="button" href="/formProducM" class="btn btn-success"><i class="fas fa-plus"></i> Agregar nuevo</a>
+                        <a type="button" href="/formUsuarios" class="btn btn-success"><i class="fas fa-plus"></i> Agregar nuevo</a>
                     </div>
                 </div>
-                <table id="tableProducM" class="table table-light table-bordered table-responsive-sm">
+                <table id="tableUsuario" class="table table-light table-bordered table-responsive-sm">
                     <thead>
                         <tr>
                             <th style="display: none;">id</th>
                             <th>Código</th>
-                            <th>Descripción</th>
-                            <th>Punto de re-orden</th>
-                            <th>Unidad de medida</th>
+                            <th>Nombre</th>
                             <th>Nombre corto</th>
+                            <th>User</th>
+                            <th>Correo electrónico</th>
+                            <th>Estado</th>
                             <th>Acción</th>
                         </tr>
                     </thead>
-                    <tbody id="maestro">
+                    <tbody id="usuarios">
                         <%if (Resultado != ''){ %>
                         <% Resultado.forEach(function(row){ %>
                         <tr>
                             <td style="display: none;"><%= row._id %></td>
-                            <td><%= row.codigoProducto %></td>
-                            <td><%= row.descipcion %></td>
-                            <td><%= row.puntoReOrden %></td>
-                            <td><%= row.unidadMedida %></td>
+                            <td><%= row.codigoUsuario %></td>
+                            <td><%= row.nombre %></td>
                             <td><%= row.nombreCorto %></td>
+                            <td><%= row.user %></td>
+                            <td><%= row.correo %></td>
+                            <td><%= row.estado %></td>
                             <td>
                                 <button class="btn"><i class="fas fa-trash" onclick="eliminar(this)"></i></button>
                                 <button class="btn"><i class="fas fa-pencil-alt"></i></button>
@@ -85,7 +85,6 @@
                     </tbody>
                 </table>
             </div>
-
         </div>
     </div>
 </body>
@@ -96,7 +95,7 @@
     $(document).ready(function () {
         $("#buscar").on("keyup", function () {
             var value = $(this).val().toLowerCase();
-            $("#maestro tr").filter(function () {
+            $("#usuarios tr").filter(function () {
                 $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
             });
         });
@@ -105,8 +104,8 @@
     function eliminar(objectPressed) {
         var objeto = objectPressed.parentNode.parentNode.parentNode;
         var numero = objeto.getElementsByTagName("td")[0].innerHTML;
-        post("/formProducM", { _id: numero});
-        document.getElementById("tableProducM").deleteRow(objeto.rowIndex);
+        post("/usuarios", { _id: numero});
+        document.getElementById("tableUsuario").deleteRow(objeto.rowIndex);
     }
 
     window.post = function (url, data) {
