@@ -2,14 +2,14 @@
 <html lang="en">
 
 <head>
-    <title>Bodegas</title>
-    <%- include ('../../partials/head') %>
+    <title>Usuarios</title>
+    <%- include ('../partials/head') %>
 </head>
 
 <body>
 
     <div class="wrapper">
-        <%- include ('../../partials/navegacion') %>
+        <%- include ('../partials/navegacion') %>
         <!-- Contenido general -->
         <div id="content">
             <!-- Navbar -->
@@ -42,9 +42,9 @@
                     <div class="col-sm-10 col-md-7 col-lg-8 mx-auto">
                         <div class="card card-signin my-3">
                             <div class="card-body">
-                                <h4 class="card-title text-center">Bodegas</h4>
+                                <h4 class="card-title text-center">Usuarios</h4>
                                 </br>
-                                <form method="post" action="/formBodegas" novalidate>
+                                <form method="post" action="/formUsuarios" novalidate>
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
                                             <label for="nombre">Nombre</label>
@@ -56,33 +56,32 @@
                                         </div>
                                     </div>
                                     <div class="form-row">
-                                        <div class="form-group col-md-8">
-                                            <label for="ubicacion">Ubación</label>
-                                            <input type="text" class="form-control" id="ubicacion" name="ubicacion" required>
+                                        <div class="form-group col-md-4">
+                                            <label for="user">Nombre de usuario</label>
+                                            <input type="text" class="form-control" id="user" name="user" required>
                                         </div>
                                         <div class="form-group col-md-4">
-                                            <label for="alias">Alias</label>
-                                            <input type="text" class="form-control" id="alias" name="alias" required>
+                                            <label for="contrasena">Contraseña</label>
+                                            <input type="password" class="form-control" id="contrasena" name="contrasena"
+                                                required>
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label for="estado">Estado</label>
+                                            <select id="estado" class="form-control" name="estado">
+                                                <option selected>Activo</option>
+                                                <option>Inactivo</option>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="form-row">
-                                        <div class="form-group col-md-4">
-                                            <label for="unidadMedida">Unidad de medida</label>
-                                            <input type="text" class="form-control" id="unidadMedida"
-                                                name="unidadMedida" placeholder="Metros, litros" required> 
-                                        </div>
-                                        <div class="form-group col-md-4">
-                                            <label for="espacio">Espacio</label>
-                                            <input type="text" class="form-control" id="espacio" name="espacioBodega" required>
-                                        </div>
-                                        <div class="form-group col-md-4">
-                                            <label for="tipo">Tipo</label>
-                                            <input type="text" class="form-control" id="tipo" name="tipoBodega" required>
+                                        <div class="form-group col-md-12">
+                                            <label for="correo">Correo electrónico</label>
+                                            <input type="text" class="form-control" id="correo" name="correo" required>
                                         </div>
                                     </div>
                                     <button type="submit" class="btn btn-success"><i class="fas fa-check"></i>
                                         Crear</button>
-                                    <a class="btn btn-danger" href="/bodegas"><i class="fas fa-times"></i>
+                                    <a class="btn btn-danger" href="/usuarios"><i class="fas fa-times"></i>
                                         Salir</a>
                                 </form>
                             </div>

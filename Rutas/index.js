@@ -1,50 +1,45 @@
 const express = require('express');
 const router = express.Router();
 
-
-
-
 ////################Login################
 router.get('/', (req, res) => {
   res.render('../HTML/Sistema/login');
 });
-
 
 ////################CambioContrasena################
 router.get('/cambioPassword', (req, res) => {
   res.render('../HTML/Sistema/cambioPassword');
 });
 
-
 //################PaginaPrincipal################
 router.get('/paginaPrincipal', (req, res) => {
   res.render('../HTML/paginaPrincipal');
 });
 
-
 //################ParametrosGenerales################
 router.get('/parametrosGen', (req, res) => {
-  res.render('../HTML/Parametros/parametrosGen.html');
+  res.render('../HTML/Parametros/parametrosGen');
 });
 
+//################Consecutivos################
+router.get('/consecutivos', (req, res) => {
+  res.render('../HTML/Parametros/consecutivos');
+});
 
 //################Reportes################
 router.get('/reportes', (req, res) => { //Browser
   res.render('../HTML/Reportes/reporte'); //Busca en el código
 });
 
-
 //################ProductoReportes################
 router.get('/productoReporte', (req, res) => { //Browser
   res.render('../HTML/Reportes/productoReporte'); //Busca en el código
 });
 
-
 //################InventarioReportes################
 router.get('/inventario', (req, res) => { //Browser
   res.render('../HTML/Reportes/inventario'); //Busca en el código
 });
-
 
 //################InventarioBodegaReportes################
 router.get('/inventarioBodega', (req, res) => {
@@ -61,25 +56,20 @@ router.get('/inventarioBodega', (req, res) => {
   });
 });
 
-
 //################InventarioGeneralReportes################
 router.get('/inventarioGeneral', (req, res) => {
   res.render('../HTML/Reportes/invGeReporte');
 });
-
 
 //################AcercaDe################
 router.get('/acercaDe', (req, res) => { //Browser
   res.render('../HTML/Ayuda/acercaDe.html'); //Busca en el código
 });
 
-
 //################Ayuda################
 router.get('/ayuda', (req, res) => { //Browser
   res.render('../HTML/Ayuda/ayuda.html'); //Busca en el código
 });
-
-
 
 //################Administracion/Bodegas################
 router.get('/bodegas', (req, res) => {
@@ -924,8 +914,66 @@ router.get('/invGeReporte', (req, res) => {
   });
 })
 
-
-
+////################Usuarios################
+router.get('/usuarios', (req, res) => {
+  const MongoClient = require('mongodb').MongoClient;
+  const uri = "mongodb+srv://diseno:Ulacit1234@cluster0-40do9.mongodb.net/test?retryWrites=true&w=majority";
+  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+  client.connect(err => {
+    const collection = client.db("tramsadb").collection("usuario");
+    collection.find({}).toArray(function (err, result) {
+      if (err) throw err;
+      res.render('../HTML/Seguridad/usuarios', { Resultado: result });
+      client.close();
+    });
+  });
+})
 
 module.exports = router;
 
+//Insertar Usuarios
+router.get('/formUsuarios', (req, res) => {
+  res.render('../HTML/Seguridad/formUsuarios', {
+    data: {},
+    errors: {}
+  });
+});
+router.post('/formUsuarios', (req, res) => {
+  const MongoClient = require('mongodb').MongoClient;
+  const uri = "mongodb+srv://diseno:Ulacit1234@cluster0-40do9.mongodb.net/test?retryWrites=true&w=majority";
+  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+  client.connect(err => {
+    const collection = client.db("tramsadb").collection("usuario");
+    collection.insertOne(req.body, function (err, res) {
+      if (err) throw err;
+      client.close();
+    })
+  }),
+    res.render('../HTML/Seguridad/formUsuarios', {
+      data: req.body
+    })
+});
+
+//Eliminar Tipo Materia Prima
+router.post('/usuarios', (req, res) => {
+  
+  const MongoClient = require('mongodb').MongoClient;
+  const Mongodb = require('mongodb');
+  const uri = "mongodb+srv://diseno:Ulacit1234@cluster0-40do9.mongodb.net/test?retryWrites=true&w=majority";
+  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: false });
+
+  client.connect(err => {
+    const collection = client.db("tramsadb").collection("usuario");
+    console.log(req.body);
+
+
+    collection.deleteOne({_id: new Mongodb.ObjectID(req.body._id),function(err, res) {
+      if (err) throw err;
+      client.close();
+      
+    }})
+
+  }),
+  res.redirect('/usuarios');
+
+});
