@@ -63,12 +63,17 @@ router.get('/inventarioGeneral', (req, res) => {
 
 //################AcercaDe################
 router.get('/acercaDe', (req, res) => { //Browser
-  res.render('../HTML/Ayuda/acercaDe.html'); //Busca en el código
+  res.render('../HTML/Ayuda/acercaDe'); //Busca en el código
 });
 
 //################Ayuda################
 router.get('/ayuda', (req, res) => { //Browser
-  res.render('../HTML/Ayuda/ayuda.html'); //Busca en el código
+  res.render('../HTML/Ayuda/ayuda'); //Busca en el código
+});
+
+//################Otros/consulta################
+router.get('/AyudaConsulta', (req, res) => { //Browser
+  res.render('../HTML/Ayuda/consulta'); //Busca en el código
 });
 
 //################Administracion/Bodegas################
