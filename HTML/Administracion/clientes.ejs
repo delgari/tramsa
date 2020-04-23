@@ -80,7 +80,7 @@
                             <td><%= row.estado %></td>
                             <td>
                                 <button class="btn"><i class="fas fa-trash" onclick="eliminar(this)"></i></button>
-                                <button class="btn"><i class="fas fa-pencil-alt"></i></button>
+                                <button class="btn"><a href="/formClientesModificar/<%= row._id %>"> <i class="fas fa-pencil-alt"></i></a></button>
                             </td>
                         </tr>
                         <% })}else{ %>

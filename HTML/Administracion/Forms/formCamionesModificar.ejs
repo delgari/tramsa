@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Productos</title>
+    <title>Camiones</title>
     <%- include ('../../partials/head') %>
 </head>
 
@@ -42,35 +42,42 @@
                     <div class="col-sm-10 col-md-7 col-lg-8 mx-auto">
                         <div class="card card-signin my-3">
                             <div class="card-body">
-                                <h4 class="card-title text-center">Maestro</h4>
+                                <h4 class="card-title text-center">Camiones</h4>
                                 </br>
-                                <form method="post" action="/formProducM" novalidate>
+                                <script>
+                                    var mensaje = '<%= Updated %>';
+                                    if(mensaje != '')
+                                      alert('<%= Updated %>');
+                                </script>
+                                <form method="post" action="/formCamionesModificar/<%= Resultado._id %>" novalidate>
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
-                                            <label for="descripcion">Descripción</label>
-                                            <input type="text" class="form-control" id="descripcion" name="descipcion">
+                                            <label for="marca">Marca</label>
+                                            <input type="text" class="form-control" id="marca" name="marca" value="<%= Resultado._marca %>">
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <label for="nombreCorto">Nombre Corto</label>
-                                            <input type="text" class="form-control" id="nombreCorto" name="nombreCorto">
+                                            <label for="nombreCorto">Nombre corto</label>
+                                            <input type="text" class="form-control" id="nombreCorto" name="nombreCorto" value="<%= Resultado._nombreCorto %>">
                                         </div>
                                     </div>
                                     <div class="form-row">
-                                        <div class="form-group col-md-6">
-                                            <label for="puntoReOrden">Punto de Re-orden</label>
-                                            <input type="text" class="form-control" id="puntoReOrden"
-                                                name="puntoReOrden">
+                                        <div class="form-group col-md-8">
+                                            <label for="descripcion">Descripción</label>
+                                            <input type="text" class="form-control" id="descripcion" name="descripcion" value="<%= Resultado._descripcion %>">
                                         </div>
-                                        <div class="form-group col-md-6">
-                                            <label for="descripcion">Unidad de medida</label>
-                                            <input type="text" class="form-control"
-                                                placeholder="Metros, metros cúbicos, litros..." id="descripcion"
-                                                name="unidadMedida">
+                
+                                        <div class="form-group col-md-2">
+                                            <label for="year">Año</label>
+                                            <input type="text" class="form-control" id="ayear" name="ano" value="<%= Resultado._ano %>">
+                                        </div>
+                                        <div class="form-group col-md-2">
+                                            <label for="placa">Placa</label>
+                                            <input type="text" class="form-control" id="placa" name="placa" value="<%= Resultado._placa %>">
                                         </div>
                                     </div>
                                     <button type="submit" class="btn btn-success"><i class="fas fa-check"></i>
-                                        Crear</button>
-                                    <a class="btn btn-danger" href="/productosM"><i class="fas fa-times"></i>
+                                        Modificar</button>
+                                    <a class="btn btn-danger" href="/camiones"><i class="fas fa-times"></i>
                                         Salir</a>
                                 </form>
                             </div>
@@ -80,6 +87,7 @@
             </div>
         </div>
     </div>
+
 </body>
 
 </html>
