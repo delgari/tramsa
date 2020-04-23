@@ -8,40 +8,48 @@ router.get('/', (req, res) => {
   });
 });
 
+
 ////################CambioContrasena################
 router.get('/cambioPassword', (req, res) => {
   res.render('../HTML/Sistema/cambioPassword');
 });
+
 
 //################PaginaPrincipal################
 router.get('/paginaPrincipal', (req, res) => {
   res.render('../HTML/paginaPrincipal');
 });
 
+
 //################ParametrosGenerales################
 router.get('/parametrosGen', (req, res) => {
   res.render('../HTML/Parametros/parametrosGen');
 });
+
 
 //################Consecutivos################
 router.get('/consecutivos', (req, res) => {
   res.render('../HTML/Parametros/consecutivos');
 });
 
+
 //################Reportes################
 router.get('/reportes', (req, res) => { //Browser
   res.render('../HTML/Reportes/reporte'); //Busca en el código
 });
+
 
 //################ProductoReportes################
 router.get('/productoReporte', (req, res) => { //Browser
   res.render('../HTML/Reportes/productoReporte'); //Busca en el código
 });
 
+
 //################InventarioReportes################
 router.get('/inventario', (req, res) => { //Browser
   res.render('../HTML/Reportes/inventario'); //Busca en el código
 });
+
 
 //################InventarioBodegaReportes################
 router.get('/inventarioBodega', (req, res) => {
@@ -58,15 +66,18 @@ router.get('/inventarioBodega', (req, res) => {
   });
 });
 
+
 //################InventarioGeneralReportes################
 router.get('/inventarioGeneral', (req, res) => {
   res.render('../HTML/Reportes/invGeReporte');
 });
 
+
 //################AcercaDe################
 router.get('/acercaDe', (req, res) => { //Browser
   res.render('../HTML/Ayuda/acercaDe'); //Busca en el código
 });
+
 
 //################Ayuda################
 router.get('/ayuda', (req, res) => { //Browser
@@ -99,6 +110,7 @@ router.post('/login',(req,res)=> {
     });
   })
 });
+
 
 //################Administracion/Bodegas################
 router.get('/bodegas', (req, res) => {
@@ -156,6 +168,55 @@ router.post('/bodegas', (req, res) => {
     res.redirect('/bodegas');
 });
 
+//Modificar Bodegas
+router.get('/formBodegasModificar/:id', (req, res) => {
+  const MongoClient = require('mongodb').MongoClient;
+  const uri = "mongodb+srv://diseno:Ulacit1234@cluster0-40do9.mongodb.net/test?retryWrites=true&w=majority";
+  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+  const Mongodb = require('mongodb');
+  client.connect(err => {
+    const collection = client.db("tramsadb").collection("bodega");
+    collection.findOne({_id: new Mongodb.ObjectId(req.params.id) }, function(err, result) {
+      if (err) throw err;
+      res.render('../HTML/Administracion/Forms/formBodegasModificar', 
+      { Resultado: result,
+        Updated: ""  });
+      client.close();
+    });
+  });
+});
+
+router.post('/formBodegasModificar/:id', (req, res) => {
+  const MongoClient = require('mongodb').MongoClient;
+  const uri = "mongodb+srv://diseno:Ulacit1234@cluster0-40do9.mongodb.net/test?retryWrites=true&w=majority";
+  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+  const Mongodb = require('mongodb');
+  const request = req;
+  var mensaje = "";
+  client.connect(err => {
+    const collection = client.db("tramsadb").collection("bodega");
+    const myquery = { _id: new Mongodb.ObjectId(request.params.id) };
+    const newvalues = { $set: {
+      nombre: request.body.nombre,
+      alias: request.body.alias,
+      ubicacion: request.body.ubicacion,
+      unidadMedida: request.body.unidadMedida,
+      tipoBodega: request.body.tipoBodega,
+      espacioBodega: request.body.espacioBodega,
+      nombreCorto: request.body.nombreCorto
+    } };
+    collection.findOneAndUpdate(myquery, newvalues, {upsert: true}, function(err,doc) {
+      if (err) { throw err; }
+      else {
+        mensaje = "Objeto actualizado";
+        res.render('../HTML/Administracion/Forms/formBodegasModificar', 
+        { Resultado: req.body,
+          Updated: mensaje 
+        } );
+      }
+    })
+  })
+});
 
 
 //################Administracion/Camiones################
@@ -219,6 +280,55 @@ router.post('/camiones', (req, res) => {
 
 });
 
+//Modificar Camiones
+router.get('/formCamionesModificar/:id', (req, res) => {
+  const MongoClient = require('mongodb').MongoClient;
+  const uri = "mongodb+srv://diseno:Ulacit1234@cluster0-40do9.mongodb.net/test?retryWrites=true&w=majority";
+  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+  const Mongodb = require('mongodb');
+  client.connect(err => {
+    const collection = client.db("tramsadb").collection("camion");
+    collection.findOne({_id: new Mongodb.ObjectId(req.params.id) }, function(err, result) {
+      if (err) throw err;
+      res.render('../HTML/Administracion/Forms/formCamionesModificar', 
+      { Resultado: result,
+        Updated: ""  });
+      client.close();
+    });
+  });
+});
+
+router.post('/formCamionesModificar/:id', (req, res) => {
+  const MongoClient = require('mongodb').MongoClient;
+  const uri = "mongodb+srv://diseno:Ulacit1234@cluster0-40do9.mongodb.net/test?retryWrites=true&w=majority";
+  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+  const Mongodb = require('mongodb');
+  const request = req;
+  var mensaje = "";
+  client.connect(err => {
+    const collection = client.db("tramsadb").collection("camion");
+    const myquery = { _id: new Mongodb.ObjectId(request.params.id) };
+    const newvalues = { $set: {
+      descripcion: request.body.descripcion,
+      nombreCorto: request.body.nombreCorto,
+      marca: request.body.marca,
+      ano: request.body.ano,
+      placa: request.body.placa
+    } };
+    collection.findOneAndUpdate(myquery, newvalues, {upsert: true}, function(err,doc) {
+      if (err) { throw err; }
+      else {
+        mensaje = "Objeto actualizado";
+        res.render('../HTML/Administracion/Forms/formCamionesModificar', 
+        { Resultado: req.body,
+          Updated: mensaje 
+        } );
+      }
+    })
+  })
+});
+
+
 //################Administracion/Clientes################
 router.get('/clientes', (req, res) => {
   const MongoClient = require('mongodb').MongoClient;
@@ -278,6 +388,57 @@ router.post('/clientes', (req, res) => {
   }),
   res.redirect('/clientes');
 
+});
+
+//Modificar Clientes
+router.get('/formClientesModificar/:id', (req, res) => {
+  const MongoClient = require('mongodb').MongoClient;
+  const uri = "mongodb+srv://diseno:Ulacit1234@cluster0-40do9.mongodb.net/test?retryWrites=true&w=majority";
+  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+  const Mongodb = require('mongodb');
+  client.connect(err => {
+    const collection = client.db("tramsadb").collection("cliente");
+    collection.findOne({_id: new Mongodb.ObjectId(req.params.id) }, function(err, result) {
+      if (err) throw err;
+      res.render('../HTML/Administracion/Forms/formClientesModificar', 
+      { Resultado: result,
+        Updated: ""  });
+      client.close();
+    });
+  });
+});
+
+router.post('/formClientesModificar/:id', (req, res) => {
+  const MongoClient = require('mongodb').MongoClient;
+  const uri = "mongodb+srv://diseno:Ulacit1234@cluster0-40do9.mongodb.net/test?retryWrites=true&w=majority";
+  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+  const Mongodb = require('mongodb');
+  const request = req;
+  var mensaje = "";
+  client.connect(err => {
+    const collection = client.db("tramsadb").collection("cliente");
+    const myquery = { _id: new Mongodb.ObjectId(request.params.id) };
+    const newvalues = { $set: {
+      cedula: request.body.cedula,
+      nombre: request.body.nombre,
+      apellido1: request.body.apellido1,
+      apellido2: request.body.apellido2,
+      correo: request.body.correo,
+      direciion: request.body.direciion,
+      telefono: request.body.telefono,
+      estado: request.body.estado
+    } };
+    collection.findOneAndUpdate(myquery, newvalues, {upsert: true}, function(err,doc) {
+      if (err) { throw err; }
+      else {
+        mensaje = "Objeto actualizado";
+        res.render('../HTML/Administracion/Forms/formClientesModificar', 
+        { Resultado: req.body,
+          Updated: mensaje 
+        } );
+      }
+    })
+  })
 });
 
 
@@ -342,11 +503,58 @@ router.post('/materiaPrima', (req, res) => {
 
 });
 
+//Modificar Materia Prima
+router.get('/formMateriaModificar/:id', (req, res) => {
+  const MongoClient = require('mongodb').MongoClient;
+  const uri = "mongodb+srv://diseno:Ulacit1234@cluster0-40do9.mongodb.net/test?retryWrites=true&w=majority";
+  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+  const Mongodb = require('mongodb');
+  client.connect(err => {
+    const collection = client.db("tramsadb").collection("materiaPrima");
+    collection.findOne({_id: new Mongodb.ObjectId(req.params.id) }, function(err, result) {
+      if (err) throw err;
+      res.render('../HTML/Administracion/Forms/formMateriaModificar', 
+      { Resultado: result,
+        Updated: ""  });
+      client.close();
+    });
+  });
+});
+
+router.post('/formMateriaModificar/:id', (req, res) => {
+  const MongoClient = require('mongodb').MongoClient;
+  const uri = "mongodb+srv://diseno:Ulacit1234@cluster0-40do9.mongodb.net/test?retryWrites=true&w=majority";
+  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+  const Mongodb = require('mongodb');
+  const request = req;
+  var mensaje = "";
+  client.connect(err => {
+    const collection = client.db("tramsadb").collection("materiaPrima");
+    const myquery = { _id: new Mongodb.ObjectId(request.params.id) };
+    const newvalues = { $set: {
+      nombre: request.body.nombre,
+      nombreCorto: request.body.nombreCorto,
+      cantidadExistente: request.body.cantidadExistente,
+      unidadMedida: request.body.unidadMedida
+    } };
+    collection.findOneAndUpdate(myquery, newvalues, {upsert: true}, function(err,doc) {
+      if (err) { throw err; }
+      else {
+        mensaje = "Objeto actualizado";
+        res.render('../HTML/Administracion/Forms/formMateriaModificar', 
+        { Resultado: req.body,
+          Updated: mensaje 
+        } );
+      }
+    })
+  })
+});
+
+
 //################Administracion/Productos################
 router.get('/productos', (req, res) => {
   res.render('../HTML/Administracion/productos');
 });
-
 
 
 //################Administracion/ProductosDetalle################
@@ -414,6 +622,51 @@ router.post('/productosD', (req, res) => {
 
 });
 
+//Modificar Productos Detalle
+router.get('/formProducDModificar/:id', (req, res) => {
+  const MongoClient = require('mongodb').MongoClient;
+  const uri = "mongodb+srv://diseno:Ulacit1234@cluster0-40do9.mongodb.net/test?retryWrites=true&w=majority";
+  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+  const Mongodb = require('mongodb');
+  client.connect(err => {
+    const collection = client.db("tramsadb").collection("productoDetalle");
+    collection.findOne({_id: new Mongodb.ObjectId(req.params.id) }, function(err, result) {
+      if (err) throw err;
+      res.render('../HTML/Administracion/Forms/formProducDModificar', 
+      { Resultado: result,
+        Updated: ""  });
+      client.close();
+    });
+  });
+});
+
+router.post('/formProducDModificar/:id', (req, res) => {
+  const MongoClient = require('mongodb').MongoClient;
+  const uri = "mongodb+srv://diseno:Ulacit1234@cluster0-40do9.mongodb.net/test?retryWrites=true&w=majority";
+  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+  const Mongodb = require('mongodb');
+  const request = req;
+  var mensaje = "";
+  client.connect(err => {
+    const collection = client.db("tramsadb").collection("productoDetalle");
+    const myquery = { _id: new Mongodb.ObjectId(request.params.id) };
+    const newvalues = { $set: {
+      codigoMateriaPrima: request.body.codigoMateriaPrima,
+      nombreCorto: request.body.nombreCorto
+    } };
+    collection.findOneAndUpdate(myquery, newvalues, {upsert: true}, function(err,doc) {
+      if (err) { throw err; }
+      else {
+        mensaje = "Objeto actualizado";
+        res.render('../HTML/Administracion/Forms/formProducDModificar', 
+        { Resultado: req.body,
+          Updated: mensaje 
+        } );
+      }
+    })
+  })
+});
+
 
 //################Administracion/ProductosMaestro################
 router.get('/productosM', (req, res) => {
@@ -474,6 +727,54 @@ router.post('/productosM', (req, res) => {
   }),
   res.redirect('/productosM');
 
+});
+
+//Modificar Productos Maestro
+router.get('/formProducMModificar/:id', (req, res) => {
+  const MongoClient = require('mongodb').MongoClient;
+  const uri = "mongodb+srv://diseno:Ulacit1234@cluster0-40do9.mongodb.net/test?retryWrites=true&w=majority";
+  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+  const Mongodb = require('mongodb');
+  client.connect(err => {
+    const collection = client.db("tramsadb").collection("productoMaestro");
+    collection.findOne({_id: new Mongodb.ObjectId(req.params.id) }, function(err, result) {
+      if (err) throw err;
+      res.render('../HTML/Administracion/Forms/formProducMModificar', 
+      { Resultado: result,
+        Updated: ""  });
+      client.close();
+    });
+  });
+});
+
+router.post('/formProducMModificar/:id', (req, res) => {
+  const MongoClient = require('mongodb').MongoClient;
+  const uri = "mongodb+srv://diseno:Ulacit1234@cluster0-40do9.mongodb.net/test?retryWrites=true&w=majority";
+  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+  const Mongodb = require('mongodb');
+  const request = req;
+  var mensaje = "";
+  client.connect(err => {
+    const collection = client.db("tramsadb").collection("productoMaestro");
+    const myquery = { _id: new Mongodb.ObjectId(request.params.id) };
+    const newvalues = { $set: {
+      descipcion: request.body.descipcion,
+      puntoReOrden: request.body.puntoReOrden,
+      unidadMedida: request.body.unidadMedida,
+      nombreCorto: request.body.nombreCorto
+
+    } };
+    collection.findOneAndUpdate(myquery, newvalues, {upsert: true}, function(err,doc) {
+      if (err) { throw err; }
+      else {
+        mensaje = "Objeto actualizado";
+        res.render('../HTML/Administracion/Forms/formProducMModificar', 
+        { Resultado: req.body,
+          Updated: mensaje 
+        } );
+      }
+    })
+  })
 });
 
 
@@ -538,6 +839,58 @@ router.post('/proveedores', (req, res) => {
 
 });
 
+//Modificar Proveedores
+router.get('/formProveedoresModificar/:id', (req, res) => {
+  const MongoClient = require('mongodb').MongoClient;
+  const uri = "mongodb+srv://diseno:Ulacit1234@cluster0-40do9.mongodb.net/test?retryWrites=true&w=majority";
+  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+  const Mongodb = require('mongodb');
+  client.connect(err => {
+    const collection = client.db("tramsadb").collection("proveedores");
+    collection.findOne({_id: new Mongodb.ObjectId(req.params.id) }, function(err, result) {
+      if (err) throw err;
+      res.render('../HTML/Administracion/Forms/formProveedoresModificar', 
+      { Resultado: result,
+        Updated: ""  });
+      client.close();
+    });
+  });
+});
+
+router.post('/formProveedoresModificar/:id', (req, res) => {
+  const MongoClient = require('mongodb').MongoClient;
+  const uri = "mongodb+srv://diseno:Ulacit1234@cluster0-40do9.mongodb.net/test?retryWrites=true&w=majority";
+  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+  const Mongodb = require('mongodb');
+  const request = req;
+  var mensaje = "";
+  client.connect(err => {
+    const collection = client.db("tramsadb").collection("proveedores");
+    const myquery = { _id: new Mongodb.ObjectId(request.params.id) };
+    const newvalues = { $set: {
+      cedula: request.body.cedula,
+      nombre: request.body.nombre,
+      nombreCorto: request.body.nombreCorto,
+      correo: request.body.correo,
+      direccion: request.body.direccion,
+      telefono: request.body.telefono,
+      contacto: request.body.contacto,
+      telefonoCont: request.body.telefonoCont
+    } };
+    collection.findOneAndUpdate(myquery, newvalues, {upsert: true}, function(err,doc) {
+      if (err) { throw err; }
+      else {
+        mensaje = "Objeto actualizado";
+        res.render('../HTML/Administracion/Forms/formProveedoresModificar', 
+        { Resultado: req.body,
+          Updated: mensaje 
+        } );
+      }
+    })
+  })
+});
+
+
 //################Administracion/TipoMateriaPrima################
 router.get('/tipoMateriaPrima', (req, res) => {
   const MongoClient = require('mongodb').MongoClient;
@@ -599,6 +952,51 @@ router.post('/tipoMateriaPrima', (req, res) => {
 
 });
 
+//Modificar Tipo materia prima
+router.get('/formTipoMateriaModificar/:id', (req, res) => {
+  const MongoClient = require('mongodb').MongoClient;
+  const uri = "mongodb+srv://diseno:Ulacit1234@cluster0-40do9.mongodb.net/test?retryWrites=true&w=majority";
+  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+  const Mongodb = require('mongodb');
+  client.connect(err => {
+    const collection = client.db("tramsadb").collection("tipoMateriaPrima");
+    collection.findOne({_id: new Mongodb.ObjectId(req.params.id) }, function(err, result) {
+      if (err) throw err;
+      res.render('../HTML/Administracion/Forms/formTipoMateriaModificar', 
+      { Resultado: result,
+        Updated: ""  });
+      client.close();
+    });
+  });
+});
+
+router.post('/formTipoMateriaModificar/:id', (req, res) => {
+  const MongoClient = require('mongodb').MongoClient;
+  const uri = "mongodb+srv://diseno:Ulacit1234@cluster0-40do9.mongodb.net/test?retryWrites=true&w=majority";
+  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+  const Mongodb = require('mongodb');
+  const request = req;
+  var mensaje = "";
+  client.connect(err => {
+    const collection = client.db("tramsadb").collection("tipoMateriaPrima");
+    const myquery = { _id: new Mongodb.ObjectId(request.params.id) };
+    const newvalues = { $set: {
+      descripcion: request.body.descripcion,
+      nombreCorto: request.body.nombreCorto,
+    } };
+    collection.findOneAndUpdate(myquery, newvalues, {upsert: true}, function(err,doc) {
+      if (err) { throw err; }
+      else {
+        mensaje = "Objeto actualizado";
+        res.render('../HTML/Administracion/Forms/formTipoMateriaModificar', 
+        { Resultado: req.body,
+          Updated: mensaje 
+        } );
+      }
+    })
+  })
+});
+
 
 //################Consultas/Pedido################
 router.get('/pedido', (req, res) => {
@@ -627,7 +1025,6 @@ router.get('/filtrarPedidosMateria', (req, res) => {
 });
 
 
-
 //################Procesos/PedidoMaestro################
 router.get('/pedidosMateriaM', (req, res) => {
   const MongoClient = require('mongodb').MongoClient;
@@ -642,6 +1039,7 @@ router.get('/pedidosMateriaM', (req, res) => {
     });
   });
 })
+
 //Insertar PedidoMaestro
 router.get('/formPedidosMateriaM', (req, res) => {
   res.render('../HTML/Procesos/Forms/formPedidosMateriaM', {
@@ -666,7 +1064,6 @@ router.post('/formPedidosMateriaM', (req, res) => {
 });
 
 
-
 //################Procesos/PedidoDetalle################
 router.get('/pedidosMateriaD', (req, res) => {
   const MongoClient = require('mongodb').MongoClient;
@@ -681,6 +1078,7 @@ router.get('/pedidosMateriaD', (req, res) => {
     });
   });
 })
+
 //Insertar PedidoDetalle
 router.get('/formPedidosMateriaD', (req, res) => {
   res.render('../HTML/Procesos/Forms/formPedidosMateriaD', {
@@ -705,7 +1103,6 @@ router.post('/formPedidosMateriaD', (req, res) => {
 });
 
 
-
 //################Procesos/ProduccionEnLote################
 router.get('/produccionLote', (req, res) => {
   const MongoClient = require('mongodb').MongoClient;
@@ -720,6 +1117,7 @@ router.get('/produccionLote', (req, res) => {
     });
   });
 })
+
 //Insertar ProduccionLote
 router.get('/formProduccionLote', (req, res) => {
   res.render('../HTML/Procesos/Forms/formProduccionLote.ejs', {
@@ -742,7 +1140,6 @@ router.post('/formProduccionLote', (req, res) => {
       data: req.body
     })
 });
-
 
 //Modificar ProduccionLote
 router.get('/formProdModificar/:id', (req, res) => {
@@ -794,8 +1191,6 @@ router.post('/formProdModificar/:id', (req, res) => {
   })
 });
 
-
-
 //Eliminar ProduccionLote
 router.post('/produccionLote', (req, res) => {
   const MongoClient = require('mongodb').MongoClient;
@@ -813,7 +1208,6 @@ router.post('/produccionLote', (req, res) => {
   }),
     res.redirect('/produccionLote');
 });
-
 
 
 //################Procesos/PuntoDeVenta################
@@ -854,7 +1248,6 @@ router.post('/formPuntoVenta', (req, res) => {
 });
 
 
-
 //################Consulta/Bitacora################
 router.get('/bitacora', (req, res) => {
   const MongoClient = require('mongodb').MongoClient;
@@ -869,7 +1262,6 @@ router.get('/bitacora', (req, res) => {
     });
   });
 })
-
 
 
 //################Consulta/Cliente################
@@ -888,7 +1280,6 @@ router.get('/cliente', (req, res) => {
 })
 
 
-
 //################Reportes/ProductosMaestro################
 router.get('/productosReporte', (req, res) => {
   const MongoClient = require('mongodb').MongoClient;
@@ -903,7 +1294,6 @@ router.get('/productosReporte', (req, res) => {
     });
   });
 })
-
 
 
 //################Reportes/InventarioBodega################
@@ -921,8 +1311,6 @@ router.get('/bodegaReporte', (req, res) => {
   });
 })
 
-
-
 //################Reportes/InventarioGeneral################
 router.get('/invGeReporte', (req, res) => {
   const MongoClient = require('mongodb').MongoClient;
@@ -937,6 +1325,7 @@ router.get('/invGeReporte', (req, res) => {
     });
   });
 })
+
 
 ////################Usuarios################
 router.get('/usuarios', (req, res) => {
@@ -978,7 +1367,7 @@ router.post('/formUsuarios', (req, res) => {
     })
 });
 
-//Eliminar Tipo Materia Prima
+//Eliminar Usuarios
 router.post('/usuarios', (req, res) => {
   
   const MongoClient = require('mongodb').MongoClient;

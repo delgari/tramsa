@@ -44,7 +44,12 @@
                             <div class="card-body">
                                 <h4 class="card-title text-center">Clientes</h4>
                                 </br>
-                                <form method="post" action="/formClientes" novalidate>
+                                <script>
+                                    var mensaje = '<%= Updated %>';
+                                    if(mensaje != '')
+                                      alert('<%= Updated %>');
+                                </script>
+                                <form method="post" action="/formClientesModificar/<%= Resultado._id %>" novalidate>
                                     <div class="form-row">
                                         <div class="form-group col-md-4">
                                             <label for="fechaIngreso">Fecha ingreso</label>
@@ -52,11 +57,11 @@
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label for="id">Documento identificación</label>
-                                            <input type="text" class="form-control" id="id" name="cedula">
+                                            <input type="text" class="form-control" id="id" name="cedula" value="<%= Resultado._cedula %>">
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label for="estado">Estado</label>
-                                            <select id="estado" class="form-control" name="estado">
+                                            <select id="estado" class="form-control" name="estado" value="<%= Resultado._estado %>">
                                                 <option selected>Activo</option>
                                                 <option>Inactivo</option>
                                               </select>
@@ -65,33 +70,33 @@
                                     <div class="form-row">
                                         <div class="form-group col-md-4">
                                             <label for="primerApellido">Primer apellido</label>
-                                            <input type="text" class="form-control" id="primerApellido" name="apellido1">
+                                            <input type="text" class="form-control" id="primerApellido" name="apellido1" value="<%= Resultado._apellido1 %>">
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label for="segundoApellido">Segundo apellido</label>
-                                            <input type="text" class="form-control" id="segundoApellido" name="apellido2">
+                                            <input type="text" class="form-control" id="segundoApellido" name="apellido2" value="<%= Resultado._apellido2 %>">
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label for="nombre">Nombre</label>
-                                            <input type="text" class="form-control" id="nombre" name="nombre">
+                                            <input type="text" class="form-control" id="nombre" name="nombre" value="<%= Resultado._nombre %>">
                                         </div>
                                     </div>
                                     <div class="form-row">
                                         <div class="form-group col-md-2">
                                             <label for="tel">Teléfono</label>
-                                            <input type="tel" class="form-control" id="tel" name="telefono">
+                                            <input type="tel" class="form-control" id="tel" name="telefono" value="<%= Resultado._telefono %>">
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label for="email">Correo electrónico</label>
-                                            <input type="email" class="form-control" id="email" name="correo">
+                                            <input type="email" class="form-control" id="email" name="correo" value="<%= Resultado._correo %>">
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label for="direccion">Dirección</label>
-                                            <input type="text" class="form-control" id="direccion" name="direciion">
+                                            <input type="text" class="form-control" id="direccion" name="direciion" value="<%= Resultado._direciion %>">
                                         </div>
                                     </div>
                                     <button type="submit" class="btn btn-success"><i class="fas fa-check"></i>
-                                        Crear</button>
+                                        Modificar</button>
                                     <a class="btn btn-danger" href="/clientes"><i class="fas fa-times"></i>
                                         Salir</a>
                                 </form>
