@@ -3,7 +3,9 @@ const router = express.Router();
 
 ////################Login################
 router.get('/', (req, res) => {
-  res.render('../HTML/Sistema/login');
+  res.render('../HTML/Sistema/login', {
+    validacion: ""
+  });
 });
 
 ////################CambioContrasena################
@@ -76,6 +78,28 @@ router.get('/AyudaConsulta', (req, res) => { //Browser
   res.render('../HTML/Ayuda/consulta'); //Busca en el código
 });
 
+//################Sistema/Login################
+router.post('/login',(req,res)=> {
+  const MongoClient = require('mongodb').MongoClient;
+  const uri = "mongodb+srv://diseno:Ulacit1234@cluster0-40do9.mongodb.net/test?retryWrites=true&w=majority";
+  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: false });
+  client.connect(err => {
+    const collection = client.db("tramsadb").collection("usuario");
+    collection.findOne({ user: req.body.user}, function(err, user) {
+      if(user == null) {
+        res.render('../HTML/Sistema/login', 
+           { validacion: 'Usuario no encontrado'});
+      } else {
+          if(req.body.contrasena == user.contrasena) {
+            res.redirect('/paginaPrincipal');
+          } else {
+            res.render('../HTML/Sistema/login', { validacion: 'Usuario o contraseña invalidos'});
+          }
+        }
+    });
+  })
+});
+
 //################Administracion/Bodegas################
 router.get('/bodegas', (req, res) => {
   const MongoClient = require('mongodb').MongoClient;
@@ -115,26 +139,21 @@ router.post('/formBodegas', (req, res) => {
 
 //Eliminar Bodegas
 router.post('/bodegas', (req, res) => {
-  
   const MongoClient = require('mongodb').MongoClient;
   const Mongodb = require('mongodb');
   const uri = "mongodb+srv://diseno:Ulacit1234@cluster0-40do9.mongodb.net/test?retryWrites=true&w=majority";
   const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: false });
-
   client.connect(err => {
     const collection = client.db("tramsadb").collection("bodega");
     console.log(req.body);
-
-
-    collection.deleteOne({_id: new Mongodb.ObjectID(req.body._id),function(err, res) {
-      if (err) throw err;
-      client.close();
-      
-    }})
-
+    collection.deleteOne({
+      _id: new Mongodb.ObjectID(req.body._id), function(err, res) {
+        if (err) throw err;
+        client.close();
+      }
+    })
   }),
-  res.redirect('/bodegas');
-
+    res.redirect('/bodegas');
 });
 
 
