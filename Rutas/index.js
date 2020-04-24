@@ -1330,6 +1330,21 @@ router.get('/cliente', (req, res) => {
   });
 })
 
+//################Consultas/Pedido################
+router.get('/pedido', (req, res) => {
+  const MongoClient = require('mongodb').MongoClient;
+  const uri = "mongodb+srv://diseno:Ulacit1234@cluster0-40do9.mongodb.net/test?retryWrites=true&w=majority";
+  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+  client.connect(err => {
+    const collection = client.db("tramsadb").collection("pedido_maestro");
+    collection.find({}).toArray(function (err, result) {
+      console.log(result);
+      if (err) throw err;
+      res.render('../HTML/Consultas/pedido', { Resultado: result });
+      client.close();
+    });
+  });
+})
 
 //################Reportes/ProductosMaestro################
 router.get('/productosReporte', (req, res) => {
