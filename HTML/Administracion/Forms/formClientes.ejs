@@ -47,12 +47,26 @@
                                 <form method="post" action="/formClientes" novalidate>
                                     <div class="form-row">
                                         <div class="form-group col-md-4">
-                                            <label for="fechaIngreso">Fecha ingreso</label>
-                                            <input type="date" class="form-control" id="fechaIngreso">
+                                            <label for="nombre">Nombre</label>
+                                            <input type="text" class="form-control" id="nombre" name="nombre">
                                         </div>
+                                        <div class="form-group col-md-4">
+                                            <label for="primerApellido">Primer apellido</label>
+                                            <input type="text" class="form-control" id="primerApellido" name="apellido1">
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label for="segundoApellido">Segundo apellido</label>
+                                            <input type="text" class="form-control" id="segundoApellido" name="apellido2">
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
                                         <div class="form-group col-md-4">
                                             <label for="id">Documento identificación</label>
                                             <input type="text" class="form-control" id="id" name="cedula">
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label for="tel">Teléfono</label>
+                                            <input type="tel" class="form-control" id="tel" name="telefono">
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label for="estado">Estado</label>
@@ -63,25 +77,7 @@
                                         </div>
                                     </div>
                                     <div class="form-row">
-                                        <div class="form-group col-md-4">
-                                            <label for="primerApellido">Primer apellido</label>
-                                            <input type="text" class="form-control" id="primerApellido" name="apellido1">
-                                        </div>
-                                        <div class="form-group col-md-4">
-                                            <label for="segundoApellido">Segundo apellido</label>
-                                            <input type="text" class="form-control" id="segundoApellido" name="apellido2">
-                                        </div>
-                                        <div class="form-group col-md-4">
-                                            <label for="nombre">Nombre</label>
-                                            <input type="text" class="form-control" id="nombre" name="nombre">
-                                        </div>
-                                    </div>
-                                    <div class="form-row">
-                                        <div class="form-group col-md-2">
-                                            <label for="tel">Teléfono</label>
-                                            <input type="tel" class="form-control" id="tel" name="telefono">
-                                        </div>
-                                        <div class="form-group col-md-4">
+                                        <div class="form-group col-md-6">
                                             <label for="email">Correo electrónico</label>
                                             <input type="email" class="form-control" id="email" name="correo">
                                         </div>

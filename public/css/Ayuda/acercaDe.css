@@ -15,6 +15,7 @@
     h3{
         color: #fff;
     }
+
 /*Contenedor para fondo1*/
 .container1 {
     height: 800px;
@@ -72,7 +73,6 @@
     background-color:
     white;
     min-height: 642px;
-    padding: 65px;
 }
 .container .div-img {
     display: inline-block;
