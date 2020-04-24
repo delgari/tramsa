@@ -8,6 +8,28 @@ router.get('/', (req, res) => {
   });
 });
 
+//################Sistema/Login################
+router.post('/',(req,res)=> {
+  const MongoClient = require('mongodb').MongoClient;
+  const uri = "mongodb+srv://diseno:Ulacit1234@cluster0-40do9.mongodb.net/test?retryWrites=true&w=majority";
+  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: false });
+  client.connect(err => {
+    const collection = client.db("tramsadb").collection("usuario");
+    collection.findOne({ user: req.body.user}, function(err, user) {
+      if(user == null) {
+        res.render('../HTML/Sistema/login', 
+           { validacion: 'Usuario no encontrado'});
+      } else {
+          if(req.body.contrasena == user.contrasena) {
+            res.redirect('/paginaPrincipal');
+          } else {
+            res.render('../HTML/Sistema/login', { validacion: 'Usuario o contraseña invalidos'});
+          }
+        }
+    });
+  })
+});
+
 
 ////################CambioContrasena################
 router.get('/cambioPassword', (req, res) => {
@@ -29,7 +51,58 @@ router.get('/parametrosGen', (req, res) => {
 
 //################Consecutivos################
 router.get('/consecutivos', (req, res) => {
-  res.render('../HTML/Parametros/consecutivos');
+  const MongoClient = require('mongodb').MongoClient;
+  const uri = "mongodb+srv://diseno:Ulacit1234@cluster0-40do9.mongodb.net/test?retryWrites=true&w=majority";
+  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+  client.connect(err => {
+    const collection = client.db("tramsadb").collection("consecutivo");
+    collection.find({}).toArray(function (err, result) {
+      if (err) throw err;
+      res.render('../HTML/Parametros/consecutivos', { Resultado: result });
+      client.close();
+    });
+  });
+})
+//Insertar Consecutivos
+router.get('/formConsecutivos', (req, res) => {
+  res.render('../HTML/Parametros/formConsecutivos', {
+    data: {},
+    errors: {}
+  });
+});
+router.post('/formConsecutivos', (req, res) => {
+  const MongoClient = require('mongodb').MongoClient;
+  const uri = "mongodb+srv://diseno:Ulacit1234@cluster0-40do9.mongodb.net/test?retryWrites=true&w=majority";
+  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+  client.connect(err => {
+    const collection = client.db("tramsadb").collection("consecutivo");
+    collection.insertOne(req.body, function (err, res) {
+      if (err) throw err;
+      client.close();
+    })
+  }),
+    res.render('../HTML/Parametros/formConsecutivos', {
+      data: req.body
+    })
+});
+
+//Eliminar Consecutivos
+router.post('/consecutivos', (req, res) => {
+  const MongoClient = require('mongodb').MongoClient;
+  const Mongodb = require('mongodb');
+  const uri = "mongodb+srv://diseno:Ulacit1234@cluster0-40do9.mongodb.net/test?retryWrites=true&w=majority";
+  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: false });
+  client.connect(err => {
+    const collection = client.db("tramsadb").collection("consecutivo");
+    console.log(req.body);
+    collection.deleteOne({
+      _id: new Mongodb.ObjectID(req.body._id), function(err, res) {
+        if (err) throw err;
+        client.close();
+      }
+    })
+  }),
+    res.redirect('/consecutivos');
 });
 
 
@@ -87,28 +160,6 @@ router.get('/ayuda', (req, res) => { //Browser
 //################Otros/consulta################
 router.get('/AyudaConsulta', (req, res) => { //Browser
   res.render('../HTML/Ayuda/consulta'); //Busca en el código
-});
-
-//################Sistema/Login################
-router.post('/login',(req,res)=> {
-  const MongoClient = require('mongodb').MongoClient;
-  const uri = "mongodb+srv://diseno:Ulacit1234@cluster0-40do9.mongodb.net/test?retryWrites=true&w=majority";
-  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: false });
-  client.connect(err => {
-    const collection = client.db("tramsadb").collection("usuario");
-    collection.findOne({ user: req.body.user}, function(err, user) {
-      if(user == null) {
-        res.render('../HTML/Sistema/login', 
-           { validacion: 'Usuario no encontrado'});
-      } else {
-          if(req.body.contrasena == user.contrasena) {
-            res.redirect('/paginaPrincipal');
-          } else {
-            res.render('../HTML/Sistema/login', { validacion: 'Usuario o contraseña invalidos'});
-          }
-        }
-    });
-  })
 });
 
 
