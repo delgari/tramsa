@@ -1,6 +1,45 @@
 const express = require('express');
 const router = express.Router();
 
+const Consecutivos = {
+  tMateriaP: {
+    prefijo: 'TMP',
+    valor: 1
+  },
+  bodegas: {
+    prefijo: 'BO',
+    valor: 1
+  },
+  materiaP: {
+    prefijo: 'MP',
+    valor: 1
+  },
+  productos: {
+    prefijo: 'PR',
+    valor: 1
+  },
+  usuarios: {
+    prefijo: 'US',
+    valor: 1
+  },
+  clientes: {
+    prefijo: 'CL',
+    valor: 1
+  },
+  pedidosProd: {
+    prefijo: 'PP',
+    valor: 1
+  },
+  camiones: {
+    prefijo: 'CA',
+    valor: 1
+  },
+  proveedores: {
+    prefijo: 'PRO',
+    valor: 1
+  }
+}
+
 ////################Login################
 router.get('/', (req, res) => {
   if(req.session.user){
@@ -136,7 +175,7 @@ router.get('/consecutivos', (req, res) => {
 
 //################InventarioReportes################
 router.get('/inventario', (req, res) => { //Browser
-  if (!req.session.user) {
+  if (!req.session.user) { // si no existe la session con el usuario logueado.
     return res.status(404).send();
   }
   else {
@@ -1139,6 +1178,11 @@ router.get('/tipoMateriaPrima', (req, res) => {
     client.connect(err => {
       const collection = client.db("tramsadb").collection("tipoMateriaPrima");
       collection.find({}).toArray(function (err, result) {
+        result.forEach(function(row) {
+          var valor = row.codigo.replace(Consecutivos.tMateriaP.prefijo, ""); // solo obtener el valor sin el prefijo.
+          Consecutivos.tMateriaP.valor = +valor + 1;
+        });
+
         if (err) throw err;
         res.render('../HTML/Administracion/tipoMateriaPrima', { Resultado: result });
         client.close();
@@ -1164,8 +1208,16 @@ router.post('/formTipoMateria', (req, res) => {
   const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
   client.connect(err => {
     const collection = client.db("tramsadb").collection("tipoMateriaPrima");
-    collection.insertOne(req.body, function (err, res) {
+
+    const newObject = { //armando el objeto que se va a insertar con los datos del consecutivo.
+      codigo: Consecutivos.tMateriaP.prefijo + Consecutivos.tMateriaP.valor,
+      descripcion: req.body.descripcion,
+      nombreCorto: req.body.nombreCorto
+    }
+
+    collection.insertOne(newObject, function (err, res) {
       if (err) throw err;
+      Consecutivos.tMateriaP.valor += 1; // este es el valor para el siguiente que se vaya a insertar
       client.close();
     })
   }),
@@ -1186,6 +1238,7 @@ router.post('/tipoMateriaPrima', (req, res) => {
     collection.deleteOne({
       _id: new Mongodb.ObjectID(req.body._id), function(err, res) {
         if (err) throw err;
+        Consecutivos.tMateriaP.valor -= 1;
         client.close();
       }
     })
