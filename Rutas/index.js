@@ -67,11 +67,11 @@ router.post('/', (req, res) => {
         res.render('../HTML/Sistema/login',
           { validacion: 'Usuario no encontrado' });
       } else {
-        if (req.body.contrasena == user.contrasena) {
+        if (req.body.contrasena == user.contrasena && user.estado != "Inactivo") {
           req.session.user = user;
           res.redirect('/paginaPrincipal');
         } else {
-          res.render('../HTML/Sistema/login', { validacion: 'Usuario o contraseña invalidos' });
+          res.render('../HTML/Sistema/login', { validacion: 'Usuario inactivo o contraseña inválidos' });
         }
       }
     });
@@ -889,7 +889,7 @@ router.post('/formProducD', (req, res) => {
     const collection = client.db("tramsadb").collection("productoDetalle");
     const newObject = { //armando el objeto que se va a insertar con los datos del consecutivo.
       codigo: Consecutivos.productosD.prefijo + Consecutivos.productosD.valor,
-      codigoMateriaPr: req.body.codigoMateriaPr,
+      codigoMateriaPr: Consecutivos.materiaP.prefijo + Consecutivos.materiaP.valor,
       nombreCorto: req.body.nombreCorto
     }
 
@@ -1930,26 +1930,6 @@ router.get('/pedido', (req, res) => {
     client.connect(err => {
       const collection = client.db("tramsadb").collection("pedido_maestro");
       collection.find({}).toArray(function (err, result) {
-        if (err) throw err;
-        res.render('../HTML/Consultas/pedido', { Resultado: result });
-        client.close();
-      });
-    });
-  }
-})
-//################Consultas/Pedido################
-router.get('/pedido', (req, res) => {
-  if (!req.session.user) {
-    return res.status(404).send();
-  }
-  else {
-    const MongoClient = require('mongodb').MongoClient;
-    const uri = "mongodb+srv://diseno:Ulacit1234@cluster0-40do9.mongodb.net/test?retryWrites=true&w=majority";
-    const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
-    client.connect(err => {
-      const collection = client.db("tramsadb").collection("pedido_maestro");
-      collection.find({}).toArray(function (err, result) {
-        console.log(result);
         if (err) throw err;
         res.render('../HTML/Consultas/pedido', { Resultado: result });
         client.close();
