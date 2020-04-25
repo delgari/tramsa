@@ -14,8 +14,12 @@ const Consecutivos = {
     prefijo: 'MP',
     valor: 1
   },
-  productos: {
-    prefijo: 'PR',
+  productosD: {
+    prefijo: 'PRD',
+    valor: 1
+  },
+  productosM: {
+    prefijo: 'PRM',
     valor: 1
   },
   usuarios: {
@@ -26,8 +30,8 @@ const Consecutivos = {
     prefijo: 'CL',
     valor: 1
   },
-  pedidosProd: {
-    prefijo: 'PP',
+  aperturaCaja: {
+    prefijo: 'AC',
     valor: 1
   },
   camiones: {
@@ -42,9 +46,9 @@ const Consecutivos = {
 
 ////################Login################
 router.get('/', (req, res) => {
-  if(req.session.user){
+  if (req.session.user) {
     res.redirect('/paginaPrincipal');
-  }else{
+  } else {
     res.render('../HTML/Sistema/login', {
       validacion: ""
     });
@@ -251,6 +255,10 @@ router.get('/bodegas', (req, res) => {
       const collection = client.db("tramsadb").collection("bodega");
       collection.find({}).toArray(function (err, result) {
         if (err) throw err;
+        result.forEach(function (row) {
+          var valor = row.codigo.replace(Consecutivos.bodegas.prefijo, ""); // solo obtener el valor sin el prefijo.
+          Consecutivos.bodegas.valor = +valor + 1;
+        });
         res.render('../HTML/Administracion/bodegas', { Resultado: result });
         client.close();
       });
@@ -275,8 +283,20 @@ router.post('/formBodegas', (req, res) => {
   const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
   client.connect(err => {
     const collection = client.db("tramsadb").collection("bodega");
-    collection.insertOne(req.body, function (err, res) {
+    const newObject = { //armando el objeto que se va a insertar con los datos del consecutivo.
+      codigo: Consecutivos.bodegas.prefijo + Consecutivos.bodegas.valor,
+      nombre: req.body.nombre,
+      nombreCorto: req.body.nombreCorto,
+      ubicacion: req.body.ubicacion,
+      alias: req.body.alias,
+      unidadMedida: req.body.unidadMedida,
+      espacioBodega: req.body.espacioBodega,
+      tipoBodega: req.body.tipoBodega
+    }
+
+    collection.insertOne(newObject, function (err, res) {
       if (err) throw err;
+      Consecutivos.bodegas.valor += 1; // este es el valor para el siguiente que se vaya a insertar
       client.close();
     })
   }),
@@ -297,6 +317,7 @@ router.post('/bodegas', (req, res) => {
     collection.deleteOne({
       _id: new Mongodb.ObjectID(req.body._id), function(err, res) {
         if (err) throw err;
+        Consecutivos.bodegas.valor -= 1;
         client.close();
       }
     })
@@ -378,6 +399,10 @@ router.get('/camiones', (req, res) => {
       const collection = client.db("tramsadb").collection("camion");
       collection.find({}).toArray(function (err, result) {
         if (err) throw err;
+        result.forEach(function (row) {
+          var valor = row.codigo.replace(Consecutivos.camiones.prefijo, ""); // solo obtener el valor sin el prefijo.
+          Consecutivos.camiones.valor = +valor + 1;
+        });
         res.render('../HTML/Administracion/camiones', { Resultado: result });
         client.close();
       });
@@ -402,8 +427,18 @@ router.post('/formCamiones', (req, res) => {
   const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
   client.connect(err => {
     const collection = client.db("tramsadb").collection("camion");
-    collection.insertOne(req.body, function (err, res) {
+    const newObject = { //armando el objeto que se va a insertar con los datos del consecutivo.
+      codigo: Consecutivos.camiones.prefijo + Consecutivos.camiones.valor,
+      descripcion: req.body.descripcion,
+      nombreCorto: req.body.nombreCorto,
+      marca: req.body.marca,
+      ano: req.body.ano,
+      placa: req.body.placa
+    }
+
+    collection.insertOne(newObject, function (err, res) {
       if (err) throw err;
+      Consecutivos.camiones.valor += 1; // este es el valor para el siguiente que se vaya a insertar
       client.close();
     })
   }),
@@ -428,6 +463,7 @@ router.post('/camiones', (req, res) => {
     collection.deleteOne({
       _id: new Mongodb.ObjectID(req.body._id), function(err, res) {
         if (err) throw err;
+        Consecutivos.camiones.valor -= 1;
         client.close();
 
       }
@@ -510,13 +546,18 @@ router.get('/clientes', (req, res) => {
       const collection = client.db("tramsadb").collection("cliente");
       collection.find({}).toArray(function (err, result) {
         if (err) throw err;
+        result.forEach(function (row) {
+          var valor = row.codigo.replace(Consecutivos.clientes.prefijo, ""); // solo obtener el valor sin el prefijo.
+          Consecutivos.clientes.valor = +valor + 1;
+        });
         res.render('../HTML/Administracion/clientes', { Resultado: result });
         client.close();
       });
     });
   }
 })
-//Insertar Camiones
+
+//Insertar Clientes
 router.get('/formClientes', (req, res) => {
   if (!req.session.user) {
     return res.status(404).send();
@@ -534,8 +575,22 @@ router.post('/formClientes', (req, res) => {
   const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
   client.connect(err => {
     const collection = client.db("tramsadb").collection("cliente");
-    collection.insertOne(req.body, function (err, res) {
+    const newObject = { //armando el objeto que se va a insertar con los datos del consecutivo.
+      codigo: Consecutivos.clientes.prefijo + Consecutivos.clientes.valor,
+      nombre: req.body.nombre,
+      cedula: req.body.cedula,
+      apellido1: req.body.apellido1,
+      apellido2: req.body.apellido2,
+      estado: req.body.estado,
+      telefono: req.body.telefono,
+      correo: req.body.correo,
+      direciion: req.body.direciion,
+      nombreCorto: req.body.nombreCorto,
+    }
+
+    collection.insertOne(newObject, function (err, res) {
       if (err) throw err;
+      Consecutivos.clientes.valor += 1; // este es el valor para el siguiente que se vaya a insertar
       client.close();
     })
   }),
@@ -560,6 +615,7 @@ router.post('/clientes', (req, res) => {
     collection.deleteOne({
       _id: new Mongodb.ObjectID(req.body._id), function(err, res) {
         if (err) throw err;
+        Consecutivos.clientes.valor -= 1;
         client.close();
 
       }
@@ -594,7 +650,6 @@ router.get('/formClientesModificar/:id', (req, res) => {
     });
   }
 });
-
 router.post('/formClientesModificar/:id', (req, res) => {
   const MongoClient = require('mongodb').MongoClient;
   const uri = "mongodb+srv://diseno:Ulacit1234@cluster0-40do9.mongodb.net/test?retryWrites=true&w=majority";
@@ -614,7 +669,8 @@ router.post('/formClientesModificar/:id', (req, res) => {
         correo: request.body.correo,
         direciion: request.body.direciion,
         telefono: request.body.telefono,
-        estado: request.body.estado
+        estado: request.body.estado,
+        nombreCorto: request.body.nombreCorto
       }
     };
     collection.findOneAndUpdate(myquery, newvalues, { upsert: true }, function (err, doc) {
@@ -645,6 +701,10 @@ router.get('/materiaPrima', (req, res) => { //busqueda del browser
       const collection = client.db("tramsadb").collection("materiaPrima");
       collection.find({}).toArray(function (err, result) {
         if (err) throw err;
+        result.forEach(function (row) {
+          var valor = row.codigo.replace(Consecutivos.materiaP.prefijo, ""); // solo obtener el valor sin el prefijo.
+          Consecutivos.materiaP.valor = +valor + 1;
+        });
         res.render('../HTML/Administracion/materiaPrima', { Resultado: result });
         client.close();
       });
@@ -669,8 +729,17 @@ router.post('/formMateriaPrima', (req, res) => {
   const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
   client.connect(err => {
     const collection = client.db("tramsadb").collection("materiaPrima");
-    collection.insertOne(req.body, function (err, res) {
+    const newObject = { //armando el objeto que se va a insertar con los datos del consecutivo.
+      codigo: Consecutivos.materiaP.prefijo + Consecutivos.materiaP.valor,
+      nombre: req.body.nombre,
+      nombreCorto: req.body.nombreCorto,
+      cantidadExistente: req.body.cantidadExistente,
+      unidadMedida: req.body.unidadMedida
+    }
+
+    collection.insertOne(newObject, function (err, res) {
       if (err) throw err;
+      Consecutivos.materiaP.valor += 1; // este es el valor para el siguiente que se vaya a insertar
       client.close();
     })
   }),
@@ -695,6 +764,7 @@ router.post('/materiaPrima', (req, res) => {
     collection.deleteOne({
       _id: new Mongodb.ObjectID(req.body._id), function(err, res) {
         if (err) throw err;
+        Consecutivos.materiaP.valor -= 1;
         client.close();
 
       }
@@ -787,6 +857,10 @@ router.get('/productosD', (req, res) => { //busqueda del browser
       const collection = client.db("tramsadb").collection("productoDetalle");
       collection.find({}).toArray(function (err, result) {
         if (err) throw err;
+        result.forEach(function (row) {
+          var valor = row.codigo.replace(Consecutivos.productosD.prefijo, ""); // solo obtener el valor sin el prefijo.
+          Consecutivos.productosD.valor = +valor + 1;
+        });
         res.render('../HTML/Administracion/productosD', { Resultado: result }); //busqueda en code
         client.close();
       });
@@ -811,11 +885,17 @@ router.post('/formProducD', (req, res) => {
   const MongoClient = require('mongodb').MongoClient;
   const uri = "mongodb+srv://diseno:Ulacit1234@cluster0-40do9.mongodb.net/test?retryWrites=true&w=majority";
   const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: false });
-
   client.connect(err => {
     const collection = client.db("tramsadb").collection("productoDetalle");
-    collection.insertOne(req.body, function (err, res) {
+    const newObject = { //armando el objeto que se va a insertar con los datos del consecutivo.
+      codigo: Consecutivos.productosD.prefijo + Consecutivos.productosD.valor,
+      codigoMateriaPr: req.body.codigoMateriaPr,
+      nombreCorto: req.body.nombreCorto
+    }
+
+    collection.insertOne(newObject, function (err, res) {
       if (err) throw err;
+      Consecutivos.productosD.valor += 1; // este es el valor para el siguiente que se vaya a insertar
       client.close();
     })
   }),
@@ -840,6 +920,7 @@ router.post('/productosD', (req, res) => {
     collection.deleteOne({
       _id: new Mongodb.ObjectID(req.body._id), function(err, res) {
         if (err) throw err;
+        Consecutivos.materiaP.valor -= 1;
         client.close();
 
       }
@@ -887,7 +968,7 @@ router.post('/formProducDModificar/:id', (req, res) => {
     const myquery = { _id: new Mongodb.ObjectId(request.params.id) };
     const newvalues = {
       $set: {
-        codigoMateriaPrima: request.body.codigoMateriaPrima,
+        codigoMateriaPr: request.body.codigoMateriaPr,
         nombreCorto: request.body.nombreCorto
       }
     };
@@ -919,12 +1000,17 @@ router.get('/productosM', (req, res) => {
       const collection = client.db("tramsadb").collection("productoMaestro");
       collection.find({}).toArray(function (err, result) {
         if (err) throw err;
+        result.forEach(function (row) {
+          var valor = row.codigo.replace(Consecutivos.productosM.prefijo, ""); // solo obtener el valor sin el prefijo.
+          Consecutivos.productosM.valor = +valor + 1;
+        });
         res.render('../HTML/Administracion/productosM', { Resultado: result });
         client.close();
       });
     });
   }
 })
+
 //Insertar Productos Maestro
 router.get('/formProducM', (req, res) => {
   if (!req.session.user) {
@@ -943,8 +1029,17 @@ router.post('/formProducM', (req, res) => {
   const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
   client.connect(err => {
     const collection = client.db("tramsadb").collection("productoMaestro");
-    collection.insertOne(req.body, function (err, res) {
+    const newObject = { //armando el objeto que se va a insertar con los datos del consecutivo.
+      codigo: Consecutivos.productosM.prefijo + Consecutivos.productosM.valor,
+      descipcion: req.body.descipcion,
+      nombreCorto: req.body.nombreCorto,
+      puntoReOrden: req.body.puntoReOrden,
+      unidadMedida: req.body.unidadMedida
+    }
+
+    collection.insertOne(newObject, function (err, res) {
       if (err) throw err;
+      Consecutivos.productosM.valor += 1; // este es el valor para el siguiente que se vaya a insertar
       client.close();
     })
   }),
@@ -955,28 +1050,22 @@ router.post('/formProducM', (req, res) => {
 
 //Eliminar Producto Maestro
 router.post('/productosM', (req, res) => {
-
   const MongoClient = require('mongodb').MongoClient;
   const Mongodb = require('mongodb');
   const uri = "mongodb+srv://diseno:Ulacit1234@cluster0-40do9.mongodb.net/test?retryWrites=true&w=majority";
   const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: false });
-
   client.connect(err => {
     const collection = client.db("tramsadb").collection("productoMaestro");
     console.log(req.body);
-
-
     collection.deleteOne({
       _id: new Mongodb.ObjectID(req.body._id), function(err, res) {
         if (err) throw err;
+        Consecutivos.materiaP.valor -= 1;
         client.close();
-
       }
     })
-
   }),
     res.redirect('/productosM');
-
 });
 
 //Modificar Productos Maestro
@@ -1051,6 +1140,10 @@ router.get('/proveedores', (req, res) => {
       const collection = client.db("tramsadb").collection("proveedores");
       collection.find({}).toArray(function (err, result) {
         if (err) throw err;
+        result.forEach(function (row) {
+          var valor = row.codigo.replace(Consecutivos.proveedores.prefijo, ""); // solo obtener el valor sin el prefijo.
+          Consecutivos.proveedores.valor = +valor + 1;
+        });
         res.render('../HTML/Administracion/proveedores', { Resultado: result });
         client.close();
       });
@@ -1075,8 +1168,21 @@ router.post('/formProveedores', (req, res) => {
   const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
   client.connect(err => {
     const collection = client.db("tramsadb").collection("proveedores");
-    collection.insertOne(req.body, function (err, res) {
+    const newObject = { //armando el objeto que se va a insertar con los datos del consecutivo.
+      codigo: Consecutivos.proveedores.prefijo + Consecutivos.proveedores.valor,
+      nombre: req.body.nombre,
+      cedula: req.body.cedula,
+      nombreCorto: req.body.nombreCorto,
+      correo: req.body.correo,
+      direccion: req.body.direccion,
+      telefono: req.body.telefono,
+      contacto: req.body.contacto,
+      telefonoCont: req.body.telefonoCont
+    }
+
+    collection.insertOne(newObject, function (err, res) {
       if (err) throw err;
+      Consecutivos.proveedores.valor += 1; // este es el valor para el siguiente que se vaya a insertar
       client.close();
     })
   }),
@@ -1097,6 +1203,7 @@ router.post('/proveedores', (req, res) => {
     collection.deleteOne({
       _id: new Mongodb.ObjectID(req.body._id), function(err, res) {
         if (err) throw err;
+        Consecutivos.materiaP.valor -= 1;
         client.close();
       }
     })
@@ -1178,11 +1285,10 @@ router.get('/tipoMateriaPrima', (req, res) => {
     client.connect(err => {
       const collection = client.db("tramsadb").collection("tipoMateriaPrima");
       collection.find({}).toArray(function (err, result) {
-        result.forEach(function(row) {
+        result.forEach(function (row) {
           var valor = row.codigo.replace(Consecutivos.tMateriaP.prefijo, ""); // solo obtener el valor sin el prefijo.
           Consecutivos.tMateriaP.valor = +valor + 1;
         });
-
         if (err) throw err;
         res.render('../HTML/Administracion/tipoMateriaPrima', { Resultado: result });
         client.close();
@@ -1208,13 +1314,11 @@ router.post('/formTipoMateria', (req, res) => {
   const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
   client.connect(err => {
     const collection = client.db("tramsadb").collection("tipoMateriaPrima");
-
     const newObject = { //armando el objeto que se va a insertar con los datos del consecutivo.
       codigo: Consecutivos.tMateriaP.prefijo + Consecutivos.tMateriaP.valor,
       descripcion: req.body.descripcion,
       nombreCorto: req.body.nombreCorto
     }
-
     collection.insertOne(newObject, function (err, res) {
       if (err) throw err;
       Consecutivos.tMateriaP.valor += 1; // este es el valor para el siguiente que se vaya a insertar
@@ -1300,27 +1404,6 @@ router.post('/formTipoMateriaModificar/:id', (req, res) => {
     })
   })
 });
-
-
-//################Consultas/Pedido################
-router.get('/pedido', (req, res) => {
-  if (!req.session.user) {
-    return res.status(404).send();
-  }
-  else {
-    const MongoClient = require('mongodb').MongoClient;
-    const uri = "mongodb+srv://diseno:Ulacit1234@cluster0-40do9.mongodb.net/test?retryWrites=true&w=majority";
-    const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
-    client.connect(err => {
-      const collection = client.db("tramsadb").collection("pedido_maestro");
-      collection.find({}).toArray(function (err, result) {
-        if (err) throw err;
-        res.render('../HTML/Consultas/pedido', { Resultado: result });
-        client.close();
-      });
-    });
-  }
-})
 
 
 //################Procesos/PedidosMateria################
@@ -1735,6 +1818,10 @@ router.get('/aperturaCaja', (req, res) => {
     const collection = client.db("tramsadb").collection("aperturaCaja");
     collection.find({}).toArray(function (err, result) {
       if (err) throw err;
+      result.forEach(function (row) {
+        var valor = row.codigo.replace(Consecutivos.aperturaCaja.prefijo, ""); // solo obtener el valor sin el prefijo.
+        Consecutivos.aperturaCaja.valor = +valor + 1;
+      });
       res.render('../HTML/Cajas/aperturaCaja', { Resultado: result });
       client.close();
     });
@@ -1754,8 +1841,14 @@ router.post('/formAperturaCaja', (req, res) => {
   const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
   client.connect(err => {
     const collection = client.db("tramsadb").collection("aperturaCaja");
-    collection.insertOne(req.body, function (err, res) {
+    const newObject = { //armando el objeto que se va a insertar con los datos del consecutivo.
+      codigo: Consecutivos.aperturaCaja.prefijo + Consecutivos.aperturaCaja.valor,
+      fecha: req.body.fecha,
+      montoApertura: req.body.montoApertura
+    }
+    collection.insertOne(newObject, function (err, res) {
       if (err) throw err;
+      Consecutivos.aperturaCaja.valor += 1; // este es el valor para el siguiente que se vaya a insertar
       client.close();
     })
   }),
@@ -1825,8 +1918,8 @@ router.get('/bitacora', (req, res) => {
 })
 
 
-//################Consulta/Cliente################
-router.get('/cliente', (req, res) => {
+//################Consultas/Pedido################
+router.get('/pedido', (req, res) => {
   if (!req.session.user) {
     return res.status(404).send();
   }
@@ -1835,17 +1928,15 @@ router.get('/cliente', (req, res) => {
     const uri = "mongodb+srv://diseno:Ulacit1234@cluster0-40do9.mongodb.net/test?retryWrites=true&w=majority";
     const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
     client.connect(err => {
-      const collection = client.db("tramsadb").collection("cliente");
+      const collection = client.db("tramsadb").collection("pedido_maestro");
       collection.find({}).toArray(function (err, result) {
         if (err) throw err;
-        res.render('../HTML/Consultas/cliente', { Resultado: result });
+        res.render('../HTML/Consultas/pedido', { Resultado: result });
         client.close();
       });
     });
   }
 })
-
-
 //################Consultas/Pedido################
 router.get('/pedido', (req, res) => {
   if (!req.session.user) {
@@ -1861,6 +1952,27 @@ router.get('/pedido', (req, res) => {
         console.log(result);
         if (err) throw err;
         res.render('../HTML/Consultas/pedido', { Resultado: result });
+        client.close();
+      });
+    });
+  }
+})
+
+
+//################Consulta/Cliente################
+router.get('/cliente', (req, res) => {
+  if (!req.session.user) {
+    return res.status(404).send();
+  }
+  else {
+    const MongoClient = require('mongodb').MongoClient;
+    const uri = "mongodb+srv://diseno:Ulacit1234@cluster0-40do9.mongodb.net/test?retryWrites=true&w=majority";
+    const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+    client.connect(err => {
+      const collection = client.db("tramsadb").collection("cliente");
+      collection.find({}).toArray(function (err, result) {
+        if (err) throw err;
+        res.render('../HTML/Consultas/cliente', { Resultado: result });
         client.close();
       });
     });
@@ -1944,6 +2056,10 @@ router.get('/usuarios', (req, res) => {
       const collection = client.db("tramsadb").collection("usuario");
       collection.find({}).toArray(function (err, result) {
         if (err) throw err;
+        result.forEach(function (row) {
+          var valor = row.codigo.replace(Consecutivos.usuarios.prefijo, ""); // solo obtener el valor sin el prefijo.
+          Consecutivos.usuarios.valor = +valor + 1;
+        });
         res.render('../HTML/Seguridad/usuarios', { Resultado: result });
         client.close();
       });
@@ -1969,8 +2085,18 @@ router.post('/formUsuarios', (req, res) => {
   const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
   client.connect(err => {
     const collection = client.db("tramsadb").collection("usuario");
-    collection.insertOne(req.body, function (err, res) {
+    const newObject = { //armando el objeto que se va a insertar con los datos del consecutivo.
+      codigo: Consecutivos.usuarios.prefijo + Consecutivos.usuarios.valor,
+      user: req.body.user,
+      nombre: req.body.nombre,
+      nombreCorto: req.body.nombreCorto,
+      estado: req.body.estado,
+      correo: req.body.correo,
+      contrasena: req.body.contrasena
+    }
+    collection.insertOne(newObject, function (err, res) {
       if (err) throw err;
+      Consecutivos.usuarios.valor += 1; // este es el valor para el siguiente que se vaya a insertar
       client.close();
     })
   }),
@@ -1991,6 +2117,7 @@ router.post('/usuarios', (req, res) => {
     collection.deleteOne({
       _id: new Mongodb.ObjectID(req.body._id), function(err, res) {
         if (err) throw err;
+        Consecutivos.usuarios.valor = +valor - 1;
         client.close();
       }
     })

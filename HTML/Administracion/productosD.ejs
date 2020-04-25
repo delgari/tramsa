@@ -65,15 +65,15 @@
                         <% Resultado.forEach(function(row){ %>
                         <tr>
                             <td style="display: none;"><%= row._id %></td>
-                            <td><%= row.codigoProducto %></td>
+                            <td><%= row.codigo %></td>
                             <td>
                                 <%= row.codigoMateriaPr%>
-                                <%= row.CodMateriaPrima%>
                             </td>
                             <td><%= row.nombreCorto %></td>
                             <td>
                                 <button class="btn"><i class="fas fa-trash" onclick="eliminar(this)"></i></button>
-                                <button class="btn"><a href="/formProducDModificar/<%= row._id %>"> <i class="fas fa-pencil-alt"></i></a></button>
+                                <button class="btn"><a href="/formProducDModificar/<%= row._id %>"> <i
+                                            class="fas fa-pencil-alt"></i></a></button>
                             </td>
                         </tr>
                         <% })}else{ %>
