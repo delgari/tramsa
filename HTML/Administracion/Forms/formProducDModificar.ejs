@@ -49,16 +49,16 @@
                                     if(mensaje != '')
                                       alert('<%= Updated %>');
                                 </script>
-                                <form method="post" action="/formProducDModificar/<%= Resultado._id %>" novalidate>
+                                <form method="post" action="/formProducDModificar/<%= Resultado._id %>">
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
                                             <label for="codigoMateriaPrima">Código materia prima</label>
                                             <input type="number" class="form-control" id="codigoMateriaPrima"
-                                                name="codigoMateriaPr" value="<%= Resultado.codigoMateriaPr %>">
+                                                name="codigoMateriaPr" value="<%= Resultado.codigoMateriaPr %>" required>
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label for="nombreCorto">Nombre Corto</label>
-                                            <input type="text" class="form-control" id="nombreCorto" name="nombreCorto" value="<%= Resultado._nombreCorto %>">
+                                            <input type="text" class="form-control" id="nombreCorto" name="nombreCorto" value="<%= Resultado._nombreCorto %>" required>
                                         </div>
                                     </div>
                                     <button type="submit" class="btn btn-success"><i class="fas fa-check"></i>

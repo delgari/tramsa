@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 
-
+const session = require('express-session');
 
 ////################TEMPLATES################
 app.engine('html',require('ejs').renderFile);
@@ -17,7 +17,7 @@ app.use(express.json({
   type: ['application/json', 'text/plain']
 }));
 app.use(require("body-parser").json());
-
+app.use(session({secret:"12dhtehjgvy47", resave:false, saveUninitialized:true}));
 
 //################RUTAS################
 app.use(require('./Rutas/index'));

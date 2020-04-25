@@ -44,30 +44,30 @@
                             <div class="card-body">
                                 <h4 class="card-title text-center">Camiones</h4>
                                 </br>
-                                <form method="post" action="/formCamiones" novalidate>
+                                <form method="post" action="/formCamiones">
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
                                             <label for="marca">Marca</label>
-                                            <input type="text" class="form-control" id="marca" name="marca">
+                                            <input type="text" class="form-control" id="marca" name="marca" required>
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label for="nombreCorto">Nombre corto</label>
-                                            <input type="text" class="form-control" id="nombreCorto" name="nombreCorto">
+                                            <input type="text" class="form-control" id="nombreCorto" name="nombreCorto" required>
                                         </div>
                                     </div>
                                     <div class="form-row">
                                         <div class="form-group col-md-8">
                                             <label for="descripcion">Descripción</label>
-                                            <input type="text" class="form-control" id="descripcion" name="descripcion">
+                                            <input type="text" class="form-control" id="descripcion" name="descripcion" required>
                                         </div>
                 
                                         <div class="form-group col-md-2">
                                             <label for="year">Año</label>
-                                            <input type="text" class="form-control" id="ayear" name="ano">
+                                            <input type="text" class="form-control" id="ayear" name="ano" required>
                                         </div>
                                         <div class="form-group col-md-2">
                                             <label for="placa">Placa</label>
-                                            <input type="text" class="form-control" id="placa" name="placa">
+                                            <input type="text" class="form-control" id="placa" name="placa" required>
                                         </div>
                                     </div>
                                     <button type="submit" class="btn btn-success"><i class="fas fa-check"></i>
