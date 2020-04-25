@@ -9,32 +9,76 @@ router.get('/', (req, res) => {
 });
 
 //################Sistema/Login################
-router.post('/',(req,res)=> {
+router.post('/', (req, res) => {
   const MongoClient = require('mongodb').MongoClient;
   const uri = "mongodb+srv://diseno:Ulacit1234@cluster0-40do9.mongodb.net/test?retryWrites=true&w=majority";
   const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: false });
   client.connect(err => {
     const collection = client.db("tramsadb").collection("usuario");
-    collection.findOne({ user: req.body.user}, function(err, user) {
-      if(user == null) {
-        res.render('../HTML/Sistema/login', 
-           { validacion: 'Usuario no encontrado'});
+    collection.findOne({ user: req.body.user }, function (err, user) {
+      if (user == null) {
+        res.render('../HTML/Sistema/login',
+          { validacion: 'Usuario no encontrado' });
       } else {
-          if(req.body.contrasena == user.contrasena) {
-            res.redirect('/paginaPrincipal');
-          } else {
-            res.render('../HTML/Sistema/login', { validacion: 'Usuario o contraseña invalidos'});
-          }
+        if (req.body.contrasena == user.contrasena) {
+          res.redirect('/paginaPrincipal');
+        } else {
+          res.render('../HTML/Sistema/login', { validacion: 'Usuario o contraseña invalidos' });
         }
+      }
     });
   })
 });
 
 
-////################CambioContrasena################
 router.get('/cambioPassword', (req, res) => {
-  res.render('../HTML/Sistema/cambioPassword');
+  res.render('../HTML/Sistema/cambioPassword',
+  { validacion: '' });
 });
+
+
+////################CambioContrasena################
+router.post('/cambioPassword', (req, res) => {
+  const MongoClient = require('mongodb').MongoClient;
+  const uri = "mongodb+srv://diseno:Ulacit1234@cluster0-40do9.mongodb.net/test?retryWrites=true&w=majority";
+  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: false });
+  const Mongodb = require('mongodb');
+  client.connect(err => {
+    const collection = client.db("tramsadb").collection("usuario");
+    collection.findOne({ user: req.body.user }, function (err, UsuarioDB) {
+      if (UsuarioDB == null) {
+        res.render('../HTML/Sistema/cambioPassword',
+          { validacion: 'Usuario no encontrado' });
+      } else {
+        if (req.body.contrasena == req.body.contrasenaNueva) {
+          const myquery = { _id: UsuarioDB._id };
+          const newvalues = {
+            $set: {
+              user: UsuarioDB.user,
+              nombre: UsuarioDB.nombre,
+              nombreCorto: UsuarioDB.nombreCorto,
+              estado: UsuarioDB.estado,
+              correo: UsuarioDB.correo,
+              codigoUsuario: UsuarioDB.codigoUsuario,
+              contrasena: req.body.contrasenaNueva
+            }
+          };
+          collection.findOneAndUpdate(myquery, newvalues, { upsert: true }, function (err, doc) {
+            if (err) { throw err; }
+            else {
+              console.log('Contraseña actualizada');
+              res.redirect('/');
+            }
+          })
+
+        } else {
+          res.render('../HTML/Sistema/cambioPassword', { validacion: 'Las contraseñas no coinciden' });
+        }
+      }
+    });
+  })
+});
+
 
 
 //################PaginaPrincipal################
