@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Producción en lote</title>
+    <title>Apertura Caja</title>
     <%- include ('../../partials/head') %>
 </head>
 
@@ -41,47 +41,28 @@
                     <div class="col-sm-10 col-md-7 col-lg-8 mx-auto">
                         <div class="card card-signin my-3">
                             <div class="card-body">
-                                <h4 class="card-title text-center">Producción en lote</h4>
+                                <h4 class="card-title text-center">Apertura Caja</h4>
                                 </br>
-                                <form method="post" action="/formProduccionLote">
+                                <form method="post" action="/formAperturaCaja">
                                     <div class="form-row">
-                                        <div class="form-group col-md-6">
-                                            <label for="numero">Numero</label>
-                                            <input type="text" class="form-control" id="numero" name="numProduccion" required>
+                                        <div class="form-group col-md-4">
+                                            <label for="numero">Codigo</label>
+                                            <input type="text" class="form-control" id="codigo" name="Código_Apertura" required>
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label for="codigo">Monto Apertura</label>
+                                            <input type="text" class="form-control" id="montoApertura"
+                                                name="montoApertura" required>
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label for="fecha">Fecha </label>
                                             <input type="date" class="form-control" id="fecha" name="Fecha" required>
                                         </div>
                                     </div>
-                                    <div class="form-row">
-                                        <div class="form-group col-md-8">
-                                            <label for="codigo">Codigo</label>
-                                            <input type="text" class="form-control" id="codigo" name="codigoProducto" required>
-                                        </div>
-                                        <div class="form-group col-md-4">
-                                            <label for="producto">Producto</label>
-                                            <input type="text" class="form-control" id="producto" name="Producto" required> 
-                                        </div>
-                                    </div>
-                                    <div class="form-row">
-                                        <div class="form-group col-md-4">
-                                            <label for="bodega">Bodega</label>
-                                            <input type="text" class="form-control" id="bodega" name="Bodega" required>
-                                        </div>
-                                        <div class="form-group col-md-4">
-                                            <label for="cantidad">Cantidad</label>
-                                            <input type="text" class="form-control" id="cantidad" name="Cantidad" required>
-                                        </div>
-                                        <div class="form-group col-md-4">
-                                            <label for="tiempo">Tiempo</label>
-                                            <input type="text" class="form-control" id="tiempo" name="Tiempo" required>
-                                        </div>
-                                    </div>
                                     <button type="submit" class="btn btn-success"><i class="fas fa-check"></i>
                                         Crear</button>
-                                
-                                    <a class="btn btn-danger" href="/produccionLote"><i class="fas fa-times"></i>
+
+                                    <a class="btn btn-danger" href="/aperturaCaja"><i class="fas fa-times"></i>
                                         Salir</a>
                                 </form>
                             </div>
@@ -94,4 +75,3 @@
 </body>
 
 </html>
-

@@ -2,13 +2,14 @@
 <html lang="en">
 
 <head>
-    <title>Producción en lote</title>
-    <%- include ('../../partials/head') %>
+    <title>Usuarios</title>
+    <%- include ('../partials/head') %>
 </head>
 
 <body>
+
     <div class="wrapper">
-        <%- include ('../../partials/navegacion') %>
+        <%- include ('../partials/navegacion') %>
         <!-- Contenido general -->
         <div id="content">
             <!-- Navbar -->
@@ -41,47 +42,48 @@
                     <div class="col-sm-10 col-md-7 col-lg-8 mx-auto">
                         <div class="card card-signin my-3">
                             <div class="card-body">
-                                <h4 class="card-title text-center">Producción en lote</h4>
+                                <h4 class="card-title text-center">Modificar Usuario</h4>
                                 </br>
-                                <form method="post" action="/formProduccionLote">
+                                <script>
+                                    var mensaje = '<%= Updated %>';
+                                    if(mensaje != '')
+                                      alert('<%= Updated %>');
+                                </script>
+                                
+                                <form method="post" action="/formUserModificar/<%= Resultado._id %>">
                                     <div class="form-row">
-                                        <div class="form-group col-md-6">
-                                            <label for="numero">Numero</label>
-                                            <input type="text" class="form-control" id="numero" name="numProduccion" required>
-                                        </div>
-                                        <div class="form-group col-md-4">
-                                            <label for="fecha">Fecha </label>
-                                            <input type="date" class="form-control" id="fecha" name="Fecha" required>
+                                        <div class="form-group col-md-12">
+                                            <input type="hidden" class="form-control" id="id" value="<%= Resultado._id %>" name="_id" required>
                                         </div>
                                     </div>
                                     <div class="form-row">
                                         <div class="form-group col-md-8">
-                                            <label for="codigo">Codigo</label>
-                                            <input type="text" class="form-control" id="codigo" name="codigoProducto" required>
+                                            <label for="nombre">Nombre</label>
+                                            <input type="text" class="form-control" id="nombre" value="<%= Resultado.nombre %>" name="nombre" required>
                                         </div>
                                         <div class="form-group col-md-4">
-                                            <label for="producto">Producto</label>
-                                            <input type="text" class="form-control" id="producto" name="Producto" required> 
+                                            <label for="nombreCorto">Nombre Corto</label>
+                                            <input type="text" class="form-control" id="producto" value="<%= Resultado.nombreCorto %>" name="nombreCorto" required> 
                                         </div>
                                     </div>
                                     <div class="form-row">
                                         <div class="form-group col-md-4">
-                                            <label for="bodega">Bodega</label>
-                                            <input type="text" class="form-control" id="bodega" name="Bodega" required>
+                                            <label for="user">Usuario</label>
+                                            <input type="text" class="form-control" id="user" value="<%= Resultado.user %>" name="user" required>
                                         </div>
                                         <div class="form-group col-md-4">
-                                            <label for="cantidad">Cantidad</label>
-                                            <input type="text" class="form-control" id="cantidad" name="Cantidad" required>
+                                            <label for="correo">Correo</label>
+                                            <input type="text" class="form-control" id="correo" value="<%= Resultado.correo %>" name="correo" required>
                                         </div>
                                         <div class="form-group col-md-4">
-                                            <label for="tiempo">Tiempo</label>
-                                            <input type="text" class="form-control" id="tiempo" name="Tiempo" required>
+                                            <label for="estado">Tiempo</label>
+                                            <input type="text" class="form-control" id="estado"value="<%= Resultado.estado %>"  name="estado" required>
                                         </div>
                                     </div>
                                     <button type="submit" class="btn btn-success"><i class="fas fa-check"></i>
-                                        Crear</button>
+                                        Modificar</button>
                                 
-                                    <a class="btn btn-danger" href="/produccionLote"><i class="fas fa-times"></i>
+                                    <a class="btn btn-danger" href="/usuarios"><i class="fas fa-times"></i>
                                         Salir</a>
                                 </form>
                             </div>

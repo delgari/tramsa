@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Arqueo Caja</title>
+    <%- include ('../partials/head') %>
+</head>
+
+<body>
+    <div class="wrapper">
+        <%- include ('../partials/navegacion') %>
+        <!-- Contenido general -->
+        <div id="content">
+            <!-- Navbar -->
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container-fluid">
+
+                    <button type="button" id="sidebarCollapse" class="navbar-btn">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                    <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse"
+                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="fas fa-align-justify"></i>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="nav navbar-nav ml-auto">
+                            <li class="nav-item active">
+                                <img src="../../Imagenes/Logo2.png" width="130" height="50" />
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <!-- Formulario -->
+            <div class="container">
+                <div id="printableArea">
+                    <h2>Arqueo Caja</h2>
+                    </br>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <a type="button" href="/formArqueoCaja" class="btn btn-success"><i class="fas fa-plus"></i>
+                                Agregar
+                                nuevo</a>
+                        </div>
+                    </div>
+                    <table id="tableArqueoCaja" class="table table-light table-bordered table-responsive-sm">
+                        <thead>
+                            <tr>
+                                <th style="display: none;">id</th>
+                                <th>Indicador</th>
+                                <th>Monto</th>
+                                <th>Fecha</th>
+                            </tr>
+                        </thead>
+                        <tbody id="arqueoCaja">
+                            <%if (Resultado != ''){ %>
+                            <% Resultado.forEach(function(row){ %>
+                            <tr>
+                                <td style="display: none;"><%= row._id %></td>
+                                <td><%= row.indicador %></td>
+                                <td><%= row.Monto %></td>
+                                <td><%= row.fecha %></td>
+                            </tr>
+                            <% })}else{ %>
+                            <tr>
+                                <td colspan="6">No Record Found</td>
+
+                            </tr>
+                            <% } %>
+                        </tbody>
+                    </table>
+                </div>
+                <input type="button" onclick="printDiv('printableArea')" value="Imprimir!" />
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#sidebarCollapse').on('click', function () {
+            $('#sidebar').toggleClass('active');
+            $(this).toggleClass('active');
+        });
+    });
+
+    function printDiv(divName) {
+        var printContents = document.getElementById(divName).innerHTML;
+        var originalContents = document.body.innerHTML;
+        document.body.innerHTML = printContents;
+        window.print();
+        document.body.innerHTML = originalContents;
+    }
+
+</script>
