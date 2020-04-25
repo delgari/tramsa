@@ -68,7 +68,7 @@ router.post('/', (req, res) => {
           { validacion: 'Usuario no encontrado' });
       } else {
         if (req.body.contrasena == user.contrasena && user.estado != "Inactivo") {
-          req.session.user = user;
+          req.session.user = user; // se guarda el objeto del usuario que se saco de la base de datos en la sesion.
           res.redirect('/paginaPrincipal');
         } else {
           res.render('../HTML/Sistema/login', { validacion: 'Usuario inactivo o contraseña inválidos' });
@@ -257,7 +257,7 @@ router.get('/bodegas', (req, res) => {
         if (err) throw err;
         result.forEach(function (row) {
           var valor = row.codigo.replace(Consecutivos.bodegas.prefijo, ""); // solo obtener el valor sin el prefijo.
-          Consecutivos.bodegas.valor = +valor + 1;
+          Consecutivos.bodegas.valor = +valor + 1; // para convertir valor a integer +valor
         });
         res.render('../HTML/Administracion/bodegas', { Resultado: result });
         client.close();
@@ -1276,13 +1276,14 @@ router.get('/tipoMateriaPrima', (req, res) => {
     client.connect(err => {
       const collection = client.db("tramsadb").collection("tipoMateriaPrima");
       collection.find({}).toArray(function (err, result) {
+
         result.forEach(function (row) {
           var valor = row.codigo.replace(Consecutivos.tMateriaP.prefijo, ""); // solo obtener el valor sin el prefijo.
           Consecutivos.tMateriaP.valor = +valor + 1;
         });
         if (err) throw err;
         res.render('../HTML/Administracion/tipoMateriaPrima', { Resultado: result });
-        client.close();
+        //client.close();
       });
     });
   }
@@ -1304,7 +1305,7 @@ router.post('/formTipoMateria', (req, res) => {
   const uri = "mongodb+srv://diseno:Ulacit1234@cluster0-40do9.mongodb.net/test?retryWrites=true&w=majority";
   const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
   client.connect(err => {
-    const collection = client.db("tramsadb").collection("tipoMateriaPrima");
+    let collection = client.db("tramsadb").collection("tipoMateriaPrima");
     const newObject = { //armando el objeto que se va a insertar con los datos del consecutivo.
       codigo: Consecutivos.tMateriaP.prefijo + Consecutivos.tMateriaP.valor,
       descripcion: req.body.descripcion,
@@ -1312,12 +1313,39 @@ router.post('/formTipoMateria', (req, res) => {
     }
     collection.insertOne(newObject, function (err, res) {
       if (err) throw err;
-      Consecutivos.tMateriaP.valor += 1; // este es el valor para el siguiente que se vaya a insertar
-      client.close();
+      //Consecutivos.tMateriaP.valor += 1; // este es el valor para el siguiente que se vaya a insertar
     })
+
+    collection = client.db("tramsadb").collection("consecutivo");
+    collection.find({}).toArray(function (err, result) {
+      result.forEach(function (row) {
+        if(row.prefijo ==  Consecutivos.tMateriaP.prefijo) {
+
+          const myquery = { _id: row._id };
+          const newvalues = {
+            $set: {
+              prefijo: row.prefijo,
+              descripcion: row.descripcion,
+              valor: Consecutivos.tMateriaP.valor, // valor del consecutivo que se setea arriba
+            }
+          };
+          collection.findOneAndUpdate(myquery, newvalues, { upsert: true }, function (err, doc) {
+            if (err) { throw err; }
+            else {
+              Consecutivos.tMateriaP.valor += 1;
+            }
+          })
+        }
+      });
+
+      if (err) throw err;
+      res.render('../HTML/Administracion/tipoMateriaPrima', { Resultado: result });
+      client.close();
+    });
+
   }),
     res.render('../HTML/Administracion/Forms/formTipoMateria', {
-      data: req.body
+      //data: req.body
     })
 });
 
@@ -1328,15 +1356,39 @@ router.post('/tipoMateriaPrima', (req, res) => {
   const uri = "mongodb+srv://diseno:Ulacit1234@cluster0-40do9.mongodb.net/test?retryWrites=true&w=majority";
   const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
   client.connect(err => {
-    const collection = client.db("tramsadb").collection("tipoMateriaPrima");
-    console.log(req.body);
+    var collection = client.db("tramsadb").collection("tipoMateriaPrima");
     collection.deleteOne({
       _id: new Mongodb.ObjectID(req.body._id), function(err, res) {
         if (err) throw err;
         Consecutivos.tMateriaP.valor -= 1;
-        client.close();
+        //client.close();
       }
     })
+
+    collection = client.db("tramsadb").collection("consecutivo");
+    collection.find({}).toArray(function (err, result) {
+      result.forEach(function (row) {
+        if(row.prefijo ==  Consecutivos.tMateriaP.prefijo) {
+          Consecutivos.tMateriaP.valor -= 1;
+          const myquery = { _id: row._id };
+          const newvalues = {
+            $set: {
+              prefijo: row.prefijo,
+              descripcion: row.descripcion,
+              valor: Consecutivos.tMateriaP.valor, // valor del consecutivo que se setea arriba
+            }
+          };
+          collection.findOneAndUpdate(myquery, newvalues, { upsert: true }, function (err, doc) {
+            if (err) { throw err; }
+          })
+        }
+      });
+
+      if (err) throw err;
+      client.close();
+    });
+
+    
   }),
     res.redirect('/tipoMateriaPrima');
 });

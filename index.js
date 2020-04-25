@@ -16,8 +16,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json({
   type: ['application/json', 'text/plain']
 }));
-app.use(require("body-parser").json());
-app.use(session({secret:"12dhtehjgvy47", resave:false, saveUninitialized:true}));
+app.use(require("body-parser").json()); // para que los encabezados sean en formato JSON
+app.use(session({secret:"12dhtehjgvy47", resave:false, saveUninitialized:true}));//para usar express-session
 
 //################RUTAS################
 app.use(require('./Rutas/index'));
