@@ -59,7 +59,7 @@ router.get('/', (req, res) => {
 router.post('/', (req, res) => {
   const MongoClient = require('mongodb').MongoClient;
   const uri = "mongodb+srv://diseno:Ulacit1234@cluster0-40do9.mongodb.net/test?retryWrites=true&w=majority";
-  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: false });
+  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
   client.connect(err => {
     const collection = client.db("tramsadb").collection("usuario");
     collection.findOne({ user: req.body.user }, function (err, user) {
@@ -88,7 +88,7 @@ router.get('/cambioPassword', (req, res) => {
 router.post('/cambioPassword', (req, res) => {
   const MongoClient = require('mongodb').MongoClient;
   const uri = "mongodb+srv://diseno:Ulacit1234@cluster0-40do9.mongodb.net/test?retryWrites=true&w=majority";
-  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: false });
+  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
   const Mongodb = require('mongodb');
   client.connect(err => {
     const collection = client.db("tramsadb").collection("usuario");
@@ -106,7 +106,7 @@ router.post('/cambioPassword', (req, res) => {
               nombreCorto: UsuarioDB.nombreCorto,
               estado: UsuarioDB.estado,
               correo: UsuarioDB.correo,
-              codigoUsuario: UsuarioDB.codigoUsuario,
+              codigo: UsuarioDB.codigo,
               contrasena: req.body.contrasenaNueva
             }
           };
@@ -310,7 +310,7 @@ router.post('/bodegas', (req, res) => {
   const MongoClient = require('mongodb').MongoClient;
   const Mongodb = require('mongodb');
   const uri = "mongodb+srv://diseno:Ulacit1234@cluster0-40do9.mongodb.net/test?retryWrites=true&w=majority";
-  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: false });
+  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
   client.connect(err => {
     const collection = client.db("tramsadb").collection("bodega");
     console.log(req.body);
@@ -453,13 +453,10 @@ router.post('/camiones', (req, res) => {
   const MongoClient = require('mongodb').MongoClient;
   const Mongodb = require('mongodb');
   const uri = "mongodb+srv://diseno:Ulacit1234@cluster0-40do9.mongodb.net/test?retryWrites=true&w=majority";
-  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: false });
-
+  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
   client.connect(err => {
     const collection = client.db("tramsadb").collection("camion");
     console.log(req.body);
-
-
     collection.deleteOne({
       _id: new Mongodb.ObjectID(req.body._id), function(err, res) {
         if (err) throw err;
@@ -605,13 +602,10 @@ router.post('/clientes', (req, res) => {
   const MongoClient = require('mongodb').MongoClient;
   const Mongodb = require('mongodb');
   const uri = "mongodb+srv://diseno:Ulacit1234@cluster0-40do9.mongodb.net/test?retryWrites=true&w=majority";
-  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: false });
-
+  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
   client.connect(err => {
     const collection = client.db("tramsadb").collection("cliente");
     console.log(req.body);
-
-
     collection.deleteOne({
       _id: new Mongodb.ObjectID(req.body._id), function(err, res) {
         if (err) throw err;
@@ -754,13 +748,10 @@ router.post('/materiaPrima', (req, res) => {
   const MongoClient = require('mongodb').MongoClient;
   const Mongodb = require('mongodb');
   const uri = "mongodb+srv://diseno:Ulacit1234@cluster0-40do9.mongodb.net/test?retryWrites=true&w=majority";
-  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: false });
-
+  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
   client.connect(err => {
     const collection = client.db("tramsadb").collection("materiaPrima");
     console.log(req.body);
-
-
     collection.deleteOne({
       _id: new Mongodb.ObjectID(req.body._id), function(err, res) {
         if (err) throw err;
@@ -852,7 +843,7 @@ router.get('/productosD', (req, res) => { //busqueda del browser
   else {
     const MongoClient = require('mongodb').MongoClient;
     const uri = "mongodb+srv://diseno:Ulacit1234@cluster0-40do9.mongodb.net/test?retryWrites=true&w=majority";
-    const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: false });
+    const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
     client.connect(err => {
       const collection = client.db("tramsadb").collection("productoDetalle");
       collection.find({}).toArray(function (err, result) {
@@ -884,7 +875,7 @@ router.get('/formProducD', (req, res) => {
 router.post('/formProducD', (req, res) => {
   const MongoClient = require('mongodb').MongoClient;
   const uri = "mongodb+srv://diseno:Ulacit1234@cluster0-40do9.mongodb.net/test?retryWrites=true&w=majority";
-  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: false });
+  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
   client.connect(err => {
     const collection = client.db("tramsadb").collection("productoDetalle");
     const newObject = { //armando el objeto que se va a insertar con los datos del consecutivo.
@@ -910,7 +901,7 @@ router.post('/productosD', (req, res) => {
   const MongoClient = require('mongodb').MongoClient;
   const Mongodb = require('mongodb');
   const uri = "mongodb+srv://diseno:Ulacit1234@cluster0-40do9.mongodb.net/test?retryWrites=true&w=majority";
-  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: false });
+  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
   client.connect(err => {
     const collection = client.db("tramsadb").collection("productoDetalle");
@@ -1053,7 +1044,7 @@ router.post('/productosM', (req, res) => {
   const MongoClient = require('mongodb').MongoClient;
   const Mongodb = require('mongodb');
   const uri = "mongodb+srv://diseno:Ulacit1234@cluster0-40do9.mongodb.net/test?retryWrites=true&w=majority";
-  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: false });
+  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
   client.connect(err => {
     const collection = client.db("tramsadb").collection("productoMaestro");
     console.log(req.body);
@@ -1196,7 +1187,7 @@ router.post('/proveedores', (req, res) => {
   const MongoClient = require('mongodb').MongoClient;
   const Mongodb = require('mongodb');
   const uri = "mongodb+srv://diseno:Ulacit1234@cluster0-40do9.mongodb.net/test?retryWrites=true&w=majority";
-  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: false });
+  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
   client.connect(err => {
     const collection = client.db("tramsadb").collection("proveedores");
     console.log(req.body);
@@ -1335,7 +1326,7 @@ router.post('/tipoMateriaPrima', (req, res) => {
   const MongoClient = require('mongodb').MongoClient;
   const Mongodb = require('mongodb');
   const uri = "mongodb+srv://diseno:Ulacit1234@cluster0-40do9.mongodb.net/test?retryWrites=true&w=majority";
-  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: false });
+  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
   client.connect(err => {
     const collection = client.db("tramsadb").collection("tipoMateriaPrima");
     console.log(req.body);
@@ -2090,7 +2081,7 @@ router.post('/usuarios', (req, res) => {
   const MongoClient = require('mongodb').MongoClient;
   const Mongodb = require('mongodb');
   const uri = "mongodb+srv://diseno:Ulacit1234@cluster0-40do9.mongodb.net/test?retryWrites=true&w=majority";
-  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: false });
+  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
   client.connect(err => {
     const collection = client.db("tramsadb").collection("usuario");
     console.log(req.body);

@@ -110,7 +110,7 @@
     $(document).ready(function () {
         $("#buscar").on("keyup", function () {
             var value = $(this).val().toLowerCase();
-            $("#pedidosMateriaM tr").filter(function () {
+            $("#pedidosMateriaD tr").filter(function () {
                 $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
             });
         });

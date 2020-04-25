@@ -149,7 +149,7 @@
             for (i = 0; i < tr.length; i++) {
             td = tr[i].getElementsByTagName("td");
             if(td.length > 0) { 
-                var celdaEstado = td[5].innerHTML.toUpperCase();
+                var celdaEstado = td[4].innerHTML.toUpperCase();
                 if (celdaEstado == "ACTIVO" && filter == "1") {
                     tr[i].style.display = "";  
                 } else if (celdaEstado == "INACTIVO" && filter == "2") {
