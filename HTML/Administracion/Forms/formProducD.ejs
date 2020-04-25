@@ -44,16 +44,16 @@
                             <div class="card-body">
                                 <h4 class="card-title text-center">Detalle</h4>
                                 </br>
-                                <form method="post" action="/formProducD" novalidate>
+                                <form method="post" action="/formProducD">
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
                                             <label for="codigoMateriaPrima">Código materia prima</label>
                                             <input type="number" class="form-control" id="codigoMateriaPrima"
-                                                name="codigoMateriaPr">
+                                                name="codigoMateriaPr" required>
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label for="nombreCorto">Nombre Corto</label>
-                                            <input type="text" class="form-control" id="nombreCorto" name="nombreCorto">
+                                            <input type="text" class="form-control" id="nombreCorto" name="nombreCorto" required>
                                         </div>
                                     </div>
                                     <button type="submit" class="btn btn-success"><i class="fas fa-check"></i>

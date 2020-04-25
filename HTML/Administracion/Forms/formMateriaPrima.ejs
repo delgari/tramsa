@@ -44,25 +44,25 @@
                             <div class="card-body">
                                 <h4 class="card-title text-center">Materia prima</h4>
                                 </br>
-                                <form method="post" action="/formMateriaPrima" novalidate>
+                                <form method="post" action="/formMateriaPrima">
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
                                             <label for="nombre">Nombre</label>
-                                            <input type="text" class="form-control" id="nombre" name="nombre">
+                                            <input type="text" class="form-control" id="nombre" name="nombre" required>
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label for="nombreCorto">Nombre corto</label>
-                                            <input type="text" class="form-control" id="nombreCorto" name="nombreCorto">
+                                            <input type="text" class="form-control" id="nombreCorto" name="nombreCorto" required>
                                         </div>
                                     </div>
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
                                             <label for="cantidad">Cantidad existente</label>
-                                            <input type="text" class="form-control" id="cantidad" name="cantidadExistente">
+                                            <input type="text" class="form-control" id="cantidad" name="cantidadExistente" required>
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label for="unidadMedida">Unidad de medida</label>
-                                            <input type="text" class="form-control" id="unidadMedida" name="unidadMedida">
+                                            <input type="text" class="form-control" id="unidadMedida" name="unidadMedida" required>
                                         </div>
                                     </div>
                                     <button type="submit" class="btn btn-success"><i class="fas fa-check"></i>

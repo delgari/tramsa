@@ -140,10 +140,12 @@
         margin-bottom: 5px;
     }
 
-    a.download {
-        background: #fff;
-        color: #59595c;
+    .btn-light {
+        margin: 0 auto;
+        display: block;
+        text-align: center;
     }
+
 
     a.article,
     a.article:hover {

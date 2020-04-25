@@ -44,16 +44,16 @@
                             <div class="card-body">
                                 <h4 class="card-title text-center">Tipos de materia prima</h4>
                                 </br>
-                                <form method="post" action="/formTipoMateria" novalidate>
+                                <form method="post" action="/formTipoMateria">
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
                                             <label for="codigo">Descripción</label>
                                             <input type="text" class="form-control" name="descripcion"
-                                                placeholder="Solido, Liquido, Gas..." id="codigo">
+                                                placeholder="Solido, Liquido, Gas..." id="codigo" required>
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label for="nombreCorto">Nombre Corto</label>
-                                            <input type="text" class="form-control" name="nombreCorto" id="nombreCorto">
+                                            <input type="text" class="form-control" name="nombreCorto" id="nombreCorto" required>
                                         </div>
                                     </div>
                                     <button type="submit" class="btn btn-success"><i class="fas fa-check"></i>
