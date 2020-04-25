@@ -43,29 +43,29 @@
                             <div class="card-body">
                                 <h4 class="card-title text-center">Pedidos Materia - Maestro</h4>
                                 </br>
-                                <form method="post" action="/formPedidosMateriaM" novalidate>
+                                <form method="post" action="/formPedidosMateriaM" >
                                     <div class="form-row">
                                         <div class="form-group col-md-4">
                                             <label for="ordenPedido">Orden de Pedido</label>
-                                            <input type="text" class="form-control" id="ordenPedido" name="ordenPedido">
+                                            <input type="text" class="form-control" id="ordenPedido" name="ordenPedido" required>
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label for="ordenPedido">Nombre Corto</label>
-                                            <input type="text" class="form-control" id="nombreCorto" name="nombreCorto">
+                                            <input type="text" class="form-control" id="nombreCorto" name="nombreCorto" required>
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label for="fechaOrden">Fecha Orden</label>
-                                            <input type="date" class="form-control" id="fechaOrden" name="fechaOrden">
+                                            <input type="date" class="form-control" id="fechaOrden" name="fechaOrden" required>
                                         </div>
                                     </div>
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
                                             <label for="proveedor">Proveedor</label>
-                                            <input type="text" class="form-control" id="proveedor" name="proveedor">
+                                            <input type="text" class="form-control" id="proveedor" name="proveedor" required>
                                         </div>
                                         <div class="form-group col-md-3">
                                             <label for="comprobante">Comprobante</label>
-                                            <select id="comprobante" class="form-control" name="comprobante">
+                                            <select id="comprobante" class="form-control" name="comprobante" required>
                                                 <option selected>P</option>
                                                 <option>E</option>
                                             </select>

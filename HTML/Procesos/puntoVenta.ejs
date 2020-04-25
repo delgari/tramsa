@@ -44,13 +44,15 @@
                         <input class="form-control" id="buscar" type="text" placeholder="Buscar..">
                     </div>
                     <div class="form-group">
-                        <a type="button" href="/formPuntoVenta" class="btn btn-success"><i class="fas fa-plus"></i> Agregar
+                        <a type="button" href="/formPuntoVenta" class="btn btn-success"><i class="fas fa-plus"></i>
+                            Agregar
                             nuevo</a>
                     </div>
                 </div>
-                <table class="table table-light table-bordered table-responsive-sm">
+                <table id="tablePuntoVenta" class="table table-light table-bordered table-responsive-sm">
                     <thead>
                         <tr>
+                            <th style="display: none;">id</th>
                             <th>Factura</th>
                             <th>Fecha</th>
                             <th>Cliente</th>
@@ -66,7 +68,8 @@
                         <%if (Resultado != ''){ %>
                         <% Resultado.forEach(function(row){ %>
                         <tr>
-                            <td><%= row.numeroFactura %></td> 
+                            <td style="display: none;"><%= row._id %></td>
+                            <td><%= row.numeroFactura %></td>
                             <td><%= row.Fecha %></td>
                             <td><%= row.cliente %></td>
                             <td><%= row.producto %></td>
@@ -75,8 +78,9 @@
                             <td><%= row.impuesto %></td>
                             <td><%= row.total %></td>
                             <td>
-                                <button class="btn"><i class="fas fa-trash"></i></button>
-                                <button class="btn"><i class="fas fa-pencil-alt"></i></button>
+                                <button class="btn"><i class="fas fa-trash" onclick="getRowSelected(this)"></i></button>
+                                <button class="btn"><a href="/formPuntoVentaModificar/<%= row._id %>"> <i class="fas fa-pencil-alt"></i></a></button>
+
                             </td>
                         </tr>
                         <% })}else{ %>
@@ -90,9 +94,27 @@
         </div>
     </div>
 </body>
+
 </html>
 
-<script >
+<script>
+    function getRowSelected(objectPressed) {
+        var objeto = objectPressed.parentNode.parentNode.parentNode;
+        var numero = objeto.getElementsByTagName("td")[0].innerHTML;
+        post("/puntoVenta", { _id: numero });
+        document.getElementById("tablePuntoVenta").deleteRow(objeto.rowIndex);
+    }
+
+    window.post = function (url, data) {
+        const request = new Request(url, {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: new Headers({
+                'Content-Type': 'application/json'
+            })
+        });
+        return fetch(request);
+    }
     $(document).ready(function () {
         $("#buscar").on("keyup", function () {
             var value = $(this).val().toLowerCase();

@@ -105,7 +105,7 @@
     function eliminar(objectPressed) {
         var objeto = objectPressed.parentNode.parentNode.parentNode;
         var numero = objeto.getElementsByTagName("td")[0].innerHTML;
-        post("/formProducM", { _id: numero});
+        post("/productosM", { _id: numero});
         document.getElementById("tableProducM").deleteRow(objeto.rowIndex);
     }
 

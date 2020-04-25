@@ -48,9 +48,10 @@
                         <a type="button" href="/formPedidosMateriaM" class="btn btn-success"><i class="fas fa-plus"></i> Agregar nuevo</a>
                     </div>
                 </div>
-                <table class="table table-light table-bordered table-responsive-sm">
+                <table id="tablePedidosMateriaM" class="table table-light table-bordered table-responsive-sm">
                     <thead>
                         <tr>
+                            <th style="display: none;">id</th>
                             <th>Orden Pedido</th>
                             <th>Fecha</th>
                             <th>Proveedor</th>
@@ -63,14 +64,14 @@
                         <%if (Resultado != ''){ %>
                         <% Resultado.forEach(function(row){ %>
                         <tr>
+                            <td style="display: none;"><%= row._id %></td>
                             <td><%= row.ordenPedido %></td>
                             <td><%= row.fechaOrden %></td>
                             <td><%= row.proveedor %></td>
                             <td><%= row.comprobante %></td>
                             <td><%= row.nombreCorto %></td>
                             <td>
-                                <button class="btn"><i class="fas fa-trash"></i></button>
-                                <button class="btn"><i class="fas fa-pencil-alt"></i></button>
+                                <button class="btn"><i class="fas fa-trash" onclick="getRowSelected(this)"></i></button>
                             </td>
                         </tr>
                         <% })}else{ %>
@@ -88,6 +89,24 @@
 </html>
 
 <script >
+    function getRowSelected(objectPressed) {
+        var objeto = objectPressed.parentNode.parentNode.parentNode;
+        var numero = objeto.getElementsByTagName("td")[0].innerHTML;
+        post("/pedidosMateriaM", { _id: numero });
+        document.getElementById("tablePedidosMateriaM").deleteRow(objeto.rowIndex);
+    }
+
+    window.post = function (url, data) {
+        const request = new Request(url, {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: new Headers({
+                'Content-Type': 'application/json'
+            })
+        });
+        return fetch(request);
+    }
+
     $(document).ready(function () {
         $("#buscar").on("keyup", function () {
             var value = $(this).val().toLowerCase();
