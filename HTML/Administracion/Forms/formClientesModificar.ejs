@@ -50,65 +50,71 @@
                                         alert('<%= Updated %>');
                                 </script>
                                 <form method="post" action="/formClientesModificar/<%= Resultado._id %>">
-                                    <div class="form-group col-md-4">
-                                        <label for="nombre">Nombre</label>
-                                        <input type="text" class="form-control" id="nombre" name="nombre"
-                                            value="<%= Resultado._nombre %>" required>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-4">
+                                            <label for="nombre">Nombre</label>
+                                            <input type="text" class="form-control" id="nombre" name="nombre"
+                                                value="<%= Resultado.nombre %>" required>
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label for="primerApellido">Primer apellido</label>
+                                            <input type="text" class="form-control" id="primerApellido" name="apellido1"
+                                                value="<%= Resultado.apellido1 %>" required>
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label for="segundoApellido">Segundo apellido</label>
+                                            <input type="text" class="form-control" id="segundoApellido"
+                                                name="apellido2" value="<%= Resultado.apellido2 %>" required>
+                                        </div>
                                     </div>
-                                    <div class="form-group col-md-4">
-                                        <label for="primerApellido">Primer apellido</label>
-                                        <input type="text" class="form-control" id="primerApellido" name="apellido1"
-                                            value="<%= Resultado._apellido1 %>" required>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-4">
+                                            <label for="id">Documento identificación</label>
+                                            <input type="text" class="form-control" id="id" name="cedula"
+                                                value="<%= Resultado.cedula %>" required>
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label for="tel">Teléfono</label>
+                                            <input type="tel" class="form-control" id="tel" name="telefono"
+                                                value="<%= Resultado.telefono %>" required>
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label for="estado">Estado</label>
+                                            <select id="estado" class="form-control" name="estado"
+                                                value="<%= Resultado.estado %>" required>
+                                                <option selected>Activo</option>
+                                                <option>Inactivo</option>
+                                            </select>
+                                        </div>
                                     </div>
-                                    <div class="form-group col-md-4">
-                                        <label for="segundoApellido">Segundo apellido</label>
-                                        <input type="text" class="form-control" id="segundoApellido" name="apellido2"
-                                            value="<%= Resultado._apellido2 %>" required>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-4">
+                                            <label for="nombreCorto">Nombre corto</label>
+                                            <input type="text" class="form-control" id="nombreCorto" name="nombreCorto"
+                                                value="<%= Resultado.nombreCorto %>" required>
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label for="email">Correo electrónico</label>
+                                            <input type="email" class="form-control" id="email" name="correo"
+                                                value="<%= Resultado.correo %>" required>
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label for="direccion">Dirección</label>
+                                            <input type="text" class="form-control" id="direccion" name="direciion"
+                                                value="<%= Resultado.direciion %>" required>
+                                        </div>
                                     </div>
+                                    <button type="submit" class="btn btn-success"><i class="fas fa-check"></i>
+                                        Modificar</button>
+                                    <a class="btn btn-danger" href="/clientes"><i class="fas fa-times"></i>
+                                        Salir</a>
+                                </form>
                             </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-4">
-                                    <label for="id">Documento identificación</label>
-                                    <input type="text" class="form-control" id="id" name="cedula"
-                                        value="<%= Resultado._cedula %>" required>
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label for="tel">Teléfono</label>
-                                    <input type="tel" class="form-control" id="tel" name="telefono"
-                                        value="<%= Resultado._telefono %>" required>
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label for="estado">Estado</label>
-                                    <select id="estado" class="form-control" name="estado"
-                                        value="<%= Resultado._estado %>" required>
-                                        <option selected>Activo</option>
-                                        <option>Inactivo</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    <label for="email">Correo electrónico</label>
-                                    <input type="email" class="form-control" id="email" name="correo"
-                                        value="<%= Resultado._correo %>" required>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="direccion">Dirección</label>
-                                    <input type="text" class="form-control" id="direccion" name="direciion"
-                                        value="<%= Resultado._direciion %>" required>
-                                </div>
-                            </div>
-                            <button type="submit" class="btn btn-success"><i class="fas fa-check"></i>
-                                Modificar</button>
-                            <a class="btn btn-danger" href="/clientes"><i class="fas fa-times"></i>
-                                Salir</a>
-                            </form>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
     </div>
 </body>
 

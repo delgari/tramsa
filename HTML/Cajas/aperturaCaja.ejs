@@ -53,7 +53,7 @@
                     <thead>
                         <tr>
                             <th style="display: none;">id</th>
-                            <th>Codigo</th>
+                            <th>Código</th>
                             <th>Fecha</th>
                             <th>Monto Apertura</th>
                         </tr>
@@ -63,8 +63,8 @@
                         <% Resultado.forEach(function(row){ %>
                         <tr>
                             <td style="display: none;"><%= row._id %></td>
-                            <td><%= row.Código_Apertura %></td>
-                            <td><%= row.Fecha %></td>
+                            <td><%= row.codigo %></td>
+                            <td><%= row.fecha %></td>
                             <td><%= row.montoApertura %></td>
                         </tr>
                         <% })}else{ %>
